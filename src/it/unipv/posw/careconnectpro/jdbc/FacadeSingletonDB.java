@@ -4,7 +4,6 @@ import it.unipv.posw.careconnectpro.jdbc.bean.persona.IPersonaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDB;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
-import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.FactoryDipendente;
 
