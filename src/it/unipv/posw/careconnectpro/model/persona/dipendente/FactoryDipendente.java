@@ -1,13 +1,16 @@
 package it.unipv.posw.careconnectpro.model.persona.dipendente;
 
+import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
+
 import java.io.FileInputStream;
 import java.lang.reflect.Constructor;
 import java.time.LocalDate;
 import java.util.Properties;
 
 public class FactoryDipendente {
-	
-	public static final String FILE_PROPERTIES_DIPENDENTI = "properties/dipendenti.properties";
+
+    public static final String FILE_PROPERTIES_DIPENDENTI = "properties/dipendenti.properties";
+
 
     public static Dipendente getDipendente(
             String tipo,
@@ -17,7 +20,6 @@ public class FactoryDipendente {
             LocalDate nascita,
             String email,
             String cell,
-            String id,
             String pw,
             LocalDate assunzione) {
 
@@ -36,11 +38,10 @@ public class FactoryDipendente {
                     String.class,
                     String.class,
                     String.class,
-                    String.class,
                     LocalDate.class
             );
 
-            Dipendente dipendente = (Dipendente) c.newInstance(cf, nome, cognome, nascita, email, cell, id, pw, assunzione);
+            Dipendente dipendente = (Dipendente) c.newInstance(cf, nome, cognome, nascita, email, cell, pw, assunzione);
             return dipendente;
 
         } catch (Exception e) {
