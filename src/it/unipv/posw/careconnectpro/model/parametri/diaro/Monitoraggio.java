@@ -5,6 +5,7 @@ import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Monitoraggio {
 

@@ -1,7 +1,6 @@
 package it.unipv.posw.careconnectpro.model.rsa;
 
 import it.unipv.posw.careconnectpro.jdbc.FacadeSingletonDB;
-import it.unipv.posw.careconnectpro.model.parametri.diaro.DiarioParametri;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 
 public class RSAService implements IRSA {
@@ -43,11 +42,6 @@ public class RSAService implements IRSA {
 
         System.out.println("Password errata");
         return null;
-    }
-    
-    public boolean registrazioneDiarioParametri(DiarioParametri dp) {
-        System.out.println("registrazione Diario avvenuta con successo");
-        return facadeDB.insertDiarioParametri(dp);
     }
 
 //    public void nuovoMonitoraggio (String idMonitoraggio, Paziente paziente, Dipendente dipendente, ParametroVitale pv, String note) {

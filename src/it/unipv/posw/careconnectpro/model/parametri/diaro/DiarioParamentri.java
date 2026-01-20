@@ -3,19 +3,14 @@ package it.unipv.posw.careconnectpro.model.parametri.diaro;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DiarioParametri {
-	
-	private String idDiarioParametri;
-	private String idPaziente;
-	
-    //private String idDiario;
+public class DiarioParamentri {
+    private String idDiario;
     private List<Monitoraggio> monitoraggi;
     private static final int LUNGHEZZA = 10;
 
-    public DiarioParametri(String idPaziente) {
-        this.idDiarioParametri =  idDiarioParametri;
+    public DiarioParamentri() {
+        this.idDiario =  idDiario;
         this.monitoraggi = new ArrayList<>();
-        this.idPaziente = idPaziente;
     }
 
     public void addMonitoraggi(Monitoraggio m){
@@ -27,23 +22,15 @@ public class DiarioParametri {
     public void setMonitoraggi(List<Monitoraggio> monitoraggi) {
         this.monitoraggi = monitoraggi;
     }
-    public String getIdDiarioParametri() {
-        return idDiarioParametri;
+    public String getIdDiario() {
+        return idDiario;
     }
-    public void setIdDiario(String idDiario) { this.idDiarioParametri = idDiario;}
+    public void setIdDiario(String idDiario) { this.idDiario = idDiario;}
 
     public void addMonitoraggio(Monitoraggio monitoraggio) {
         this.monitoraggi.add(monitoraggio);
     }
 
-	public String getIdPaziente() {
-		return idPaziente;
-	}
 
-	public void setIdPaziente(String idPaziente) {
-		this.idPaziente = idPaziente;
-	}
-
-    
 
 }
