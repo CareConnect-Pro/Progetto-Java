@@ -21,7 +21,7 @@ public class MonitoraggioDAO {
         try (Connection conn = ConnessioneDB.startConnection("cpp")) {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, monitoraggio.getIdMonitoraggio());
-            ps.setString(2, monitoraggio.getPaziente().getDiarioParamentri().getIdDiario());
+            ps.setString(2, monitoraggio.getPaziente().getDiarioParamentri().getIdDiarioParametri());
             ps.setDate(3, Date.valueOf(monitoraggio.getDataRegistrazione()));
             ps.setString(4, monitoraggio.getDipendente().getCodiceFiscale());
             ps.setString(5, monitoraggio.getPaziente().getCodiceFiscale());

@@ -12,7 +12,6 @@ public abstract class Persona {
 	private String email;
 	private String cellulare;
     private String password;
-    private static final int MAX_PASSWORD = 8;
 
 	
 	public Persona(String codiceFiscale, String nome, String cognome, LocalDate dataNascita, String email,
@@ -38,14 +37,10 @@ public abstract class Persona {
 	public void setEmail(String email) { this.email = email; }
 	public String getCellulare() { return cellulare; }
 	public void setCellulare(String cellulare) { this.cellulare = cellulare; }
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() {return password;}
     public void setPassword(String password) { this.password = password; }
-    public TipoUtente getTipoUtente() {
-        return tipoUtente;
-    }
-    public LocalDate getDataInizio() {
-        return dataInizio;
-    }
+    public TipoUtente getTipoUtente() {return tipoUtente;}
+    public LocalDate getDataInizio() {return dataInizio;}
+        
+
 }

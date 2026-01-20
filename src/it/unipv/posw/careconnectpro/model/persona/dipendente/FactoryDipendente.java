@@ -1,7 +1,5 @@
 package it.unipv.posw.careconnectpro.model.persona.dipendente;
 
-import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
-
 import java.io.FileInputStream;
 import java.lang.reflect.Constructor;
 import java.time.LocalDate;
