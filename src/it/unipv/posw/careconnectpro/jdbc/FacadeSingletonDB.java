@@ -1,8 +1,12 @@
 package it.unipv.posw.careconnectpro.jdbc;
 
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.CartellaClinicaDAO;
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.CartellaClinicaDB;
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.ICartellaClinicaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.IPersonaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDB;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.FactoryDipendente;
@@ -11,9 +15,11 @@ public class FacadeSingletonDB {
 
     private static FacadeSingletonDB istanza;
     private IPersonaDAO personaDAO;
+    private ICartellaClinicaDAO cartellaClinicaDAO;
 
     public FacadeSingletonDB() {
         personaDAO = new PersonaDAO();
+        cartellaClinicaDAO = new CartellaClinicaDAO();
     }
 
     public static FacadeSingletonDB getIstanza() {
@@ -58,6 +64,19 @@ public class FacadeSingletonDB {
 
     public boolean deletePersona(String cf) {
         return personaDAO.deletePersonaByCf(cf);
+    }
+    
+    public boolean insertCartellaClinica(CartellaClinica cc) {
+        CartellaClinicaDB cartellaClinicaDB;
+        cartellaClinicaDB = new CartellaClinicaDB(
+                cc.getIdPaziente(),
+                cc.getDataCreazione()
+        );              
+        return cartellaClinicaDAO.insertCartellaClinica(cartellaClinicaDB);
+    }
+    
+    public boolean deleteCartellaClinica(String cf)	{
+    		return cartellaClinicaDAO.deleteCartellaClinicaByCf(cf);
     }
 
 

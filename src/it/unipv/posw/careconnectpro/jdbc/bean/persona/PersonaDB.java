@@ -26,32 +26,14 @@ public class PersonaDB {
         this.dataInizio = dataInizio;
     }
 
-    public String getCodiceFiscale() {
-        return codiceFiscale;
-    }
-    public String getNome() {
-        return nome;
-    }
-    public String getCognome() {
-        return cognome;
-    }
-    public LocalDate getDataNascita() {
-        return dataNascita;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public String getNumeroTelefonico() {
-        return numeroTelefonico;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public String getRuolo() {
-        return ruolo;
-    }
-    public LocalDate getDataInizio() {
-        return dataInizio;
-    }
+    public String getCodiceFiscale() {return codiceFiscale;}
+    public String getNome() {return nome;}
+    public String getCognome() {return cognome;}
+    public LocalDate getDataNascita() {return dataNascita;}
+    public String getEmail() {return email;}
+    public String getNumeroTelefonico() {return numeroTelefonico;}
+    public String getPassword() {return password;}
+    public String getRuolo() {return ruolo;}
+    public LocalDate getDataInizio() {return dataInizio;}
 
 }
