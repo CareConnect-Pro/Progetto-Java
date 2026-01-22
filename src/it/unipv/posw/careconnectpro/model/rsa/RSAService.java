@@ -2,6 +2,8 @@ package it.unipv.posw.careconnectpro.model.rsa;
 
 import it.unipv.posw.careconnectpro.jdbc.FacadeSingletonDB;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.visita.Visita;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
@@ -93,16 +95,33 @@ public class RSAService implements IRSA {
     }
     
     @Override
-    public boolean creaVisita(Visita v)	{
-    		return facadeDB.insertVisita(v);
+	public int creaTerapia(Terapia t)	{
+    		return facadeDB.insertTerapia(t);
     }
+	
+	@Override
+	public int creaVisita (Visita v)	{
+		return facadeDB.insertVisita(v);
+	}
+	
+	@Override
+	public int creaMonitoraggio(Monitoraggio m)	{
+		return facadeDB.insertMonitoraggio(m);
+	}
 
-//    public void nuovoMonitoraggio (String idMonitoraggio, Paziente paziente, Dipendente dipendente, ParametroVitale pv, String note) {
-//        Monitoraggio nMonitoraggio = new Monitoraggio(idMonitoraggio, paziente, dipendente, pv, note);
-//
-//        paziente.getDiarioClinico().addMonitoraggio(nMonitoraggio);
-//        System.out.println("Aggiunto monitoraggio a " + paziente.getNome() + " " + paziente.getCognome() +
-//                            "al Diario:" + paziente.getDiarioClinico().getIdDiario());
-//    }
+
 
 }
+
+
+
+
+
+
+//public void nuovoMonitoraggio (String idMonitoraggio, Paziente paziente, Dipendente dipendente, ParametroVitale pv, String note) {
+//Monitoraggio nMonitoraggio = new Monitoraggio(idMonitoraggio, paziente, dipendente, pv, note);
+//
+//paziente.getDiarioClinico().addMonitoraggio(nMonitoraggio);
+//System.out.println("Aggiunto monitoraggio a " + paziente.getNome() + " " + paziente.getCognome() +
+//                  "al Diario:" + paziente.getDiarioClinico().getIdDiario());
+//}

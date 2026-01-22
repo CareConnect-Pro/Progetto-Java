@@ -4,7 +4,9 @@ import java.time.LocalDate;
 
 public class MonitoraggioDB {
 	
+	private int idMonitoraggio;
 	private int idCartellaClinica;
+	private String idPaziente;
 	private String idInferimere;
 	private String tipoParametro;
 	private String valore;
@@ -12,10 +14,11 @@ public class MonitoraggioDB {
 	private String alert;
 	private String note;
 	
-	public MonitoraggioDB(int idCartellaClinica, String idInferimere, String tipoParametro, String valore,
+	public MonitoraggioDB(int idCartellaClinica, String idPaziente, String idInferimere, String tipoParametro, String valore,
 			LocalDate dataMonitoraggio, String alert, String note) {
 		super();
 		this.idCartellaClinica = idCartellaClinica;
+		this.idPaziente = idPaziente;
 		this.idInferimere = idInferimere;
 		this.tipoParametro = tipoParametro;
 		this.valore = valore;
@@ -31,5 +34,8 @@ public class MonitoraggioDB {
 	public LocalDate getDataMonitoraggio() {return dataMonitoraggio;}
 	public String getAlert() {return alert;}
 	public String getNote() {return note;}
+	public String getIdPaziente() {return idPaziente;}
+	public int getIdMonitoraggio() {return idMonitoraggio;}
+	public void setIdMonitoraggio(int idMonitoraggio) {this.idMonitoraggio = idMonitoraggio;}
 	
 }

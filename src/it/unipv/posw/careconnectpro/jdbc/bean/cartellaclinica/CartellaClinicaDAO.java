@@ -22,9 +22,8 @@ public class CartellaClinicaDAO implements ICartellaClinicaDAO {
 	        "INSERT INTO CARTELLA_CLINICA (ID_PAZIENTE, DATA_CREAZIONE) VALUES (?, ?)";
 
 	    try (Connection conn = ConnessioneDB.startConnection("ccp");
-	         PreparedStatement ps =
-	             conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-
+	         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+	             
 	        ps.setString(1, ccDb.getIdPaziente());
 	        ps.setDate(2, Date.valueOf(ccDb.getDataCreazione()));
 	        ps.executeUpdate();

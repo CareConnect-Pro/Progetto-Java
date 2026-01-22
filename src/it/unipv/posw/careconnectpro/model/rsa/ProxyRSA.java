@@ -3,6 +3,8 @@ package it.unipv.posw.careconnectpro.model.rsa;
 
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.visita.Visita;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
@@ -50,13 +52,30 @@ public class ProxyRSA implements IRSA {
         }
         throw new RuntimeException("Solo gli amministratori possono rimuovere la cartella clinica per un paziente");
     }
-    
+	
     @Override
-    public boolean creaVisita(Visita v) {
-        if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.MEDICO) {
+    public int creaTerapia(Terapia t)	{
+    	if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.MEDICO) {
+            return rsa.creaTerapia(t);
+        }
+        throw new RuntimeException("Solo i medici possono creare una terapia per un paziente");	
+    }
+	
+    @Override
+    public int creaVisita (Visita v)	{
+    	if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.MEDICO) {
             return rsa.creaVisita(v);
         }
-        System.out.println("Solo i medici possono programmare una visita per un paziente");
-        return false;
+        throw new RuntimeException("Solo i medici possono creare una visita per un paziente");	
+	}
+    
+    @Override
+	public int creaMonitoraggio(Monitoraggio m)	{
+    	if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.INFERMIERE) {
+            return rsa.creaMonitoraggio(m);
+        }
+        throw new RuntimeException("Solo gli infermieri possono creare un monitoraggio per un paziente");	  
     }
+    
+
 }

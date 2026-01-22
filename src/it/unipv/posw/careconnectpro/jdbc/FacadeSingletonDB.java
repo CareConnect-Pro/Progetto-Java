@@ -3,6 +3,12 @@ package it.unipv.posw.careconnectpro.jdbc;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.CartellaClinicaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.CartellaClinicaDB;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.ICartellaClinicaDAO;
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.monitoraggio.IMonitoraggioDAO;
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.monitoraggio.MonitoraggioDAO;
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.monitoraggio.MonitoraggioDB;
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.terapia.ITerapiaDAO;
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.terapia.TerapiaDAO;
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.terapia.TerapiaDB;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.visita.IVisitaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.visita.VisitaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.visita.VisitaDB;
@@ -10,6 +16,8 @@ import it.unipv.posw.careconnectpro.jdbc.bean.persona.IPersonaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDB;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.visita.Visita;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
@@ -20,12 +28,16 @@ public class FacadeSingletonDB {
     private static FacadeSingletonDB istanza;
     private IPersonaDAO personaDAO;
     private ICartellaClinicaDAO cartellaClinicaDAO;
+    private ITerapiaDAO terapiaDAO;
     private IVisitaDAO visitaDAO;
+    private IMonitoraggioDAO monitoraggioDAO;
 
     public FacadeSingletonDB() {
         personaDAO = new PersonaDAO();
         cartellaClinicaDAO = new CartellaClinicaDAO();
+        terapiaDAO = new TerapiaDAO();
         visitaDAO = new VisitaDAO();
+        monitoraggioDAO = new MonitoraggioDAO();
     }
 
     public static FacadeSingletonDB getIstanza() {
@@ -85,18 +97,54 @@ public class FacadeSingletonDB {
     		return cartellaClinicaDAO.deleteCartellaClinicaByCf(cf);
     }
     
-    public boolean insertVisita(Visita v) {
-        VisitaDB visitaDB;
-        visitaDB = new VisitaDB(
-                v.getIdCartellaClinica(),
-                v.getIdMedico(),
-                v.getDataVisita(),
-                v.getNote(),
-                v.getEsito().name()
-        );              
-        return visitaDAO.insertVisita(visitaDB);
+    public int insertTerapia(Terapia t)	{
+	    	TerapiaDB terapiaDB;
+	    	terapiaDB = new TerapiaDB(
+	    			t.getCartellaClinica().getIdCartellaClinica(),
+	    			t.getPaziente().getCodiceFiscale(),
+	    			t.getMedico().getCodiceFiscale(),
+	    			t.getTipoSomministrazione().name(),
+	    			t.getNomeFarmaco(),
+	    			t.getMateriale(),
+	    			t.getDosaggio(),
+	    			t.getFrequenzaGiornaliera(),
+	    			t.getStato().name(),
+	    			t.getDurata(),
+	    			t.getDataInizio(),
+	    			t.getDataFine(),
+	    			t.getNote()
+	    			);   
+	
+	    	return terapiaDAO.insertTerapia(terapiaDB);
     }
-
+    
+    public int insertVisita(Visita v) {
+	    	VisitaDB visitaDB;
+	    	visitaDB = new VisitaDB(
+	    			v.getCartellaClinica().getIdCartellaClinica(),
+	    			v.getPaziente().getCodiceFiscale(),
+	    			v.getMedico().getCodiceFiscale(),
+	    			v.getDataVisita(),
+	    			v.getNote(),
+	    			v.getEsito().name()
+	    			);              
+	    	return visitaDAO.insertVisita(visitaDB);
+    }
+    
+    public int insertMonitoraggio(Monitoraggio m)	{
+    		MonitoraggioDB monitoraggioDB;
+    		monitoraggioDB = new MonitoraggioDB(
+    				m.getCartellaClinica().getIdCartellaClinica(),
+    				m.getPaziente().getCodiceFiscale(),
+    				m.getInfermiere().getCodiceFiscale(),
+    				m.getTipiParametroVitale().name(),
+    				m.getValore(),
+    				m.getDataMonitoraggio(),
+    				m.getAlert().name(),
+    				m.getNote());
+    		return monitoraggioDAO.insertMonitoraggio(monitoraggioDB);
+    }
+	  
 
     //Getter and Setter
     public IPersonaDAO getPersonaDAO() {
@@ -108,3 +156,4 @@ public class FacadeSingletonDB {
 
 
 }
+

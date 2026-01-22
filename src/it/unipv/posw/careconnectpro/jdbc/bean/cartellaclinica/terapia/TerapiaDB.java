@@ -4,7 +4,9 @@ import java.time.LocalDate;
 
 public class TerapiaDB {
 
+	private int idTerapia;
 	private int idCartellaClinica;
+	private String idPaziente;
 	private String idMedico;
 	private String tipoSomministrazione;
 	private String nomeFarmaco;
@@ -17,11 +19,12 @@ public class TerapiaDB {
 	private LocalDate dataFine;
 	private String note;
 	
-	public TerapiaDB(int idCartellaClinica, String idMedico, String tipoSomministrazione, String nomeFarmaco,
+	public TerapiaDB(int idCartellaClinica, String idPaziente, String idMedico, String tipoSomministrazione, String nomeFarmaco,
 			String materiale, String dosaggio, int frequenzaGiornaliera, String stato, int durata, LocalDate dataInizio,
 			LocalDate dataFine, String note) {
 		super();
 		this.idCartellaClinica = idCartellaClinica;
+		this.idPaziente = idPaziente;
 		this.idMedico = idMedico;
 		this.tipoSomministrazione = tipoSomministrazione;
 		this.nomeFarmaco = nomeFarmaco;
@@ -36,6 +39,7 @@ public class TerapiaDB {
 	}
 
 	public int getIdCartellaClinica() {return idCartellaClinica;}
+	public String getIdPaziente() {return idPaziente;}
 	public String getIdMedico() {return idMedico;}
 	public String getTipoSomministrazione() {return tipoSomministrazione;}
 	public String getNomeFarmaco() {return nomeFarmaco;}
@@ -47,5 +51,7 @@ public class TerapiaDB {
 	public LocalDate getDataInizio() {return dataInizio;}
 	public LocalDate getDataFine() {return dataFine;}
 	public String getNote() {return note;}
+	public int getIdTerapia() {return idTerapia;}
+	public void setIdTerapia(int idTerapia) {this.idTerapia = idTerapia;}
 	
 }
