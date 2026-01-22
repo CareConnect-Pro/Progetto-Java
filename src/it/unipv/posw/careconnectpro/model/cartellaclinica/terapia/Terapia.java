@@ -18,6 +18,7 @@ public class Terapia {
 	private String note;
 	
 	
+	
 }
 
 
