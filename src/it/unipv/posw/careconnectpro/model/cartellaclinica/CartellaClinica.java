@@ -8,17 +8,17 @@ import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitorag
 import it.unipv.posw.careconnectpro.model.persona.Persona;
 
 public class CartellaClinica {
-    private String idCartellaClinica;
+    
     private String idPaziente;
     private LocalDate dataCreazione;
-    private Persona p;
+    private Persona paziente;
     private List<Monitoraggio> monitoraggi;
-    
+    private int idCartellaClinica;
 
-    public CartellaClinica() {
-        this.idCartellaClinica = idCartellaClinica;
-        this.idPaziente = idPaziente;
-        setDataCreazione(dataCreazione);
+    public CartellaClinica(Persona paziente) {
+        this.paziente = paziente;
+        this.idPaziente = paziente.getCodiceFiscale();
+        this.dataCreazione = LocalDate.now();
         this.monitoraggi = new ArrayList<>();
     }
 
@@ -36,12 +36,11 @@ public class CartellaClinica {
         this.monitoraggi.add(monitoraggio);
     }
     
-    public String getIdCartellaClinica() {return idCartellaClinica;}
-    public void setIdCartellaClinica(String idCartellaClinica) { this.idCartellaClinica = idCartellaClinica;}
+    public int getIdCartellaClinica() {return idCartellaClinica;}
+    public void setIdCartellaClinica(int idCartellaClinica) { this.idCartellaClinica = idCartellaClinica;}
     public String getIdPaziente() {return idPaziente;}
 	public void setIdPaziente(String idPaziente) {this.idPaziente = idPaziente;}
 	public LocalDate getDataCreazione() {return dataCreazione;}
-	public void setDataCreazione(LocalDate dataCreazione) {
-		this.dataCreazione = p.getDataInizio();}
-	
+    public Persona getPaziente() {return paziente;}
+
 }

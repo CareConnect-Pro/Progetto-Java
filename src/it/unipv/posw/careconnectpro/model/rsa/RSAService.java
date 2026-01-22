@@ -1,13 +1,17 @@
 package it.unipv.posw.careconnectpro.model.rsa;
 
 import it.unipv.posw.careconnectpro.jdbc.FacadeSingletonDB;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.visita.Visita;
+import it.unipv.posw.careconnectpro.model.persona.Persona;
+import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 
 public class RSAService implements IRSA {
 	
     private final FacadeSingletonDB facadeDB;
 
-    //Costruttori
+    
     public RSAService() {
         facadeDB = FacadeSingletonDB.getIstanza();
     }
@@ -15,21 +19,55 @@ public class RSAService implements IRSA {
         this.facadeDB = facadeDB;
     }
 
-    //Metodi
+
     public FacadeSingletonDB getFacadeDB() {
         return facadeDB;
     }
 
+    
     @Override
-    public boolean registrazioneDipendente(Dipendente d) {
-        System.out.println("registrazione Dipendente avvenuta con successo");
-        return facadeDB.insertPersona(d);
+    public boolean registraUtente(Persona p) {
+        boolean nuovoUtente = facadeDB.insertPersona(p);
+        if (!nuovoUtente) {
+            System.out.println("Errore nell'inserimento dell'utente " + p.getCodiceFiscale());
+            return false;
+        }
+
+        if (p.getTipoUtente() == TipoUtente.PAZIENTE) {
+            CartellaClinica cc = new CartellaClinica(p);
+            int idCC = facadeDB.insertCartellaClinica(cc);
+            if (idCC <= 0) {
+                throw new RuntimeException("Creazione cartella clinica fallita per il paziente " + p.getCodiceFiscale());
+            }
+            cc.setIdCartellaClinica(idCC);
+        }
+        System.out.println("Registrazione utente avvenuta con successo: " + p.getCodiceFiscale());
+        return true;
     }
-    @Override
-    public boolean rimuoviDipendente(String cf) {
-        System.out.println("eliminazione Dipendente avvenuta con successo");
-        return facadeDB.deletePersona(cf);
+
+    
+	@Override
+    public boolean rimuoviUtente(Persona p) {
+	    	if (p == null) {
+	    		System.out.println("Errore nella rimozione dell'utente");
+	    		return false;
+	    	}
+	    	if (p.getTipoUtente() == TipoUtente.PAZIENTE) {
+	    		boolean ccRimosso = facadeDB.deleteCartellaClinica(p.getCodiceFiscale());
+	    		if (!ccRimosso) {
+	    			System.out.println("Errore nella rimozione della cartella clinica per il paziente " + p.getCodiceFiscale());
+	    			return false;
+	    		}
+	    	}
+	    	boolean utenteRimosso = facadeDB.deletePersona(p);
+	    	if (!utenteRimosso) {
+	    		System.out.println("Errore nella rimozione dell'utente " + p.getCodiceFiscale());
+	    		return false;
+	    	}
+	    	System.out.println("Rimozione utente avvenuta con successo: " + p.getCodiceFiscale());
+	    	return true;
     }
+    
 
     public Dipendente login (String cf, String password) {
         Dipendente d = facadeDB.findDipendenteByCf(cf);
@@ -42,6 +80,21 @@ public class RSAService implements IRSA {
 
         System.out.println("Password errata");
         return null;
+    }
+    
+    @Override
+    public int creaCartellaClinica(CartellaClinica cc)	{
+    		return facadeDB.insertCartellaClinica(cc);
+    }
+    
+    @Override
+    public boolean rimuoviCartellaClinica(String cf)	{
+    		return facadeDB.deleteCartellaClinica(cf);
+    }
+    
+    @Override
+    public boolean creaVisita(Visita v)	{
+    		return facadeDB.insertVisita(v);
     }
 
 //    public void nuovoMonitoraggio (String idMonitoraggio, Paziente paziente, Dipendente dipendente, ParametroVitale pv, String note) {

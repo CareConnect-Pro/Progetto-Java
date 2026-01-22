@@ -3,10 +3,14 @@ package it.unipv.posw.careconnectpro.jdbc;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.CartellaClinicaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.CartellaClinicaDB;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.ICartellaClinicaDAO;
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.visita.IVisitaDAO;
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.visita.VisitaDAO;
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.visita.VisitaDB;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.IPersonaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDB;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.visita.Visita;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.FactoryDipendente;
@@ -16,10 +20,12 @@ public class FacadeSingletonDB {
     private static FacadeSingletonDB istanza;
     private IPersonaDAO personaDAO;
     private ICartellaClinicaDAO cartellaClinicaDAO;
+    private IVisitaDAO visitaDAO;
 
     public FacadeSingletonDB() {
         personaDAO = new PersonaDAO();
         cartellaClinicaDAO = new CartellaClinicaDAO();
+        visitaDAO = new VisitaDAO();
     }
 
     public static FacadeSingletonDB getIstanza() {
@@ -61,12 +67,12 @@ public class FacadeSingletonDB {
         );
         return dipendente;
     }
-
-    public boolean deletePersona(String cf) {
-        return personaDAO.deletePersonaByCf(cf);
+    
+    public boolean deletePersona(Persona p) {
+        return personaDAO.deletePersona(p);
     }
     
-    public boolean insertCartellaClinica(CartellaClinica cc) {
+    public int insertCartellaClinica(CartellaClinica cc) {
         CartellaClinicaDB cartellaClinicaDB;
         cartellaClinicaDB = new CartellaClinicaDB(
                 cc.getIdPaziente(),
@@ -78,6 +84,18 @@ public class FacadeSingletonDB {
     public boolean deleteCartellaClinica(String cf)	{
     		return cartellaClinicaDAO.deleteCartellaClinicaByCf(cf);
     }
+    
+    public boolean insertVisita(Visita v) {
+        VisitaDB visitaDB;
+        visitaDB = new VisitaDB(
+                v.getIdCartellaClinica(),
+                v.getIdMedico(),
+                v.getDataVisita(),
+                v.getNote(),
+                v.getEsito().name()
+        );              
+        return visitaDAO.insertVisita(visitaDB);
+    }
 
 
     //Getter and Setter
@@ -87,5 +105,6 @@ public class FacadeSingletonDB {
     public void setPersonaDAO(PersonaDAO personaDAO) {
         this.personaDAO = personaDAO;
     }
+
 
 }

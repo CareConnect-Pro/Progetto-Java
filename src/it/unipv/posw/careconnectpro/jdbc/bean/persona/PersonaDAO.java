@@ -1,6 +1,7 @@
 package it.unipv.posw.careconnectpro.jdbc.bean.persona;
 
 import it.unipv.posw.careconnectpro.jdbc.ConnessioneDB;
+import it.unipv.posw.careconnectpro.model.persona.Persona;
 
 import java.sql.*;
 
@@ -69,11 +70,11 @@ public class PersonaDAO  implements IPersonaDAO {
     }
 
     @Override
-    public boolean deletePersonaByCf(String cf) {
+    public boolean deletePersona(Persona p) {
         String query = "DELETE FROM UTENTI WHERE CODICE_FISCALE = ?";
         try (Connection conn = ConnessioneDB.startConnection("ccp");
              PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, cf);
+            ps.setString(1, p.getCodiceFiscale());
             int deletedRows = ps.executeUpdate();
             return deletedRows > 0;
         } catch (Exception e) {

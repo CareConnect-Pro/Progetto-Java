@@ -1,4 +1,5 @@
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
+import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.rsa.ProxyRSA;
 import org.junit.Before;
@@ -8,9 +9,10 @@ import java.time.LocalDate;
 
 public class ProxyTest {
     private Dipendente amministratore, medico, dipendenteNuovo;
+    private Paziente pazienteNuovo;
 
     @Before
-    public void creaDipendenti(){
+    public void creaUtente(){
         amministratore = new Dipendente("RSSMRA80A01F205Z", "Mario", "Rossi",
                 LocalDate.of(1980, 1, 1), "admin@test.it", "333111",
                 "pass123", TipoUtente.AMMINISTRATORE, LocalDate.now());
@@ -23,6 +25,11 @@ public class ProxyTest {
         dipendenteNuovo = new Dipendente("VRDLUU00A01F205W", "Luca", "Verdi",
                 LocalDate.of(2000, 10, 10), "luca@test.it", "333333",
                 "pass123", TipoUtente.INFERMIERE, LocalDate.now());
+        
+        pazienteNuovo = new Paziente("LLLFBL02", "Fabiola", "Lilla",
+        					LocalDate.of(2002, 5, 3),"fabi@test.it","99999",
+        					"paz1111",TipoUtente.PAZIENTE,LocalDate.now());
+        
     }
 
 
@@ -38,18 +45,32 @@ public class ProxyTest {
 
 //    }
 
-    @Test
-    public void testInserimento(){
-        ProxyRSA proxyRSA = new ProxyRSA(amministratore);
-        boolean risultato = proxyRSA.registrazioneDipendente(dipendenteNuovo);
-        System.out.println("True: registrato con successo, False: registrazione fallita --> risulalto =  " + risultato);
-    }
-
+//    @Test
+//    public void testInserimento(){
+//        ProxyRSA proxyRSA = new ProxyRSA(amministratore);
+//        boolean r1 = proxyRSA.registraUtente(dipendenteNuovo);
+//        boolean r2 = proxyRSA.registraUtente(pazienteNuovo);
+//    }
+//
+//   @Test
+//    public void testInserimentoFallito(){
+//       ProxyRSA proxyRSA = new ProxyRSA(medico);
+//       boolean risultato = proxyRSA.registraUtente(dipendenteNuovo);
+//       System.out.println("True: registrato con successo, False: registrazione fallita --> risulalto = " + risultato);
+//   }
+//   
    @Test
-    public void testInserimentoFallito(){
-        ProxyRSA proxyRSA = new ProxyRSA(medico);
-       boolean risultato = proxyRSA.registrazioneDipendente(dipendenteNuovo);
-       System.out.println("True: registrato con successo, False: registrazione fallita --> risulalto = " + risultato);
+   public void testRimozione(){
+       ProxyRSA proxyRSA = new ProxyRSA(amministratore);
+       boolean r1 = proxyRSA.rimuoviUtente(dipendenteNuovo);
+       boolean r2 = proxyRSA.rimuoviUtente(pazienteNuovo);
    }
+
+//  @Test
+//   public void testRimozioneFallito(){
+//      ProxyRSA proxyRSA = new ProxyRSA(medico);
+//      boolean risultato = proxyRSA.rimuoviUtente(dipendenteNuovo);
+//      System.out.println("True: rimosso con successo, False: rimozione fallita --> risulalto = " + risultato);
+//  }
 }
 
