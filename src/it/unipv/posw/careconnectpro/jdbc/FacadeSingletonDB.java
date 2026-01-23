@@ -19,7 +19,9 @@ import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.visita.Visita;
+import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
+import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.FactoryDipendente;
 
@@ -47,6 +49,7 @@ public class FacadeSingletonDB {
         return istanza;
     }
 
+    
     public boolean insertPersona(Persona p) {
         PersonaDB personaDB;
         personaDB = new PersonaDB(
@@ -63,6 +66,7 @@ public class FacadeSingletonDB {
         return personaDAO.insertPersona(personaDB);
     }
 
+    
     public Dipendente findDipendenteByCf(String cf) {
         PersonaDB db = personaDAO.selectPersonaByCf(cf);
         if (db == null) return null;
@@ -80,9 +84,29 @@ public class FacadeSingletonDB {
         return dipendente;
     }
     
+    
+    public Paziente findPazienteByCf(String cf) {
+        PersonaDB db = personaDAO.selectPersonaByCf(cf);
+        if (db == null) return null;
+        Paziente paziente = new Paziente(
+                db.getCodiceFiscale(),
+                db.getNome(),
+                db.getCognome(),
+                db.getDataNascita(),
+                db.getEmail(),
+                db.getNumeroTelefonico(),
+                db.getPassword(),
+                TipoUtente.PAZIENTE,
+                db.getDataInizio()
+        );
+        return paziente;
+    }
+
+    
     public boolean deletePersona(Persona p) {
         return personaDAO.deletePersona(p);
     }
+    
     
     public int insertCartellaClinica(CartellaClinica cc) {
         CartellaClinicaDB cartellaClinicaDB;
@@ -93,13 +117,26 @@ public class FacadeSingletonDB {
         return cartellaClinicaDAO.insertCartellaClinica(cartellaClinicaDB);
     }
     
+    
+    public CartellaClinica findCartellaClinicaByCf (String cf)	{
+	    	CartellaClinicaDB db = cartellaClinicaDAO.selectCartellaClinicaByCf(cf);
+	    	if (db == null) return null;
+	    Paziente paziente = findPazienteByCf(db.getIdPaziente());
+	    	if (paziente == null) return null;
+	        CartellaClinica cartellaClinica = new CartellaClinica(paziente);
+	        cartellaClinica.setIdCartellaClinica(db.getIdCartellaClinica());
+	        
+	        return cartellaClinica;
+    }
+    
+    
     public boolean deleteCartellaClinica(String cf)	{
     		return cartellaClinicaDAO.deleteCartellaClinicaByCf(cf);
     }
     
-    public int insertTerapia(Terapia t)	{
-	    	TerapiaDB terapiaDB;
-	    	terapiaDB = new TerapiaDB(
+    
+    public int insertTerapia(Terapia t) {	
+	    	TerapiaDB db = new TerapiaDB(
 	    			t.getCartellaClinica().getIdCartellaClinica(),
 	    			t.getPaziente().getCodiceFiscale(),
 	    			t.getMedico().getCodiceFiscale(),
@@ -113,36 +150,36 @@ public class FacadeSingletonDB {
 	    			t.getDataInizio(),
 	    			t.getDataFine(),
 	    			t.getNote()
-	    			);   
-	
-	    	return terapiaDAO.insertTerapia(terapiaDB);
+	    			);
+	    	return terapiaDAO.insertTerapia(db);
     }
+
     
     public int insertVisita(Visita v) {
-	    	VisitaDB visitaDB;
-	    	visitaDB = new VisitaDB(
-	    			v.getCartellaClinica().getIdCartellaClinica(),
-	    			v.getPaziente().getCodiceFiscale(),
-	    			v.getMedico().getCodiceFiscale(),
-	    			v.getDataVisita(),
-	    			v.getNote(),
-	    			v.getEsito().name()
-	    			);              
-	    	return visitaDAO.insertVisita(visitaDB);
+    	VisitaDB db = new VisitaDB(
+                v.getCartellaClinica().getIdCartellaClinica(),
+                v.getPaziente().getCodiceFiscale(),
+                v.getMedico().getCodiceFiscale(),
+                v.getDataVisita(),
+                v.getNote(),
+                v.getEsito().name()
+            );
+            return visitaDAO.insertVisita(db);
     }
     
+    
     public int insertMonitoraggio(Monitoraggio m)	{
-    		MonitoraggioDB monitoraggioDB;
-    		monitoraggioDB = new MonitoraggioDB(
-    				m.getCartellaClinica().getIdCartellaClinica(),
-    				m.getPaziente().getCodiceFiscale(),
-    				m.getInfermiere().getCodiceFiscale(),
-    				m.getTipiParametroVitale().name(),
-    				m.getValore(),
-    				m.getDataMonitoraggio(),
-    				m.getAlert().name(),
-    				m.getNote());
-    		return monitoraggioDAO.insertMonitoraggio(monitoraggioDB);
+	    	MonitoraggioDB db = new MonitoraggioDB(
+	    			m.getCartellaClinica().getIdCartellaClinica(),
+	    			m.getPaziente().getCodiceFiscale(),
+	    			m.getInfermiere().getCodiceFiscale(),
+	    			m.getTipiParametroVitale().name(),
+	    			m.getValore(),
+	    			m.getDataMonitoraggio(),
+	    			m.getAlert().name(),
+	    			m.getNote()
+	    			);
+	    	return monitoraggioDAO.insertMonitoraggio(db);
     }
 	  
 

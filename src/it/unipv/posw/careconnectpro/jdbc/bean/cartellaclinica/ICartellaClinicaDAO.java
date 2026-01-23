@@ -4,5 +4,6 @@ public interface ICartellaClinicaDAO {
 
 	int insertCartellaClinica(CartellaClinicaDB ccDb);
 	boolean deleteCartellaClinicaByCf(String cf);
+	CartellaClinicaDB selectCartellaClinicaByCf(String cf);
 
 }

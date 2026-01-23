@@ -18,7 +18,7 @@ public class TerapiaDAO implements ITerapiaDAO {
 	public int insertTerapia (TerapiaDB tDb)	{
 		String query =
                 "INSERT INTO TERAPIE" + ""
-                		+ "(ID_CARTELLA_CLINICA, ID_PAZIENTE, ID_MEDICO, TIPO_SOMMINISTRAZIONE, NOME_FARMACO, MATERIALE_UTILIZZATO, DOSAGGIO, FREQUENZA_GIONALIERA, STATO, DURATA_GIORNI, DATA_INIZIO, DATA_FINE, NOTE)" 
+                		+ "(ID_CARTELLA_CLINICA, ID_PAZIENTE, ID_MEDICO, TIPO_SOMMINISTRAZIONE, NOME_FARMACO, MATERIALE_UTILIZZATO, DOSAGGIO, FREQUENZA_GIORNALIERA, STATO, DURATA_GIORNI, DATA_INIZIO, DATA_FINE, NOTE)" 
                 		+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	    try (Connection conn = ConnessioneDB.startConnection("ccp");
 	    		PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {

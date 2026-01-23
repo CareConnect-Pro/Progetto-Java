@@ -5,6 +5,7 @@ import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.visita.Visita;
+import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
@@ -96,16 +97,40 @@ public class RSAService implements IRSA {
     
     @Override
 	public int creaTerapia(Terapia t)	{
+        CartellaClinica cc = facadeDB.findCartellaClinicaByCf(t.getPaziente().getCodiceFiscale());
+        if (cc == null) throw new RuntimeException("Cartella clinica non trovata per " + t.getPaziente().getCodiceFiscale());
+        t.setCartellaClinica(cc);
+
+        Paziente p = facadeDB.findPazienteByCf(cc.getIdPaziente());
+        if (p == null) throw new RuntimeException("Paziente non trovato: " + cc.getIdPaziente());
+        t.setPaziente(p);
+        
     		return facadeDB.insertTerapia(t);
     }
 	
 	@Override
 	public int creaVisita (Visita v)	{
+        CartellaClinica cc = facadeDB.findCartellaClinicaByCf(v.getPaziente().getCodiceFiscale());
+        if (cc == null) throw new RuntimeException("Cartella clinica non trovata per " + v.getPaziente().getCodiceFiscale());
+        v.setCartellaClinica(cc);
+
+        Paziente p = facadeDB.findPazienteByCf(cc.getIdPaziente());
+        if (p == null) throw new RuntimeException("Paziente non trovato: " + cc.getIdPaziente());
+        v.setPaziente(p);
+        
 		return facadeDB.insertVisita(v);
 	}
 	
 	@Override
 	public int creaMonitoraggio(Monitoraggio m)	{
+        CartellaClinica cc = facadeDB.findCartellaClinicaByCf(m.getPaziente().getCodiceFiscale());
+        if (cc == null) throw new RuntimeException("Cartella clinica non trovata per " + m.getPaziente().getCodiceFiscale());
+        m.setCartellaClinica(cc);
+
+        Paziente p = facadeDB.findPazienteByCf(cc.getIdPaziente());
+        if (p == null) throw new RuntimeException("Paziente non trovato: " + cc.getIdPaziente());
+        m.setPaziente(p);
+
 		return facadeDB.insertMonitoraggio(m);
 	}
 

@@ -56,6 +56,30 @@ public class CartellaClinicaDAO implements ICartellaClinicaDAO {
             return false;
         }
     }
+    
+    @Override
+    public CartellaClinicaDB selectCartellaClinicaByCf(String cf)	{
+        CartellaClinicaDB ccDb = null;
+        String query = "SELECT * FROM ccp.CARTELLA_CLINICA WHERE ID_PAZIENTE = ?";
+        try (Connection conn = ConnessioneDB.startConnection("ccp");
+             PreparedStatement ps = conn.prepareStatement(query)
+        ) {
+            ps.setString(1, cf);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ccDb = new CartellaClinicaDB(
+                            rs.getString("ID_PAZIENTE"),
+                            rs.getDate("DATA_CREAZIONE").toLocalDate()
+                    );
+                    ccDb.setIdCartellaClinica(rs.getInt("ID_CARTELLA_CLINICA"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return ccDb;
+    }
 
 	
 }

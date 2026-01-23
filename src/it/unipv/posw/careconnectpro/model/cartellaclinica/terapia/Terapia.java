@@ -70,6 +70,7 @@ public class Terapia {
 	public void setDataFine(LocalDate dataFine) {this.dataFine = dataFine;}
 	public String getNote() {return note;}
 	public void setNote(String note) {this.note = note;}
+	public void setCartellaClinica(CartellaClinica cartellaClinica) {this.cartellaClinica = cartellaClinica;}
 	
 }
 

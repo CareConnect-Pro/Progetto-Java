@@ -41,7 +41,7 @@ public class PersonaDAO  implements IPersonaDAO {
 
     @Override
     public PersonaDB selectPersonaByCf(String cf) {
-        PersonaDB d = null;
+        PersonaDB p = null;
         String query = "SELECT * FROM ccp.UTENTI WHERE CODICE_FISCALE = ?";
         try (Connection conn = ConnessioneDB.startConnection("ccp");
              PreparedStatement ps = conn.prepareStatement(query)
@@ -49,7 +49,7 @@ public class PersonaDAO  implements IPersonaDAO {
             ps.setString(1, cf);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    d = new PersonaDB(
+                    p = new PersonaDB(
                             rs.getString("CODICE_FISCALE"),
                             rs.getString("NOME"),
                             rs.getString("COGNOME"),
@@ -66,7 +66,7 @@ public class PersonaDAO  implements IPersonaDAO {
             e.printStackTrace();
             return null;
         }
-        return d;
+        return p;
     }
 
     @Override
@@ -85,40 +85,3 @@ public class PersonaDAO  implements IPersonaDAO {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-//            ResultSet rs = ps.getGeneratedKeys();
-//            if (rs.next()) {
-//                if (p.getRuolo().equals(TipoUtente.PAZIENTE)) {
-//                    int id = rs.getInt(1);
-//                    String id_utente = "PAZ" + id;
-//
-//                    String query2 = "UPDATE DIPENDENTI SET ID_DIPENDENTE = ? WHERE ID = ?";
-//                    PreparedStatement ps2 = conn.prepareStatement(query2);
-//
-//                    ps2.setString(1, id_utente);
-//                    ps2.setInt(2, id);
-//                    ps2.executeUpdate();
-//
-//                } else {
-//
-//                    int id = rs.getInt(1);
-//                    String id_dipendente = "DIP" + id;
-//
-//                    String query3 = "UPDATE DIPENDENTI SET ID_DIPENDENTE = ? WHERE ID = ?";
-//                    PreparedStatement ps3 = conn.prepareStatement(query3);
-//
-//                    ps3.setString(1, id_dipendente);
-//                    ps3.setInt(2, id);
-//                    ps3.executeUpdate();
-//                }
-//            }
