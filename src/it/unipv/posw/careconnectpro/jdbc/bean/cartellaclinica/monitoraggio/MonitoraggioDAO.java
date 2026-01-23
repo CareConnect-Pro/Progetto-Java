@@ -77,5 +77,24 @@ public class MonitoraggioDAO implements IMonitoraggioDAO {
 	    }
 	    return monitoraggi;				
 	}
+	
+	@Override
+	public boolean updateAlertMonitoraggio(MonitoraggioDB mDb) {
+	    String query = "UPDATE MONITORAGGI SET ALERT = 'RISOLTO', NOTE = ? WHERE ID_MONITORAGGIO = ?";
+	    
+	    try (Connection conn = ConnessioneDB.startConnection("ccp");
+		     PreparedStatement ps = conn.prepareStatement(query);) {
+
+	        ps.setString(1, mDb.getNote());  
+	        ps.setInt(2, mDb.getIdMonitoraggio());
+
+	        int rowsUpdated = ps.executeUpdate();
+	        return rowsUpdated > 0;
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
 
 }

@@ -6,4 +6,5 @@ public interface IMonitoraggioDAO {
 
 	int insertMonitoraggio(MonitoraggioDB tDb);
 	List<MonitoraggioDB> selectMonitoraggioByAlertAttivo();
+	boolean updateAlertMonitoraggio(MonitoraggioDB mDb);
 }

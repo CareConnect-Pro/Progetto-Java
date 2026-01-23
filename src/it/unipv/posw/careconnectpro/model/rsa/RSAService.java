@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unipv.posw.careconnectpro.jdbc.FacadeSingletonDB;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Alert;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.visita.Visita;
@@ -139,6 +140,12 @@ public class RSAService implements IRSA {
 	@Override
 	public List<Monitoraggio> getMonitoraggiConAlertAttivo() {
 	    return facadeDB.selectMonitoraggioByAlertAttivo();
+	}
+	
+	@Override
+	public boolean risolviAlertMonitoraggio(Monitoraggio m) {
+	    m.setAlert(Alert.RISOLTO);
+	    return facadeDB.updateAlertMonitoraggio(m);
 	}
 	
 }

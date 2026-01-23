@@ -16,6 +16,8 @@ public class Monitoraggio {
 	private LocalDate dataMonitoraggio;
 	private Alert alert;
 	private String note;
+	
+	private int idMonitoraggio;
 
     public  Monitoraggio(CartellaClinica cartellaClinica, Paziente paziente , Dipendente infermiere,
                          TipiParametroVitale tipiParametroVitale, String valore, LocalDate dataMonitoraggio, 
@@ -47,5 +49,7 @@ public class Monitoraggio {
 	public void setAlert(Alert alert) {this.alert = alert;}
 	public String getNote() {return note;}
 	public void setNote(String note) {this.note = note;}
+	public int getIdMonitoraggio() {return idMonitoraggio;}
+	public void setIdMonitoraggio(int idMonitoraggio) {this.idMonitoraggio = idMonitoraggio;}
 
 }

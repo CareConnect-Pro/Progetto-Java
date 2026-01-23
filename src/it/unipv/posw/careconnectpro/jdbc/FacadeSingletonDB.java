@@ -214,11 +214,27 @@ public class FacadeSingletonDB {
 
         for (MonitoraggioDB mDb : monitoraggiDB) {
             Monitoraggio monitoraggio = convertToMonitoraggio(mDb);
+            monitoraggio.setIdMonitoraggio(mDb.getIdMonitoraggio());
             monitoraggi.add(monitoraggio);
         }
 
         return monitoraggi;
     }
+    
+    public boolean updateAlertMonitoraggio(Monitoraggio m)	{
+    	    MonitoraggioDB mDb = new MonitoraggioDB(
+    	            m.getCartellaClinica().getIdCartellaClinica(),
+    	            m.getPaziente().getCodiceFiscale(),
+    	            m.getInfermiere().getCodiceFiscale(),
+    	            m.getTipiParametroVitale().name(),
+    	            m.getValore(),
+    	            m.getDataMonitoraggio(),
+    	            m.getAlert().name(),
+    	            m.getNote()
+    	    );
+    	    mDb.setIdMonitoraggio(m.getIdMonitoraggio());
+    	    return monitoraggioDAO.updateAlertMonitoraggio(mDb);
+    	}
 	  
 
     //Getter and Setter

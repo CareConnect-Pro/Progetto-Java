@@ -86,6 +86,14 @@ public class ProxyRSA implements IRSA {
         }
         throw new RuntimeException("Solo i medici possono visualizzare la lista di monitoraggi con alert attivo");	  
 	}
+
+	@Override
+	public boolean risolviAlertMonitoraggio(Monitoraggio m) {
+		if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.MEDICO) {
+            return rsa.risolviAlertMonitoraggio(m);
+        }
+        throw new RuntimeException("Solo i medici possono contrassegnare un monitoraggio come risolto");	  
+	}
     
 
 }
