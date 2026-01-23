@@ -7,7 +7,6 @@ import java.util.List;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
-import it.unipv.posw.careconnectpro.model.cartellaclinica.visita.Visita;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 
@@ -62,14 +61,6 @@ public class ProxyRSA implements IRSA {
         }
         throw new RuntimeException("Solo i medici possono creare una terapia per un paziente");	
     }
-	
-    @Override
-    public int creaVisita (Visita v)	{
-    	if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.MEDICO) {
-            return rsa.creaVisita(v);
-        }
-        throw new RuntimeException("Solo i medici possono creare una visita per un paziente");	
-	}
     
     @Override
 	public int creaMonitoraggio(Monitoraggio m)	{

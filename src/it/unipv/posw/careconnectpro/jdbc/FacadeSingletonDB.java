@@ -12,9 +12,6 @@ import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.monitoraggio.Monit
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.terapia.ITerapiaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.terapia.TerapiaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.terapia.TerapiaDB;
-import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.visita.IVisitaDAO;
-import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.visita.VisitaDAO;
-import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.visita.VisitaDB;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.IPersonaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDB;
@@ -23,7 +20,6 @@ import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Alert;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.TipiParametroVitale;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
-import it.unipv.posw.careconnectpro.model.cartellaclinica.visita.Visita;
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
@@ -36,14 +32,12 @@ public class FacadeSingletonDB {
     private IPersonaDAO personaDAO;
     private ICartellaClinicaDAO cartellaClinicaDAO;
     private ITerapiaDAO terapiaDAO;
-    private IVisitaDAO visitaDAO;
     private IMonitoraggioDAO monitoraggioDAO;
 
     public FacadeSingletonDB() {
         personaDAO = new PersonaDAO();
         cartellaClinicaDAO = new CartellaClinicaDAO();
         terapiaDAO = new TerapiaDAO();
-        visitaDAO = new VisitaDAO();
         monitoraggioDAO = new MonitoraggioDAO();
     }
 
@@ -157,19 +151,6 @@ public class FacadeSingletonDB {
 	    			t.getNote()
 	    			);
 	    	return terapiaDAO.insertTerapia(db);
-    }
-
-    
-    public int insertVisita(Visita v) {
-    	VisitaDB db = new VisitaDB(
-                v.getCartellaClinica().getIdCartellaClinica(),
-                v.getPaziente().getCodiceFiscale(),
-                v.getMedico().getCodiceFiscale(),
-                v.getDataVisita(),
-                v.getNote(),
-                v.getEsito().name()
-            );
-            return visitaDAO.insertVisita(db);
     }
     
     
