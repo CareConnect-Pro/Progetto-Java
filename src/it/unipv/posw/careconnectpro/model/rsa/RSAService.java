@@ -1,5 +1,7 @@
 package it.unipv.posw.careconnectpro.model.rsa;
 
+import java.util.List;
+
 import it.unipv.posw.careconnectpro.jdbc.FacadeSingletonDB;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
@@ -134,19 +136,10 @@ public class RSAService implements IRSA {
 		return facadeDB.insertMonitoraggio(m);
 	}
 
-
-
+	@Override
+	public List<Monitoraggio> getMonitoraggiConAlertAttivo() {
+	    return facadeDB.selectMonitoraggioByAlertAttivo();
+	}
+	
 }
 
-
-
-
-
-
-//public void nuovoMonitoraggio (String idMonitoraggio, Paziente paziente, Dipendente dipendente, ParametroVitale pv, String note) {
-//Monitoraggio nMonitoraggio = new Monitoraggio(idMonitoraggio, paziente, dipendente, pv, note);
-//
-//paziente.getDiarioClinico().addMonitoraggio(nMonitoraggio);
-//System.out.println("Aggiunto monitoraggio a " + paziente.getNome() + " " + paziente.getCognome() +
-//                  "al Diario:" + paziente.getDiarioClinico().getIdDiario());
-//}

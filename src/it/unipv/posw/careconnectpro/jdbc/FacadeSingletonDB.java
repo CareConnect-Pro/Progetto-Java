@@ -1,5 +1,8 @@
 package it.unipv.posw.careconnectpro.jdbc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.CartellaClinicaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.CartellaClinicaDB;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.ICartellaClinicaDAO;
@@ -16,7 +19,9 @@ import it.unipv.posw.careconnectpro.jdbc.bean.persona.IPersonaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDB;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Alert;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.TipiParametroVitale;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.visita.Visita;
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
@@ -180,6 +185,39 @@ public class FacadeSingletonDB {
 	    			m.getNote()
 	    			);
 	    	return monitoraggioDAO.insertMonitoraggio(db);
+    }
+    
+    
+    public Monitoraggio convertToMonitoraggio(MonitoraggioDB mDb)	{
+        Paziente paziente = findPazienteByCf(mDb.getIdPaziente());
+        CartellaClinica cc = findCartellaClinicaByCf(paziente.getCodiceFiscale());
+        Dipendente infermiere = findDipendenteByCf(mDb.getIdInferimere());
+
+        Monitoraggio monitoraggio = new Monitoraggio(
+			            cc,
+			            paziente,
+			            infermiere,
+			            TipiParametroVitale.valueOf(mDb.getTipoParametro()),
+			            mDb.getValore(),
+			            mDb.getDataMonitoraggio(),
+			            Alert.valueOf(mDb.getAlert()),
+			            mDb.getNote()
+			        );
+
+        return monitoraggio;      
+    }
+    
+    
+    public List<Monitoraggio> selectMonitoraggioByAlertAttivo ()	{
+    		List<MonitoraggioDB> monitoraggiDB = monitoraggioDAO.selectMonitoraggioByAlertAttivo();
+        List<Monitoraggio> monitoraggi = new ArrayList<>();
+
+        for (MonitoraggioDB mDb : monitoraggiDB) {
+            Monitoraggio monitoraggio = convertToMonitoraggio(mDb);
+            monitoraggi.add(monitoraggio);
+        }
+
+        return monitoraggi;
     }
 	  
 

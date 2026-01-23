@@ -1,7 +1,9 @@
 package it.unipv.posw.careconnectpro.model.rsa;
 
-
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
+
+import java.util.List;
+
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
@@ -76,6 +78,14 @@ public class ProxyRSA implements IRSA {
         }
         throw new RuntimeException("Solo gli infermieri possono creare un monitoraggio per un paziente");	  
     }
+
+	@Override
+	public List<Monitoraggio> getMonitoraggiConAlertAttivo() {
+		if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.MEDICO) {
+            return rsa.getMonitoraggiConAlertAttivo();
+        }
+        throw new RuntimeException("Solo i medici possono visualizzare la lista di monitoraggi con alert attivo");	  
+	}
     
 
 }

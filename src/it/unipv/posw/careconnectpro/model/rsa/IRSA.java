@@ -1,5 +1,7 @@
 package it.unipv.posw.careconnectpro.model.rsa;
 
+import java.util.List;
+
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
@@ -15,5 +17,6 @@ public interface IRSA {
 	int creaTerapia(Terapia t);
 	int creaVisita (Visita v);
 	int creaMonitoraggio(Monitoraggio m);
+	List<Monitoraggio> getMonitoraggiConAlertAttivo();
 	
 }
