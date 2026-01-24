@@ -1,44 +1,53 @@
-import java.time.LocalDate;
-
-import org.junit.Test;
-
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
-import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
-import it.unipv.posw.careconnectpro.model.rsa.ProxyRSA;
+import org.junit.Before;
+import  org.junit.Test;
+
+import java.time.LocalDate;
 
 public class CartellaClinicaTest {
 
-//	@Test
-//	public void insertionTest() {
-//		Dipendente amm = new Dipendente("CF", "NOME", "COGNOME",
-//				LocalDate.of(1990, 1, 1),
-//				"EMAIL", "NUMERO", "PW", TipoUtente.AMMINISTRATORE,
-//				LocalDate.of(2024, 9, 8));
-//
-//		Paziente paz = new Paziente("CFP005CF", "Chia", "Moretto",
-//				LocalDate.of(2020, 6, 20),
-//				"c.moretti@care.it", "202", "Paz006", "PAZIENTE",
-//				LocalDate.of(2023, 5, 20));
-//
-//		CartellaClinica cc = new CartellaClinica(paz);
-//
-//		ProxyRSA proxyRSA = new ProxyRSA(amm);
-//		proxyRSA.creaCartellaClinica(cc);
-//
-//	}
+    private Paziente paziente;
 
-	@Test
-	public void eliminationTest ()	{
-		Dipendente amm = new Dipendente("CF", "NOME", "COGNOME",
-				LocalDate.of(1990, 1, 1),
-				"EMAIL", "NUMERO", "PW", TipoUtente.AMMINISTRATORE,
-				LocalDate.of(2024, 9, 8));
+    @Before
+    public void setUp() {
+        // Dati identificativi
+        String codiceFiscale = "BNCFRC85M10H501Z";
+        String nome = "Francesco";
+        String cognome = "Barbieri";
 
-		ProxyRSA proxyRSA = new ProxyRSA(amm);
-		proxyRSA.rimuoviCartellaClinica("CFP005CF");
+        // Date
+        LocalDate dataNascita = LocalDate.of(1985, 8, 10);
+        LocalDate dataAssunzione = LocalDate.of(2023, 5, 15);
 
-	}
+        // Recapiti e credenziali
+        String email = "f.barbieri85@provider.it";
+        String cellulare = "3479876543";
+        String id = "PAZ-99";
+        String password = null;
+
+        // Creazione dell'oggetto Paziente
+        paziente = new Paziente(
+                codiceFiscale,
+                nome,
+                cognome,
+                dataNascita,
+                email,
+                cellulare,
+                password,
+                dataAssunzione
+        );
+    }
+
+    @Test
+    public void creazioneCartella(){
+        CartellaClinica c = new CartellaClinica(paziente);
+
+
+    }
+
+
 
 }
+
