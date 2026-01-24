@@ -42,20 +42,6 @@ public class CartellaClinicaDAO implements ICartellaClinicaDAO {
 	        throw new RuntimeException(e);
 	    }
 	}
-	
-    @Override
-    public boolean deleteCartellaClinicaByCf(String cf) {
-        String query = "DELETE FROM CARTELLA_CLINICA WHERE ID_PAZIENTE = ?";
-        try (Connection conn = ConnessioneDB.startConnection("ccp");
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, cf);
-            int deletedRows = ps.executeUpdate();
-            return deletedRows > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
     
     @Override
     public CartellaClinicaDB selectCartellaClinicaByCf(String cf)	{

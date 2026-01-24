@@ -57,13 +57,6 @@ public class RSAService implements IRSA {
 	    		System.out.println("Errore nella rimozione dell'utente");
 	    		return false;
 	    	}
-	    	if (p.getTipoUtente() == TipoUtente.PAZIENTE) {
-	    		boolean ccRimosso = facadeDB.deleteCartellaClinica(p.getCodiceFiscale());
-	    		if (!ccRimosso) {
-	    			System.out.println("Errore nella rimozione della cartella clinica per il paziente " + p.getCodiceFiscale());
-	    			return false;
-	    		}
-	    	}
 	    	boolean utenteRimosso = facadeDB.deletePersona(p);
 	    	if (!utenteRimosso) {
 	    		System.out.println("Errore nella rimozione dell'utente " + p.getCodiceFiscale());
@@ -90,11 +83,6 @@ public class RSAService implements IRSA {
     @Override
     public int creaCartellaClinica(CartellaClinica cc)	{
     		return facadeDB.insertCartellaClinica(cc);
-    }
-    
-    @Override
-    public boolean rimuoviCartellaClinica(String cf)	{
-    		return facadeDB.deleteCartellaClinica(cf);
     }
     
     @Override

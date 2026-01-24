@@ -129,11 +129,6 @@ public class FacadeSingletonDB {
     }
     
     
-    public boolean deleteCartellaClinica(String cf)	{
-    		return cartellaClinicaDAO.deleteCartellaClinicaByCf(cf);
-    }
-    
-    
     public int insertTerapia(Terapia t) {	
 	    	TerapiaDB db = new TerapiaDB(
 	    			t.getCartellaClinica().getIdCartellaClinica(),
