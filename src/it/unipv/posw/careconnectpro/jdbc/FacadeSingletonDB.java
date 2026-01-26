@@ -22,7 +22,6 @@ import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.TipiParam
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
-import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.FactoryDipendente;
 
@@ -95,7 +94,6 @@ public class FacadeSingletonDB {
                 db.getEmail(),
                 db.getNumeroTelefonico(),
                 db.getPassword(),
-                TipoUtente.PAZIENTE,
                 db.getDataInizio()
         );
         return paziente;
