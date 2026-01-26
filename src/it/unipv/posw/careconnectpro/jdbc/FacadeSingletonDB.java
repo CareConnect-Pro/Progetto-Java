@@ -22,7 +22,6 @@ import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.TipiParam
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
-import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.FactoryDipendente;
 
@@ -94,6 +93,10 @@ public class FacadeSingletonDB {
                 db.getDataNascita(),
                 db.getEmail(),
                 db.getNumeroTelefonico(),
+<<<<<<< HEAD
+=======
+                db.getPassword(),
+>>>>>>> branch 'master' of https://github.com/CareConnect-Pro/Progetto-Java.git
                 db.getDataInizio()
         );
         return paziente;
@@ -124,11 +127,6 @@ public class FacadeSingletonDB {
 	        cartellaClinica.setIdCartellaClinica(db.getIdCartellaClinica());
 	        
 	        return cartellaClinica;
-    }
-    
-    
-    public boolean deleteCartellaClinica(String cf)	{
-    		return cartellaClinicaDAO.deleteCartellaClinicaByCf(cf);
     }
     
     

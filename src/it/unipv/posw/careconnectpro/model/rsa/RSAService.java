@@ -57,6 +57,7 @@ public class RSAService implements IRSA {
 	    		System.out.println("Errore nella rimozione dell'utente");
 	    		return false;
 	    	}
+<<<<<<< HEAD
 	    	if (p.getTipoUtente() == TipoUtente.PAZIENTE) {
 	    		boolean ccRimosso = facadeDB.deleteCartellaClinica(p.getCodiceFiscale());
 	    		if (!ccRimosso) {
@@ -65,6 +66,8 @@ public class RSAService implements IRSA {
 	    		}
 	    	}
 
+=======
+>>>>>>> branch 'master' of https://github.com/CareConnect-Pro/Progetto-Java.git
 	    	boolean utenteRimosso = facadeDB.deletePersona(p);
 	    	if (!utenteRimosso) {
 	    		System.out.println("Errore nella rimozione dell'utente " + p.getCodiceFiscale());
@@ -93,11 +96,6 @@ public class RSAService implements IRSA {
     @Override
     public int creaCartellaClinica(CartellaClinica cc)	{
     		return facadeDB.insertCartellaClinica(cc);
-    }
-    
-    @Override
-    public boolean rimuoviCartellaClinica(String cf)	{
-    		return facadeDB.deleteCartellaClinica(cf);
     }
     
     @Override

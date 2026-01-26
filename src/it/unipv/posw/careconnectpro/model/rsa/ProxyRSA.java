@@ -45,14 +45,6 @@ public class ProxyRSA implements IRSA {
         System.out.println("Solo gli amministratori possono creare la cartella clinica per un paziente");
         return -1;
     }
-
-    @Override
-    public boolean rimuoviCartellaClinica(String cf)	{
-        if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.AMMINISTRATORE) {
-            return rsa.rimuoviCartellaClinica(cf);
-        }
-        throw new RuntimeException("Solo gli amministratori possono rimuovere la cartella clinica per un paziente");
-    }
 	
     @Override
     public int creaTerapia(Terapia t)	{
