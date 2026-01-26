@@ -19,7 +19,7 @@ public class MonitoraggioDAO implements IMonitoraggioDAO {
 	@Override
 	public int insertMonitoraggio (MonitoraggioDB mDb)	{
 		String query =
-                "INSERT INTO MONITORAGGI" + ""
+                "INSERT INTO MONITORAGGI" + " "
                 		+ "(ID_CARTELLA_CLINICA, ID_PAZIENTE, ID_INFERMIERE, TIPO_PARAMETRO, VALORE, DATA_MONITORAGGIO, ALERT, NOTE)" 
                 		+ "VALUES (?,?,?,?,?,?,?,?)";
 		try (Connection conn = ConnessioneDB.startConnection("ccp");
