@@ -9,10 +9,5 @@ public class Main {
         ViewController viewController = new ViewController();
         new FacadeController(model, viewController);
 
-//        viewController.getLoginPanel();
-//        viewController.setVisible(true);
-
-
-
     }
 }
