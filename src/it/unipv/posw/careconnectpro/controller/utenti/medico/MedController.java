@@ -23,6 +23,7 @@ public class MedController {
         monitoraggioBtn = new BtnMonitoraggioActionListener(view);
         view.getMedPanel().getOpenButton().addActionListener(monitoraggioBtn);
 
+
         monitoraggioController = new MonitoraggioController(model, view);
 
 

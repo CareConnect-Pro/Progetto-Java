@@ -159,7 +159,10 @@ public class RSAService implements IRSA {
     public Dipendente getDipendenteByCf(String cf) {
         return facadeDB.findDipendenteByCf(cf);
     }
-
+    @Override
+    public Dipendente getUtenteLoggato() {
+        return utenteLoggato;
+    }
     public void setUtenteLoggato(Dipendente utenteLoggato) {
         this.utenteLoggato = utenteLoggato;
     }

@@ -4,6 +4,7 @@ import it.unipv.posw.careconnectpro.view.dipendenti.amministratore.AmmPanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.amministratore.RegistrazioneUtentePanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.medico.ListMonitoraggioPanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.medico.MedPanel;
+import it.unipv.posw.careconnectpro.view.dipendenti.medico.TerapiaPanel;
 import it.unipv.posw.careconnectpro.view.login.LoginPanel;
 
 import javax.swing.*;
@@ -16,6 +17,8 @@ public class ViewController extends JFrame {
     private RegistrazioneUtentePanel regUtentePanel;
     private MedPanel medPanel;
     private ListMonitoraggioPanel listMonitoraggioPanel;
+    private TerapiaPanel terapiaPanel;
+
 
     public  ViewController() {
         frame = new JFrame();
@@ -47,6 +50,12 @@ public class ViewController extends JFrame {
         panel.add(listMonitoraggioPanel);
         listMonitoraggioPanel.setVisible(false);
 
+        terapiaPanel = new TerapiaPanel();
+        panel.add(terapiaPanel);
+        terapiaPanel.setVisible(false);
+
+
+
         frame.setVisible(true);
 
     }
@@ -63,5 +72,8 @@ public class ViewController extends JFrame {
     }
     public ListMonitoraggioPanel getListMonitoraggioPanel() {
         return listMonitoraggioPanel;
+    }
+    public TerapiaPanel getTerapiaPanel() {
+        return terapiaPanel;
     }
 }

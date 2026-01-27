@@ -95,6 +95,11 @@ public class ProxyRSA implements IRSA {
         }
         throw new RuntimeException("Solo i medici possono cercare un monitoraggio ");
     }
+
+    @Override
+    public Persona getUtenteLoggato(){
+        return utenteLoggato;
+    }
     
 
 }

@@ -43,7 +43,6 @@ public class ListMonitoraggioPanel extends JPanel {
         monitoraggiList.getColumnModel().getColumn(8).setPreferredWidth(150);
 
 
-
         JScrollPane scrollPane = new JScrollPane(monitoraggiList);
 
         setLayout(new BorderLayout());
@@ -77,5 +76,13 @@ public class ListMonitoraggioPanel extends JPanel {
 
     public JButton getAlertButton() {
         return alertButton;
+    }
+
+    public MonitoraggioTable getMonitoraggiTable() {
+        return monitoraggiTable;
+    }
+
+    public JTable getMonitoraggiList() {
+        return monitoraggiList;
     }
 }

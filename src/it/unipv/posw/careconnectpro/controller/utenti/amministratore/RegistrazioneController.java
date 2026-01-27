@@ -1,6 +1,5 @@
 package it.unipv.posw.careconnectpro.controller.utenti.amministratore;
 
-import it.unipv.posw.careconnectpro.controller.elementi.BtnBackHomeActionListerner;
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
@@ -15,13 +14,13 @@ import java.time.LocalDate;
 public class RegistrazioneController {
     private ViewController view;
     private IRSA model;;
-    private BtnBackHomeActionListerner btnBack;
+    private BtnBackHomeActionListener btnBack;
 
     public RegistrazioneController(IRSA model, ViewController view) {
         this.model = model;
         this.view = view;
 
-        btnBack = new BtnBackHomeActionListerner(view);
+        btnBack = new BtnBackHomeActionListener(view);
         addRegistrazioneActionListener();
 
         view.getRegUtentePanel().getConfermaButton().addActionListener(e -> registrazioneUtente());

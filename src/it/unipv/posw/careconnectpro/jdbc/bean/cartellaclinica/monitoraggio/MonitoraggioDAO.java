@@ -124,6 +124,7 @@ public class MonitoraggioDAO implements IMonitoraggioDAO {
 	        ps.setInt(2, mDb.getIdMonitoraggio());
 
 	        int rowsUpdated = ps.executeUpdate();
+            System.out.println("Eseguo update su ID: " + mDb.getIdMonitoraggio() + " con stato: " + mDb.getAlert());
 	        return rowsUpdated > 0;
 
 	    } catch (SQLException e) {
