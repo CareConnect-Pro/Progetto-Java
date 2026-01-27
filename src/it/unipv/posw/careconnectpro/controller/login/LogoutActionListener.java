@@ -20,6 +20,8 @@ public class LogoutActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         model.setUtenteLoggato(null);
         view.getAmmPanel().setVisible(false);
+        view.getMedPanel().setVisible(false);
         view.getLoginPanel().setVisible(true);
+
     }
 }

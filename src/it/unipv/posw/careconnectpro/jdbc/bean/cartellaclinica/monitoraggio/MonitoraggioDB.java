@@ -17,6 +17,7 @@ public class MonitoraggioDB {
 	public MonitoraggioDB(int idCartellaClinica, String idPaziente, String idInferimere, String tipoParametro, String valore,
 			LocalDate dataMonitoraggio, String alert, String note) {
 		super();
+        this.setIdMonitoraggio(idMonitoraggio);
 		this.idCartellaClinica = idCartellaClinica;
 		this.idPaziente = idPaziente;
 		this.idInferimere = idInferimere;

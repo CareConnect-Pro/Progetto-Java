@@ -8,7 +8,6 @@ public class AmmController {
     private IRSA model;
     private ViewController view;
     private BtnRegistraUtenteActionListener btnRegistrazione;
-
     private RegistrazioneController regController;
     private EliminaUtenteActionListener eliminaUtente;
 

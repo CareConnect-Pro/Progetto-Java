@@ -48,7 +48,42 @@ public class MonitoraggioDAO implements IMonitoraggioDAO {
         		throw new RuntimeException(e);
         }
 	}
-	
+
+    @Override
+    public MonitoraggioDB selectMonitoraggioById(int idMonitoraggio)	{
+        String query = "SELECT * FROM MONITORAGGI WHERE ID_MONITORAGGIO = ? " ;
+        MonitoraggioDB mDb = null;
+
+        try (Connection conn = ConnessioneDB.startConnection("ccp");
+             PreparedStatement ps = conn.prepareStatement(query);
+             ) {
+            ps.setInt(1, idMonitoraggio);
+
+             try (ResultSet rs = ps.executeQuery()){
+                 if (rs.next()) {
+                    mDb = new MonitoraggioDB(
+                             rs.getInt("ID_CARTELLA_CLINICA"),
+                             rs.getString("ID_PAZIENTE"),
+                             rs.getString("ID_INFERMIERE"),
+                             rs.getString("TIPO_PARAMETRO"),
+                             rs.getString("VALORE"),
+                             rs.getDate("DATA_MONITORAGGIO").toLocalDate(),
+                             rs.getString("ALERT"),
+                             rs.getString("NOTE")
+                     );
+                     mDb.setIdMonitoraggio(rs.getInt("ID_MONITORAGGIO"));
+
+                 }
+             } catch (Exception e) {
+                 throw new RuntimeException(e);
+             }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return mDb;
+    }
 	
 	public List<MonitoraggioDB> selectMonitoraggioByAlertAttivo()	{
 		String query = "SELECT * FROM MONITORAGGI WHERE ALERT = 'ATTIVO'";
@@ -80,12 +115,12 @@ public class MonitoraggioDAO implements IMonitoraggioDAO {
 	
 	@Override
 	public boolean updateAlertMonitoraggio(MonitoraggioDB mDb) {
-	    String query = "UPDATE MONITORAGGI SET ALERT = 'RISOLTO', NOTE = ? WHERE ID_MONITORAGGIO = ?";
+	    String query = "UPDATE MONITORAGGI SET ALERT = ? WHERE ID_MONITORAGGIO = ?";
 	    
 	    try (Connection conn = ConnessioneDB.startConnection("ccp");
 		     PreparedStatement ps = conn.prepareStatement(query);) {
 
-	        ps.setString(1, mDb.getNote());  
+            ps.setString(1,  mDb.getAlert());
 	        ps.setInt(2, mDb.getIdMonitoraggio());
 
 	        int rowsUpdated = ps.executeUpdate();
@@ -96,5 +131,7 @@ public class MonitoraggioDAO implements IMonitoraggioDAO {
 	        return false;
 	    }
 	}
+
+
 
 }

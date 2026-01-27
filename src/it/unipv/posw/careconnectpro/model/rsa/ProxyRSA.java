@@ -85,6 +85,16 @@ public class ProxyRSA implements IRSA {
         }
         throw new RuntimeException("Solo i medici possono contrassegnare un monitoraggio come risolto");	  
 	}
+
+
+    //MEDICO UNICO
+    @Override
+    public Monitoraggio cercaMonitoraggioById(int id)	{
+        if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.MEDICO) {
+            return rsa.cercaMonitoraggioById(id);
+        }
+        throw new RuntimeException("Solo i medici possono cercare un monitoraggio ");
+    }
     
 
 }

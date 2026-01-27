@@ -17,6 +17,7 @@ public interface IRSA {
 	int creaMonitoraggio(Monitoraggio m);
 	List<Monitoraggio> getMonitoraggiConAlertAttivo();
 	boolean risolviAlertMonitoraggio(Monitoraggio m);
+    Monitoraggio cercaMonitoraggioById(int id);
 	
 }
 

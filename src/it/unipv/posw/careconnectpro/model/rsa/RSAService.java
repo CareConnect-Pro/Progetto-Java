@@ -140,6 +140,11 @@ public class RSAService implements IRSA {
 		return facadeDB.insertMonitoraggio(m);
 	}
 
+    @Override
+    public Monitoraggio cercaMonitoraggioById(int id)	{
+        return facadeDB.selectMonitoraggioById(id);
+    }
+
 	@Override
 	public List<Monitoraggio> getMonitoraggiConAlertAttivo() {
 	    return facadeDB.selectMonitoraggioByAlertAttivo();
@@ -158,5 +163,7 @@ public class RSAService implements IRSA {
     public void setUtenteLoggato(Dipendente utenteLoggato) {
         this.utenteLoggato = utenteLoggato;
     }
+
+
 }
 

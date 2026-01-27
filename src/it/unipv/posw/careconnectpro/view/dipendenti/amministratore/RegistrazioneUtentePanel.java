@@ -1,4 +1,4 @@
-package it.unipv.posw.careconnectpro.view.dipendenti;
+package it.unipv.posw.careconnectpro.view.dipendenti.amministratore;
 
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 

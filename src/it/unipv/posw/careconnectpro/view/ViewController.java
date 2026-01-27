@@ -1,7 +1,9 @@
 package it.unipv.posw.careconnectpro.view;
 
-import it.unipv.posw.careconnectpro.view.dipendenti.AmmPanel;
-import it.unipv.posw.careconnectpro.view.dipendenti.RegistrazioneUtentePanel;
+import it.unipv.posw.careconnectpro.view.dipendenti.amministratore.AmmPanel;
+import it.unipv.posw.careconnectpro.view.dipendenti.amministratore.RegistrazioneUtentePanel;
+import it.unipv.posw.careconnectpro.view.dipendenti.medico.ListMonitoraggioPanel;
+import it.unipv.posw.careconnectpro.view.dipendenti.medico.MedPanel;
 import it.unipv.posw.careconnectpro.view.login.LoginPanel;
 
 import javax.swing.*;
@@ -12,6 +14,8 @@ public class ViewController extends JFrame {
     private LoginPanel loginPanel;
     private AmmPanel ammPanel;
     private RegistrazioneUtentePanel regUtentePanel;
+    private MedPanel medPanel;
+    private ListMonitoraggioPanel listMonitoraggioPanel;
 
     public  ViewController() {
         frame = new JFrame();
@@ -35,6 +39,13 @@ public class ViewController extends JFrame {
         panel.add(regUtentePanel);
         regUtentePanel.setVisible(false);
 
+        medPanel = new MedPanel();
+        panel.add(medPanel);
+        medPanel.setVisible(false);
+
+        listMonitoraggioPanel = new ListMonitoraggioPanel();
+        panel.add(listMonitoraggioPanel);
+        listMonitoraggioPanel.setVisible(false);
 
         frame.setVisible(true);
 
@@ -46,5 +57,11 @@ public class ViewController extends JFrame {
     public AmmPanel getAmmPanel() { return ammPanel; }
     public RegistrazioneUtentePanel getRegUtentePanel() {
         return regUtentePanel;
+    }
+    public MedPanel getMedPanel() {
+        return medPanel;
+    }
+    public ListMonitoraggioPanel getListMonitoraggioPanel() {
+        return listMonitoraggioPanel;
     }
 }

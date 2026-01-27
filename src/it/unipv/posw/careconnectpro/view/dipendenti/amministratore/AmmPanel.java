@@ -1,4 +1,4 @@
-package it.unipv.posw.careconnectpro.view.dipendenti;
+package it.unipv.posw.careconnectpro.view.dipendenti.amministratore;
 
 import javax.swing.*;
 import java.awt.*;

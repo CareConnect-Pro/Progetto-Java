@@ -23,8 +23,9 @@ public class GoBtnActionListener implements ActionListener {
         String cf = view.getLoginPanel().getCfField().getText();
         String password = String.valueOf(view.getLoginPanel().getPasswordField().getPassword());;
 
-        Dipendente utenteLoggato = model.getDipendenteByCf(cf);
+        Dipendente utenteLoggato = model.login(cf,password);
         TipoUtente ruolo = utenteLoggato.getTipoUtente();
+
         pulisciTextField();
         view.getLoginPanel().setVisible(false);
         model.setUtenteLoggato(utenteLoggato);
@@ -35,12 +36,14 @@ public class GoBtnActionListener implements ActionListener {
                     view.getLoginPanel().setVisible(false);
                     view.getAmmPanel().setVisible(true);
                     break;
+                case MEDICO:
+                    view.getLoginPanel().setVisible(false);
+                    view.getAmmPanel().setVisible(false);
+                    view.getMedPanel().setVisible(true);
+                    break;
+
                 case PAZIENTE:
                     break;
-                case MEDICO:
-                    break;
-
-
                 case INFERMIERE:
                     break;
                 default:

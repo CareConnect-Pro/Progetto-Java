@@ -33,6 +33,7 @@ public class FacadeSingletonDB {
     private ICartellaClinicaDAO cartellaClinicaDAO;
     private ITerapiaDAO terapiaDAO;
     private IMonitoraggioDAO monitoraggioDAO;
+    private static final Alert alert = Alert.RISOLTO;
 
     public FacadeSingletonDB() {
         personaDAO = new PersonaDAO();
@@ -167,7 +168,7 @@ public class FacadeSingletonDB {
     }
     
     
-    public Monitoraggio convertToMonitoraggio(MonitoraggioDB mDb)	{
+    private Monitoraggio convertToMonitoraggio(MonitoraggioDB mDb)	{
         Paziente paziente = findPazienteByCf(mDb.getIdPaziente());
         CartellaClinica cc = findCartellaClinicaByCf(paziente.getCodiceFiscale());
         Dipendente infermiere = findDipendenteByCf(mDb.getIdInferimere());
@@ -182,8 +183,14 @@ public class FacadeSingletonDB {
 			            Alert.valueOf(mDb.getAlert()),
 			            mDb.getNote()
 			        );
-
+        monitoraggio.setIdMonitoraggio(mDb.getIdMonitoraggio());
         return monitoraggio;      
+    }
+
+    public Monitoraggio selectMonitoraggioById(int id)  {
+        MonitoraggioDB db = monitoraggioDAO.selectMonitoraggioById(id);
+        return  convertToMonitoraggio(db);
+
     }
     
     
