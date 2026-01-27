@@ -52,23 +52,33 @@ public class RSAService implements IRSA {
 
     
 	@Override
-    public boolean rimuoviUtente(Persona p) {
-	    	if (p == null) {
-	    		System.out.println("Errore nella rimozione dell'utente");
-	    		return false;
-	    	}
-<<<<<<< HEAD
-	    	if (p.getTipoUtente() == TipoUtente.PAZIENTE) {
-	    		boolean ccRimosso = facadeDB.deleteCartellaClinica(p.getCodiceFiscale());
-	    		if (!ccRimosso) {
-	    			System.out.println("Errore nella rimozione della cartella clinica per il paziente " + p.getCodiceFiscale());
-	    			return false;
-	    		}
-	    	}
+    public boolean rimuoviUtente(String cf) {
 
-=======
->>>>>>> branch 'master' of https://github.com/CareConnect-Pro/Progetto-Java.git
-	    	boolean utenteRimosso = facadeDB.deletePersona(p);
+        if (cf == null) {
+            System.out.println("Errore nella rimozione dell'utente");
+            return false;
+        }
+
+        Persona p = facadeDB.findPazienteByCf(cf);
+        if (p == null) {
+            p = facadeDB.findDipendenteByCf(cf);
+        }
+
+        if (p == null) {
+            System.out.println("Utente non presente nel DB");
+            return false;
+        }
+
+        if (p.getTipoUtente() == TipoUtente.PAZIENTE) {
+            boolean ccRimosso = facadeDB.deleteCartellaClinica(p.getCodiceFiscale());
+            if (!ccRimosso) {
+                System.out.println("Errore nella rimozione della cartella clinica per il paziente " + p.getCodiceFiscale());
+                return false;
+            }
+
+        }
+
+        boolean utenteRimosso = facadeDB.deletePersona(p);
 	    	if (!utenteRimosso) {
 	    		System.out.println("Errore nella rimozione dell'utente " + p.getCodiceFiscale());
 	    		return false;
@@ -96,6 +106,11 @@ public class RSAService implements IRSA {
     @Override
     public int creaCartellaClinica(CartellaClinica cc)	{
     		return facadeDB.insertCartellaClinica(cc);
+    }
+    
+    @Override
+    public boolean rimuoviCartellaClinica(String cf)	{
+    		return facadeDB.deleteCartellaClinica(cf);
     }
     
     @Override

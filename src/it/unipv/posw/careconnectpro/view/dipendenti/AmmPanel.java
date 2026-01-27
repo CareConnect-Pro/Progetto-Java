@@ -20,7 +20,8 @@ public class AmmPanel extends JPanel {
 
         add(registraButton);
         add(eliminaButton);
-        add(logoutButton);
+        add(logoutButton, BorderLayout.SOUTH);
+
     }
 
     public JButton getEliminaButton() {

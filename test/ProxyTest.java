@@ -44,8 +44,8 @@ public class ProxyTest {
     public void deleteTest(){
         ProxyRSA proxyRSA = new ProxyRSA(amministratore);
 
-        proxyRSA.rimuoviUtente(medico);
-        proxyRSA.rimuoviUtente(dipendenteNuovo);
+        proxyRSA.rimuoviUtente(medico.getCodiceFiscale());
+        proxyRSA.rimuoviUtente(dipendenteNuovo.getCodiceFiscale());
 
     }
 }

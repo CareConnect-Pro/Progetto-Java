@@ -30,9 +30,9 @@ public class ProxyRSA implements IRSA {
     }
 
     @Override
-    public boolean rimuoviUtente(Persona persona)	{
+    public boolean rimuoviUtente(String cf)	{
         if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.AMMINISTRATORE) {
-            return rsa.rimuoviUtente(persona);
+            return rsa.rimuoviUtente(cf);
         }
         throw new RuntimeException("Solo gli amministratori possono rimuovere le persone");
     }
@@ -44,6 +44,14 @@ public class ProxyRSA implements IRSA {
         }
         System.out.println("Solo gli amministratori possono creare la cartella clinica per un paziente");
         return -1;
+    }
+
+    @Override
+    public boolean rimuoviCartellaClinica(String cf)	{
+        if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.AMMINISTRATORE) {
+            return rsa.rimuoviCartellaClinica(cf);
+        }
+        throw new RuntimeException("Solo gli amministratori possono rimuovere la cartella clinica per un paziente");
     }
 	
     @Override

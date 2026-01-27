@@ -1,5 +1,7 @@
 package it.unipv.posw.careconnectpro.view.dipendenti;
 
+import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,11 +11,12 @@ public class RegistrazioneUtentePanel extends JPanel {
                     passwordLabel, tipoUtenteLabel;
     private JTextField cfField, nomeField, cognomeField, dataNascitaField, emailField, cellulareField,
                         passwordField, tipoUtenteField;
-    private JButton confermaButton;
+    private JComboBox<TipoUtente> tipoUtenteComboBox;
+    private JButton confermaButton, uscitaButton;
 
     public RegistrazioneUtentePanel() {
         Font mediumFont = new Font("Arial", 0, 16);
-        Font largeFont = new Font("Arial", 0, 24);
+        Font largeFont = new Font("Arial", 0, 20);
 
         setVisible(true);
         setLayout(new GridLayout(9,2,10,10));
@@ -33,8 +36,14 @@ public class RegistrazioneUtentePanel extends JPanel {
         passwordLabel = new JLabel("Password");
         passwordField = new JPasswordField();
         tipoUtenteLabel = new JLabel("Tipo utente");
-        tipoUtenteField = new JTextField();
+        tipoUtenteComboBox = new JComboBox<>(TipoUtente.values());
+        uscitaButton = new JButton("Indietro");
         confermaButton = new JButton("Registra");
+
+//        confermaButton.setBackground(new Color(173, 216, 230));
+//        confermaButton.setOpaque(true);
+//        confermaButton.setBorderPainted(false);
+
 
         cfLabel.setFont(mediumFont);
         nomeLabel.setFont(mediumFont);
@@ -44,6 +53,8 @@ public class RegistrazioneUtentePanel extends JPanel {
         cellulareLabel.setFont(mediumFont);
         passwordLabel.setFont(mediumFont);
         tipoUtenteLabel.setFont(mediumFont);
+        tipoUtenteComboBox.setFont(mediumFont);
+        uscitaButton.setFont(mediumFont);
         confermaButton.setFont(largeFont);
 
         add(cfLabel);
@@ -61,7 +72,8 @@ public class RegistrazioneUtentePanel extends JPanel {
         add(passwordLabel);
         add(passwordField);
         add(tipoUtenteLabel);
-        add(tipoUtenteField);
+        add(tipoUtenteComboBox);
+        add(uscitaButton);
         add(confermaButton);
 
     }
@@ -117,6 +129,10 @@ public class RegistrazioneUtentePanel extends JPanel {
     public JButton getConfermaButton() {
         return confermaButton;
     }
-
-
+    public JComboBox<TipoUtente> getTipoUtenteComboBox() {
+        return tipoUtenteComboBox;
+    }
+    public JButton getUscitaButton() {
+        return uscitaButton;
+    }
 }

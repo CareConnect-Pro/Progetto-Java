@@ -20,8 +20,6 @@ public class LoginController {
 
         addlogoutActionListener();
 
-
-
     }
 
     private void addlogoutActionListener(){
