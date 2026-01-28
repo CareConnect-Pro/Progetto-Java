@@ -1,7 +1,7 @@
 package it.unipv.posw.careconnectpro.controller.utenti.medico;
 
-import it.unipv.posw.careconnectpro.controller.utenti.medico.btn.BtnAddTerapiaActionListener;
-import it.unipv.posw.careconnectpro.controller.utenti.medico.btn.BtnBackActionListener;
+import it.unipv.posw.careconnectpro.controller.utenti.medico.button.BtnAddTerapiaActionListener;
+import it.unipv.posw.careconnectpro.controller.utenti.medico.button.BtnBackActionListener;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
 import it.unipv.posw.careconnectpro.view.ViewController;

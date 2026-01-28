@@ -1,4 +1,4 @@
-package it.unipv.posw.careconnectpro.controller.utenti.medico.btn;
+package it.unipv.posw.careconnectpro.controller.utenti.medico.button;
 
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
 import it.unipv.posw.careconnectpro.view.ViewController;

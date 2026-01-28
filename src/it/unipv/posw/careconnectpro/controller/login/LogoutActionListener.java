@@ -21,7 +21,9 @@ public class LogoutActionListener implements ActionListener {
         model.setUtenteLoggato(null);
         view.getAmmPanel().setVisible(false);
         view.getMedPanel().setVisible(false);
+        view.getInfPanel().setVisible(false);
         view.getLoginPanel().setVisible(true);
+
 
     }
 }

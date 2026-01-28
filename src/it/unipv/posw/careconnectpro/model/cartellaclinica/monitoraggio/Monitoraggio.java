@@ -28,7 +28,7 @@ public class Monitoraggio {
         this.infermiere = infermiere;
         this.tipiParametroVitale = tipiParametroVitale;
         this.valore = valore;
-        this.dataMonitoraggio = LocalDate.now();
+        this.dataMonitoraggio = dataMonitoraggio;
         this.alert = alert;
         this.note = note;      
     }

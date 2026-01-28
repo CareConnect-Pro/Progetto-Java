@@ -1,5 +1,6 @@
 package it.unipv.posw.careconnectpro.view.dipendenti.medico;
 
+import it.unipv.posw.careconnectpro.controller.utenti.medico.MonitoraggioController;
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
 import it.unipv.posw.careconnectpro.model.rsa.RSAService;
 
@@ -8,11 +9,10 @@ import java.awt.*;
 
 public class ListMonitoraggioPanel extends JPanel {
 
-    private static final long serialVersionUID = 1L;
-    
-	private JTable monitoraggiList;
+    private JTable monitoraggiList;
     private JButton terapiaButton, backButton, alertButton;
     private MonitoraggioTable monitoraggiTable;
+    private MonitoraggioController controller;
     private IRSA model;
 
 

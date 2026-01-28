@@ -87,7 +87,7 @@ public class PersonaDAO  implements IPersonaDAO {
     		                rs.getString("COGNOME"),
     		                rs.getDate("DATA_DI_NASCITA").toLocalDate(),
     		                rs.getString("EMAIL"),
-    		                rs.getString("NUMERO_TELEFONO"),
+    		                rs.getString("NUMERO_TELEFONICO"),
     		                rs.getString("PASSWORD_UTENTE"),
     		                rs.getString("RUOLO_UTENTE"),
     		                rs.getDate("DATA_INIZIO").toLocalDate()

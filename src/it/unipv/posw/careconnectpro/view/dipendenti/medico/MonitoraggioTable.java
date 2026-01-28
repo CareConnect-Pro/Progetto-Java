@@ -1,6 +1,8 @@
 package it.unipv.posw.careconnectpro.view.dipendenti.medico;
 
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
+import it.unipv.posw.careconnectpro.model.rsa.IRSA;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -9,6 +11,7 @@ public class MonitoraggioTable extends AbstractTableModel {
    private static final long serialVersionUID = 1L;
    
    List<Monitoraggio> monitoraggi;
+   private IRSA model;
    private final String[] columnNames = {"ID", "CC", "CF_PAZIENTE", "CF_INFERMIERE", "PARAMENTRO VITALE",
                                             "VALORE", "DATA", "ALERT", "NOTE"};
 
@@ -16,6 +19,7 @@ public class MonitoraggioTable extends AbstractTableModel {
    public MonitoraggioTable(List <Monitoraggio> monitoraggi) {
        this.monitoraggi = monitoraggi;
    }
+   
 
    @Override
    public int getRowCount() {

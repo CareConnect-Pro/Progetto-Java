@@ -26,5 +26,6 @@ public class LoginController {
         LogoutActionListener logout = new LogoutActionListener(rsa, view);
         view.getAmmPanel().getLogoutButton().addActionListener(logout);
         view.getMedPanel().getLogoutButton().addActionListener(logout);
+        view.getInfPanel().getLogoutButton().addActionListener(logout);
     }
 }

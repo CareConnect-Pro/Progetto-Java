@@ -43,9 +43,10 @@ public class GoBtnActionListener implements ActionListener {
                     break;
 
                 case PAZIENTE:
-                    break;
+                    throw new RuntimeException("Non hai le autorizzazione per accedere");
                 case INFERMIERE:
-                    break;
+                    view.getLoginPanel().setVisible(false);
+                    view.getInfPanel().setVisible(true);
                 default:
                     break;
             }
