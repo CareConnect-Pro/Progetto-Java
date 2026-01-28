@@ -2,15 +2,13 @@ package it.unipv.posw.careconnectpro.view.dipendenti.infermiere;
 
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Alert;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.TipiParametroVitale;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.TipoSomministrazione;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MonitoraggioPanel extends JPanel {
-	
-    private static final long serialVersionUID = 1L;
-
-	private JLabel idCartellaLabel, cfPazienteLabel, idInfermiereLabel, parametriLabel,
+    private JLabel idCartellaLabel, cfPazienteLabel, idInfermiereLabel, parametriLabel,
                     valoreLabel, dataLabel, alertLabel, noteLabel;
 
     private JTextField idCartellaField,  cfPazienteField, idInfermiereField, valoreFiel, dataFiel, noteFiel;

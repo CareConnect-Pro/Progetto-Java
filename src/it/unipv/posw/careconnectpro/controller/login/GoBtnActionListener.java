@@ -3,6 +3,7 @@ package it.unipv.posw.careconnectpro.controller.login;
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.rsa.RSAService;
+import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
 import java.awt.event.ActionEvent;
@@ -24,6 +25,10 @@ public class GoBtnActionListener implements ActionListener {
         String password = String.valueOf(view.getLoginPanel().getPasswordField().getPassword());;
 
         Dipendente utenteLoggato = model.login(cf,password);
+        if(utenteLoggato == null) {
+            PopUp.infoBox("Username e/o password sbagliati", "Login non valido");
+        }
+
         TipoUtente ruolo = utenteLoggato.getTipoUtente();
 
         pulisciTextField();

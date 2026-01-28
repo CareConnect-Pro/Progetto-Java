@@ -1,6 +1,7 @@
 package it.unipv.posw.careconnectpro.controller.utenti.medico;
 
-import it.unipv.posw.careconnectpro.controller.utenti.medico.button.BtnConfermaTerapiaAL;
+import it.unipv.posw.careconnectpro.controller.utenti.medico.button.BtnAddTerapiaActionListener;
+
 import it.unipv.posw.careconnectpro.controller.utenti.medico.button.BtnIndietroTerapiaAL;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.StatoTerapia;
@@ -20,19 +21,19 @@ public class TerapiaController {
     private IRSA model;
     private ViewController view;
     private BtnIndietroTerapiaAL indietroTerapia;
-    private BtnConfermaTerapiaAL confermaTerapia;
+
+    private boolean successo = false;
+    private BtnAddTerapiaActionListener terapiaAL = new BtnAddTerapiaActionListener(model, view);
 
     public TerapiaController(IRSA model, ViewController view){
         this.model = model;
         this.view = view;
 
         indietroTerapia = new BtnIndietroTerapiaAL(view);
-        confermaTerapia = new BtnConfermaTerapiaAL(view);
+
 
         view.getTerapiaPanel().getAddTerapiaButton().addActionListener(e-> addTerapia());
         view.getTerapiaPanel().getBackButton().addActionListener(indietroTerapia);
-        view.getTerapiaPanel().getConfermaButton().addActionListener(confermaTerapia);
-        view.getTerapiaPanel().getConfermaButton().addActionListener(indietroTerapia);
 
 
     }
@@ -62,12 +63,14 @@ public class TerapiaController {
             model.creaTerapia(t);
             Monitoraggio m = model.cercaMonitoraggioById(idMonitoraggio);
 
-            boolean successo = model.risolviAlertMonitoraggio(m);
+            successo = model.risolviAlertMonitoraggio(m);
+            int riga = terapiaAL.getRigaSelezionata();
 
             if(successo){
+                pulisciTextField();
+                view.getListMonitoraggioPanel().getMonitoraggiTable().rimuoviMonitoraggio(riga);
                 PopUp.infoBox("Terapia aggiunta nel database.", "Successo");
             } else {
-
                 PopUp.infoBox("Errore nell'aggiornamento del Database.", "Errore DB");
             }
 
@@ -76,5 +79,24 @@ public class TerapiaController {
         }
     }
 
+    private void pulisciTextField(){
+        view.getTerapiaPanel().getIdCartellaField().setText(null);
+        view.getTerapiaPanel().getIdPazienteField().setText(null);
+        view.getTerapiaPanel().getIdMedicoField().setText(null);
+        view.getTerapiaPanel().getIdMonitoraggioField().setText(null);
+        view.getTerapiaPanel().getFarmacoField().setText(null);
+        view.getTerapiaPanel().getMaterialeField().setText(null);
+        view.getTerapiaPanel().getDosaggioField().setText(null);
+        view.getTerapiaPanel().getFrequenzaField().setText(null);
+        view.getTerapiaPanel().getDurataField().setText(null);
+        view.getTerapiaPanel().getDataInizioField().setText(null);
+        view.getTerapiaPanel().getDataFineField().setText(null);
+        view.getTerapiaPanel().getNoteField().setText(null);
 
+
+
+    }
+    public boolean isSuccesso() {
+        return successo;
+    }
 }

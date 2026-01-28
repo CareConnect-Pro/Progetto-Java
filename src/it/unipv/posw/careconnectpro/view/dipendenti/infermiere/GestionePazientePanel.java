@@ -8,9 +8,7 @@ import java.awt.*;
 
 public class GestionePazientePanel extends JPanel {
 
-    private static final long serialVersionUID = 1L;
-    
-	private JTable pazienteTable;
+    private JTable pazienteTable;
     private JButton inserisciButton, backButton;
     private PazientiTable tabellaPazienti;
     private IRSA model;

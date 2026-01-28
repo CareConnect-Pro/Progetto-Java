@@ -4,10 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MedPanel extends JPanel {
-	
-    private static final long serialVersionUID = 1L;
-    
-	private JButton logoutButton, openButton;
+    private JButton logoutButton, openButton;
 
 
     public MedPanel() {

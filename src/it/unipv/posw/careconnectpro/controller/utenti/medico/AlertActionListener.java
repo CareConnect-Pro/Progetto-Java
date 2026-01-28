@@ -2,6 +2,7 @@ package it.unipv.posw.careconnectpro.controller.utenti.medico;
 
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
+import it.unipv.posw.careconnectpro.model.rsa.RSAService;
 import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;
 

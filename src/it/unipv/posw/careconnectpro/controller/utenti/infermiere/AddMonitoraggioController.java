@@ -1,5 +1,6 @@
 package it.unipv.posw.careconnectpro.controller.utenti.infermiere;
 
+import it.unipv.posw.careconnectpro.controller.utenti.infermiere.button.BtnAddMonitoraggioAL;
 import it.unipv.posw.careconnectpro.controller.utenti.infermiere.button.BtnBackHomeInfAL;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Alert;
@@ -7,6 +8,7 @@ import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitorag
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.TipiParametroVitale;
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
+import it.unipv.posw.careconnectpro.model.persona.dipendente.Infermiere;
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
 import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;

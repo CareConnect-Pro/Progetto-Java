@@ -4,10 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class InfPanel extends JPanel{
-	
-    private static final long serialVersionUID = 1L;
-    
-	private JButton monitoraggioButton, logoutButton;
+    private JButton monitoraggioButton, logoutButton;
 
     public InfPanel(){
         Font mediumFont = new Font("Arial", 0, 16);

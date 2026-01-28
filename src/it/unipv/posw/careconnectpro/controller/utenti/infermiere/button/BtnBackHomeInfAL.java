@@ -21,7 +21,6 @@ public class BtnBackHomeInfAL implements ActionListener {
         view.getGestionePazPanel().setVisible(false);
         view.getMonitoraggioPanel().setVisible(false);
         view.getInfPanel().setVisible(true);
-        System.out.println("Tasto premuto");
         view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
