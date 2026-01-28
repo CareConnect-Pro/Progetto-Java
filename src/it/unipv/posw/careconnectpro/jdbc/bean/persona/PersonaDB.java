@@ -3,6 +3,8 @@ package it.unipv.posw.careconnectpro.jdbc.bean.persona;
 import java.time.LocalDate;
 
 public class PersonaDB {
+	
+	private int idPersona;
     private String codiceFiscale;
     private String nome;
     private String cognome;
@@ -12,9 +14,11 @@ public class PersonaDB {
     private String password;
     private String ruolo;
     private LocalDate dataInizio;
+    
 
     public PersonaDB(String codiceFiscale, String nome, String cognome, LocalDate dataNascita, String email,
                      String numeroTelefonico,  String password, String ruolo, LocalDate dataInizio) {
+    	   this.setIdPersona(idPersona);
         this.codiceFiscale = codiceFiscale;
         this.nome = nome;
         this.cognome = cognome;
@@ -35,5 +39,8 @@ public class PersonaDB {
     public String getPassword() {return password;}
     public String getRuolo() {return ruolo;}
     public LocalDate getDataInizio() {return dataInizio;}
+
+	public int getIdPersona() {return idPersona;}
+	public void setIdPersona(int idPersona) {this.idPersona = idPersona;}
 
 }

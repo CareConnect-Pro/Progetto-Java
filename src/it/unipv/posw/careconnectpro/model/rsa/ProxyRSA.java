@@ -29,6 +29,15 @@ public class ProxyRSA implements IRSA {
         System.out.println("Solo gli amministratori possono registrare nuovi utenti");
         return false;
     }
+    
+	@Override
+	public List<Paziente> cercaPazienti() {
+		if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.INFERMIERE) {
+            return rsa.cercaPazienti();
+        }
+        System.out.println("Solo gli infermieri possono visualizzare la lista dei pazienti");
+        return null;
+	}
 
     @Override
     public boolean rimuoviUtente(String cf)	{
@@ -128,4 +137,5 @@ public class ProxyRSA implements IRSA {
         }
         throw new RuntimeException("Solo i medici e infermieri possono cercare una cartella clinica ");
     }
+
 }

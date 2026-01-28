@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AmmPanel extends JPanel {
-    private JButton registraButton, eliminaButton, logoutButton;
+   
+	private static final long serialVersionUID = 1L;
+    
+	private JButton registraButton, eliminaButton, logoutButton;
 
     public AmmPanel() {
         Font mediumFont = new Font("Arial", 0, 16);

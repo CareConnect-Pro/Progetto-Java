@@ -10,7 +10,10 @@ import it.unipv.posw.careconnectpro.view.login.LoginPanel;
 import javax.swing.*;
 
 public class ViewController extends JFrame {
-    private JFrame frame;
+    
+	private static final long serialVersionUID = 1L;
+	
+	private JFrame frame;
     private JPanel panel;
     private LoginPanel loginPanel;
     private AmmPanel ammPanel;

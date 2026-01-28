@@ -49,6 +49,11 @@ public class RSAService implements IRSA {
         System.out.println("Registrazione utente avvenuta con successo: " + p.getCodiceFiscale());
         return true;
     }
+    
+    @Override
+    public List<Paziente> cercaPazienti()	{
+    		return facadeDB.selectPazienti();
+    }
 
     
 	@Override

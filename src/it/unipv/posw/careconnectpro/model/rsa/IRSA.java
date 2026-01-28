@@ -24,6 +24,7 @@ public interface IRSA {
     Dipendente cercaDipendenteByCf(String cf);
     Paziente cercaPazienteByCf(String cf);
     CartellaClinica cercaCartellaClinicaByCf(String cf);
+	List<Paziente> cercaPazienti();
 	
 }
 

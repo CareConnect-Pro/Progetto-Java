@@ -22,7 +22,6 @@ import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.TipiParam
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
-import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.FactoryDipendente;
 
@@ -33,7 +32,6 @@ public class FacadeSingletonDB {
     private ICartellaClinicaDAO cartellaClinicaDAO;
     private ITerapiaDAO terapiaDAO;
     private IMonitoraggioDAO monitoraggioDAO;
-    private static final Alert alert = Alert.RISOLTO;
 
     public FacadeSingletonDB() {
         personaDAO = new PersonaDAO();
@@ -98,6 +96,31 @@ public class FacadeSingletonDB {
                 db.getDataInizio()
         );
         return paziente;
+    }
+
+    private Paziente convertToPaziente (PersonaDB pDb)	{
+	    	Paziente paziente = new Paziente(
+		            pDb.getCodiceFiscale(),
+		            pDb.getNome(),
+		            pDb.getCognome(),
+		            pDb.getDataNascita(),
+		            pDb.getEmail(),
+		            pDb.getNumeroTelefonico(),
+		            pDb.getDataInizio()		           
+		        );
+		paziente.setIdPaziente(pDb.getIdPersona());
+		return paziente;  
+    }
+    
+    public List<Paziente> selectPazienti ()  {
+    		List<PersonaDB> pazientiDB = personaDAO.selectPazienti();
+		List<Paziente> pazienti = new ArrayList<>();
+		
+		for (PersonaDB pDb : pazientiDB)	{
+			Paziente p = convertToPaziente(pDb);
+			pazienti.add(p);
+		}	
+		return pazienti;
     }
 
     

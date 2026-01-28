@@ -4,6 +4,8 @@ import it.unipv.posw.careconnectpro.jdbc.ConnessioneDB;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PersonaDAO  implements IPersonaDAO {
 
@@ -67,6 +69,38 @@ public class PersonaDAO  implements IPersonaDAO {
             return null;
         }
         return p;
+    }
+    
+    @Override
+    public List<PersonaDB> selectPazienti()	{
+    		String query = "SELECT * FROM UTENTI WHERE RUOLO_UTENTE = 'PAZIENTE' ";
+    		
+    		List<PersonaDB> pazienti = new ArrayList<>();
+    		
+    		try (Connection conn = ConnessioneDB.startConnection("ccp");
+    		         PreparedStatement ps = conn.prepareStatement(query);
+    		         ResultSet rs = ps.executeQuery()) {
+    		        while (rs.next()) {
+    		            PersonaDB pDb = new PersonaDB(
+    		                rs.getString("CODICE_FISCALE"),
+    		                rs.getString("NOME"),
+    		                rs.getString("COGNOME"),
+    		                rs.getDate("DATA_DI_NASCITA").toLocalDate(),
+    		                rs.getString("EMAIL"),
+    		                rs.getString("NUMERO_TELEFONO"),
+    		                rs.getString("PASSWORD_UTENTE"),
+    		                rs.getString("RUOLO_UTENTE"),
+    		                rs.getDate("DATA_INIZIO").toLocalDate()
+    		            );
+    		            pDb.setIdPersona(rs.getInt("ID"));
+    		            pazienti.add(pDb);
+    		        }
+    		    } catch (Exception e) {
+    		        throw new RuntimeException(e);
+    		    }
+    		
+    		return pazienti;
+    		
     }
 
     @Override

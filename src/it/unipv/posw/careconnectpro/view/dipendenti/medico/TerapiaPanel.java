@@ -8,7 +8,9 @@ import java.awt.*;
 
 public class TerapiaPanel extends JPanel {
 
-    private JLabel somministrazioneLabel, farmacoLabel, materialeLabel, dosaggioLabel, frequenzaLabel, statoLabel,
+    private static final long serialVersionUID = 1L;
+
+	private JLabel somministrazioneLabel, farmacoLabel, materialeLabel, dosaggioLabel, frequenzaLabel, statoLabel,
                     durataLabel, dataInizioLabel, dataFineLabel, noteLabel, idCartellaLabel, idPazienteLabel, idMedicoLabel,
                     idMonitoraggioLabel;
 

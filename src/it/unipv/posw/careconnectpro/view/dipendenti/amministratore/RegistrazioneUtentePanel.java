@@ -7,7 +7,9 @@ import java.awt.*;
 
 public class RegistrazioneUtentePanel extends JPanel {
 
-    private JLabel cfLabel, nomeLabel, cognomeLabel, dataNascitaLabel, emailLabel, cellulareLabel,
+    private static final long serialVersionUID = 1L;
+    
+	private JLabel cfLabel, nomeLabel, cognomeLabel, dataNascitaLabel, emailLabel, cellulareLabel,
                     passwordLabel, tipoUtenteLabel;
     private JTextField cfField, nomeField, cognomeField, dataNascitaField, emailField, cellulareField,
                         passwordField, tipoUtenteField;
