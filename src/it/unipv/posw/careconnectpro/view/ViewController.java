@@ -26,7 +26,7 @@ public class ViewController extends JFrame {
 
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 500);
+        frame.setSize(1800, 1000);
         frame.setLocationRelativeTo(null);
         frame.setTitle("CareConnectPro");
         frame.getContentPane().add(panel);

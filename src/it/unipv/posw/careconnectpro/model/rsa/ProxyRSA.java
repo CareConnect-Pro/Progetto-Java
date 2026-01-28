@@ -1,5 +1,6 @@
 package it.unipv.posw.careconnectpro.model.rsa;
 
+import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 
 import java.util.List;
@@ -100,6 +101,31 @@ public class ProxyRSA implements IRSA {
     public Persona getUtenteLoggato(){
         return utenteLoggato;
     }
-    
 
+    @Override
+    public Dipendente cercaDipendenteByCf(String cf) {
+        if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.MEDICO
+                            || utenteLoggato.getTipoUtente() == TipoUtente.INFERMIERE) {
+            return rsa.cercaDipendenteByCf(cf);
+
+        }
+        throw new RuntimeException("Solo i medici e infermieri possono cercare un dipendente ");
+    }
+
+    @Override
+    public Paziente cercaPazienteByCf(String cf) {
+        if (utenteLoggato != null && utenteLoggato.getTipoUtente() == TipoUtente.MEDICO
+                || utenteLoggato.getTipoUtente() == TipoUtente.INFERMIERE) {
+            return rsa.cercaPazienteByCf(cf);
+        }
+        throw new RuntimeException("Solo i medici e infermieri possono cercare un Paziente ");
+    }
+
+    @Override
+    public CartellaClinica cercaCartellaClinicaByCf(String cf) {
+            if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.MEDICO
+                    || utenteLoggato.getTipoUtente() == TipoUtente.INFERMIERE) {
+        }
+        throw new RuntimeException("Solo i medici e infermieri possono cercare una cartella clinica ");
+    }
 }

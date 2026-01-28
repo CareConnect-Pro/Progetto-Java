@@ -1,7 +1,6 @@
-package it.unipv.posw.careconnectpro.controller.utenti.medico;
+package it.unipv.posw.careconnectpro.controller.utenti.medico.btn;
 
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
-import it.unipv.posw.careconnectpro.model.rsa.RSAService;
 import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
@@ -13,6 +12,7 @@ public class BtnAddTerapiaActionListener implements ActionListener {
 
     private ViewController view;
     private IRSA model;
+    private int rigaSelezionata;
 
     public BtnAddTerapiaActionListener(IRSA model, ViewController view) {
         this.view = view;
@@ -28,9 +28,10 @@ public class BtnAddTerapiaActionListener implements ActionListener {
         view.getTerapiaPanel().setVisible(true);
 
         JTable tabella = view.getListMonitoraggioPanel().getMonitoraggiList();
-        int rigaSelezionata = tabella.getSelectedRow();
+        rigaSelezionata = tabella.getSelectedRow();
 
         if (rigaSelezionata != -1) {
+            int idMonitoraggio = (int)tabella.getValueAt(rigaSelezionata, 0);
             int idCartella = (int) tabella.getValueAt(rigaSelezionata, 1);
             String idPaziente = (String) tabella.getValueAt(rigaSelezionata, 2);
             String idMedico = model.getUtenteLoggato().getCodiceFiscale();
@@ -38,10 +39,14 @@ public class BtnAddTerapiaActionListener implements ActionListener {
             view.getTerapiaPanel().getIdCartellaField().setText(String.valueOf(idCartella));
             view.getTerapiaPanel().getIdPazienteField().setText(idPaziente);
             view.getTerapiaPanel().getIdMedicoField().setText(idMedico);
+            view.getTerapiaPanel().getIdMonitoraggioField().setText(String.valueOf(idMonitoraggio));
         }else {
             PopUp.infoBox("Seleziona una riga dalla tabella prima di procedere!", "Nessuna Selezione");
         }
 
     }
 
+    public int getRigaSelezionata() {
+        return rigaSelezionata;
+    }
 }

@@ -152,17 +152,34 @@ public class RSAService implements IRSA {
 	
 	@Override
 	public boolean risolviAlertMonitoraggio(Monitoraggio m) {
+        if(m.getAlert() == Alert.RISOLTO) {
+            System.out.println("Alert già risolto");
+            return true;
+        }
 	    m.setAlert(Alert.RISOLTO);
 	    return facadeDB.updateAlertMonitoraggio(m);
 	}
 
-    public Dipendente getDipendenteByCf(String cf) {
+    @Override
+    public Dipendente cercaDipendenteByCf(String cf) {
         return facadeDB.findDipendenteByCf(cf);
     }
     @Override
     public Dipendente getUtenteLoggato() {
         return utenteLoggato;
     }
+
+    @Override
+    public Paziente cercaPazienteByCf(String cf) {
+        return facadeDB.findPazienteByCf(cf);
+    }
+
+    @Override
+    public CartellaClinica cercaCartellaClinicaByCf(String cf){
+        return facadeDB.findCartellaClinicaByCf(cf);
+    }
+
+
     public void setUtenteLoggato(Dipendente utenteLoggato) {
         this.utenteLoggato = utenteLoggato;
     }

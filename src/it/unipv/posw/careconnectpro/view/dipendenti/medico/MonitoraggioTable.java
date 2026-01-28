@@ -58,6 +58,12 @@ public class MonitoraggioTable extends AbstractTableModel {
 
   }
 
+  public void rimuoviMonitoraggio(int rowIndex) {
+       monitoraggi.remove(rowIndex);
+       fireTableRowsDeleted(rowIndex, rowIndex);
+
+  }
+
     public Monitoraggio getMonitoraggi(int row) {
         return monitoraggi.get(row);
     }

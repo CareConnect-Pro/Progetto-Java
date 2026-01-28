@@ -21,29 +21,6 @@ public class AlertActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        String id = (String) JOptionPane.showInputDialog(
-//                null, "Inserisci l'ID del monitoraggio da risolvere:",
-//                "Risolvi ALert", JOptionPane.PLAIN_MESSAGE, null, null, "");
-//
-//        if (id != null) {
-//            int codice = Integer.parseInt(id);
-//
-//            boolean check = false;
-//            Monitoraggio monitoraggio = model.cercaMonitoraggioById(codice) ;
-//            if (monitoraggio != null){
-//                model.risolviAlertMonitoraggio(monitoraggio);
-//                check = true;
-//            }
-//            if(check){
-//                System.out.println("ID " + monitoraggio.getIdMonitoraggio());
-//                System.out.println("Alert " + monitoraggio.getAlert().name());
-//                PopUp.infoBox("Monitoraggio con ID: " + codice + " risolto con successo", "Risolvi ALert");
-//            } else{
-//                PopUp.infoBox("Errore nel risolvere il monitoraggio con ID:" + codice,  "Risolvi ALert");
-//            }
-//        }  else {
-//            PopUp.infoBox("ID non valido", "Risolvi ALert");
-//        }
 
         JTable tabella = view.getListMonitoraggioPanel().getMonitoraggiList();
         int rigaSelezionata = tabella.getSelectedRow();
@@ -57,6 +34,7 @@ public class AlertActionListener implements ActionListener {
                 boolean successo = model.risolviAlertMonitoraggio(monitoraggio);
 
                 if (successo) {
+                    view.getListMonitoraggioPanel().getMonitoraggiTable().rimuoviMonitoraggio(rigaSelezionata);
                     PopUp.infoBox("Monitoraggio " + idMonitoraggio + " risolto nel database.", "Successo");
 
                 } else {

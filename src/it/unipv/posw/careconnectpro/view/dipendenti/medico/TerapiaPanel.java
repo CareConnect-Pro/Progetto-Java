@@ -1,6 +1,7 @@
 package it.unipv.posw.careconnectpro.view.dipendenti.medico;
 
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.StatoTerapia;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.TipoSomministrazione;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,33 +9,37 @@ import java.awt.*;
 public class TerapiaPanel extends JPanel {
 
     private JLabel somministrazioneLabel, farmacoLabel, materialeLabel, dosaggioLabel, frequenzaLabel, statoLabel,
-                    durataLabel, dataInizioLabel, dataFineLabel, noteLabel, idCartellaLabel, idPazienteLabel, idMedicoLabel;
+                    durataLabel, dataInizioLabel, dataFineLabel, noteLabel, idCartellaLabel, idPazienteLabel, idMedicoLabel,
+                    idMonitoraggioLabel;
 
-    private JTextField somministrazioneField, farmacoField, materialeField, dosaggioField, frequenzaField, durataField,
-                        dataInizioField, dataFineField, noteField, idCartellaField, idPazienteField, idMedicoField;
+    private JTextField farmacoField, materialeField, dosaggioField, frequenzaField, durataField,
+                        dataInizioField, dataFineField, noteField, idCartellaField, idPazienteField, idMedicoField,
+                            idMonitoraggioField ;
     private JComboBox<StatoTerapia> statoBox;
-    private JButton addTerapiaButton;
+    private JComboBox<TipoSomministrazione> somministrazioneBox;
+    private JButton addTerapiaButton, backButton, confermaButton;
 
     public TerapiaPanel(){
         Font mediumFont = new Font("Arial", 0, 16);
         Font largeFont = new Font("Arial", 0, 20);
 
         setVisible(true);
-        setLayout(new GridLayout(14,2,10,10));
+        setLayout(new GridLayout(16,2,10,
+                10));
 
         somministrazioneLabel = new JLabel("Somministrazione");
-        somministrazioneField = new JTextField();
+        somministrazioneBox = new JComboBox<> (TipoSomministrazione.values());
         farmacoLabel = new JLabel("Nome farmaco");
         farmacoField = new JTextField();
         materialeLabel = new JLabel("Materiale utilizzato");
         materialeField = new JTextField();
         dosaggioLabel = new JLabel("Quantità del dosaggio");
         dosaggioField = new JTextField();
-        frequenzaLabel = new JLabel("Frequenza");
+        frequenzaLabel = new JLabel("Frequenza (numero volte al giorno)" );
         frequenzaField = new JTextField();
         statoLabel = new JLabel("Stato");
         statoBox = new JComboBox<>(StatoTerapia.values());
-        durataLabel = new JLabel("Durata");
+        durataLabel = new JLabel("Durata (numero giorni)");
         durataField = new JTextField();
         dataInizioLabel = new JLabel("Data Inizio");
         dataInizioField = new JTextField();
@@ -43,6 +48,7 @@ public class TerapiaPanel extends JPanel {
         noteLabel = new JLabel("Note");
         noteField = new JTextField();
         addTerapiaButton = new JButton("Aggiungi Terapia");
+        backButton = new JButton("Indietro");
         idCartellaLabel = new JLabel("Id cartella");
         idCartellaField = new JTextField();
         idCartellaField.setEditable(false);
@@ -52,19 +58,34 @@ public class TerapiaPanel extends JPanel {
         idMedicoLabel = new JLabel("CF medico");
         idMedicoField = new JTextField();
         idMedicoField.setEditable(false);
+        idMonitoraggioLabel = new JLabel("ID monitoraggio");
+        idMonitoraggioField = new JTextField();
+        idMonitoraggioField.setEditable(false);
+        confermaButton = new JButton("Conferma");
 
 
+        idCartellaLabel.setFont(mediumFont);
+        idPazienteLabel.setFont(mediumFont);
+        idMedicoLabel.setFont(mediumFont);
+        idMonitoraggioLabel.setFont(mediumFont);
         somministrazioneLabel.setFont(mediumFont);
+        somministrazioneBox.setFont(mediumFont);
         farmacoLabel.setFont(mediumFont);
         materialeLabel.setFont(mediumFont);
         dosaggioLabel.setFont(mediumFont);
         frequenzaLabel.setFont(mediumFont);
+        statoLabel.setFont(mediumFont);
         statoBox.setFont(mediumFont);
         durataLabel.setFont(mediumFont);
         dataInizioLabel.setFont(mediumFont);
         dataFineLabel.setFont(mediumFont);
         noteLabel.setFont(mediumFont);
+        addTerapiaButton.setFont(largeFont);
+        backButton.setFont(largeFont);
+        confermaButton.setFont(largeFont);
 
+        add(idMonitoraggioLabel);
+        add(idMonitoraggioField);
         add(idCartellaLabel);
         add(idCartellaField);
         add(idPazienteLabel);
@@ -72,7 +93,7 @@ public class TerapiaPanel extends JPanel {
         add(idMedicoLabel);
         add(idMedicoField);
         add(somministrazioneLabel);
-        add(somministrazioneField);
+        add(somministrazioneBox);
         add(farmacoLabel);
         add(farmacoField);
         add(materialeLabel);
@@ -92,9 +113,14 @@ public class TerapiaPanel extends JPanel {
         add(noteLabel);
         add(noteField);
         add(addTerapiaButton);
+        add(confermaButton);
+        add(backButton);
 
     }
 
+    public JButton getAddTerapiaButton() {
+        return addTerapiaButton;
+    }
     public JTextField getIdCartellaField() {
         return idCartellaField;
     }
@@ -104,5 +130,59 @@ public class TerapiaPanel extends JPanel {
     public JTextField getIdMedicoField() {
         return idMedicoField;
     }
+    public JTextField getIdMonitoraggioField() {
+        return idMonitoraggioField;
+    }
 
+    public JComboBox<StatoTerapia> getStatoBox() {
+        return statoBox;
+    }
+
+    public JTextField getNoteField() {
+        return noteField;
+    }
+
+    public JTextField getDataFineField() {
+        return dataFineField;
+    }
+
+    public JTextField getDataInizioField() {
+        return dataInizioField;
+    }
+
+    public JTextField getDurataField() {
+        return durataField;
+    }
+
+    public JTextField getFrequenzaField() {
+        return frequenzaField;
+    }
+
+    public JTextField getDosaggioField() {
+        return dosaggioField;
+    }
+
+    public JTextField getMaterialeField() {
+        return materialeField;
+    }
+
+    public JTextField getFarmacoField() {
+        return farmacoField;
+    }
+
+    public JComboBox<TipoSomministrazione> getSomministrazioneBox() {
+        return somministrazioneBox;
+    }
+
+    public JLabel getSomministrazioneLabel() {
+        return somministrazioneLabel;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
+    }
+
+    public JButton getConfermaButton() {
+        return confermaButton;
+    }
 }

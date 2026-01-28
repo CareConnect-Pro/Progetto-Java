@@ -5,7 +5,9 @@ import java.util.List;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
+import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
+import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 
 public interface IRSA {
 
@@ -19,6 +21,10 @@ public interface IRSA {
 	boolean risolviAlertMonitoraggio(Monitoraggio m);
     Monitoraggio cercaMonitoraggioById(int id);
     Persona getUtenteLoggato();
+    Dipendente cercaDipendenteByCf(String cf);
+    Paziente cercaPazienteByCf(String cf);
+    CartellaClinica cercaCartellaClinicaByCf(String cf);
 	
 }
+
 
