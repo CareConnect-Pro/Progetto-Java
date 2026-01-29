@@ -72,6 +72,37 @@ public class PersonaDAO  implements IPersonaDAO {
     }
     
     @Override
+    public PersonaDB selectPersonaAttivaByCf(String cf) {
+	    	PersonaDB pDb = null; 
+	    	String query = "SELECT * FROM UTENTI WHERE CODICE_FISCALE = ? AND STATO = TRUE";
+	    	try (Connection conn = ConnessioneDB.startConnection("ccp");
+	    			PreparedStatement ps = conn.prepareStatement(query)
+	    			) {
+	    		ps.setString(1, cf);
+	    		try (ResultSet rs = ps.executeQuery()) {
+	    			if (rs.next()) {
+	    				pDb = new PersonaDB(
+	    						rs.getString("CODICE_FISCALE"),
+	    						rs.getString("NOME"),
+	    						rs.getString("COGNOME"),
+	    						rs.getDate("DATA_DI_NASCITA").toLocalDate(),
+	    						rs.getString("EMAIL"),
+	    						rs.getString("NUMERO_TELEFONICO"),
+	    						rs.getString("PASSWORD_UTENTE"),
+	    						rs.getString("RUOLO_UTENTE"),
+	    						rs.getDate("DATA_INIZIO").toLocalDate()
+	    						);
+	    			}
+	    		}
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    		return null;
+	    	}
+	    	return pDb;
+    }
+
+    
+    @Override
     public List<PersonaDB> selectPazienti()	{
     		String query = "SELECT * FROM UTENTI WHERE RUOLO_UTENTE = 'PAZIENTE' ";
     		
@@ -105,7 +136,7 @@ public class PersonaDAO  implements IPersonaDAO {
 
     @Override
     public boolean deletePersona(Persona p) {
-        String query = "DELETE FROM UTENTI WHERE CODICE_FISCALE = ?";
+        String query = "UPDATE UTENTI SET STATO = FALSE WHERE CODICE_FISCALE = ?";
         try (Connection conn = ConnessioneDB.startConnection("ccp");
              PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, p.getCodiceFiscale());

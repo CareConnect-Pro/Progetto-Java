@@ -1,6 +1,5 @@
 package it.unipv.posw.careconnectpro.controller.utenti.medico.button;
 
-import it.unipv.posw.careconnectpro.controller.FacadeController;
 import it.unipv.posw.careconnectpro.controller.utenti.medico.TerapiaController;
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
 import it.unipv.posw.careconnectpro.view.PopUp;

@@ -9,7 +9,7 @@ public class AmmController {
     private ViewController view;
     private BtnRegistraUtenteActionListener btnRegistrazione;
     private RegistrazioneController regController;
-    private EliminaUtenteActionListener eliminaUtente;
+    private DisattivaUtenteActionListener eliminaUtente;
 
 
     public AmmController(IRSA model, ViewController view) {
@@ -17,7 +17,7 @@ public class AmmController {
         this.view = view;
 
         btnRegistrazione = new BtnRegistraUtenteActionListener(view);
-        eliminaUtente = new EliminaUtenteActionListener(model);
+        eliminaUtente = new DisattivaUtenteActionListener(model);
 
         view.getAmmPanel().getRegistraButton().addActionListener(btnRegistrazione);
         view.getAmmPanel().getEliminaButton().addActionListener(eliminaUtente);

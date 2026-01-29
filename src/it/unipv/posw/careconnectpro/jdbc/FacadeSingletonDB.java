@@ -82,6 +82,23 @@ public class FacadeSingletonDB {
         return dipendente;
     }
     
+    public Dipendente findDipendenteAttivoByCf(String cf) {
+        PersonaDB pDb = personaDAO.selectPersonaAttivaByCf(cf);
+        if (pDb == null) return null;
+        Dipendente dipendente = FactoryDipendente.getDipendente(
+                pDb.getRuolo(),
+                pDb.getCodiceFiscale(),
+                pDb.getNome(),
+                pDb.getCognome(),
+                pDb.getDataNascita(),
+                pDb.getEmail(),
+                pDb.getNumeroTelefonico(),
+                pDb.getPassword(),
+                pDb.getDataInizio()
+        );
+        return dipendente;
+    }   
+    
     
     public Paziente findPazienteByCf(String cf) {
         PersonaDB db = personaDAO.selectPersonaByCf(cf);
@@ -148,11 +165,6 @@ public class FacadeSingletonDB {
 	        cartellaClinica.setIdCartellaClinica(db.getIdCartellaClinica());
 	        
 	        return cartellaClinica;
-    }
-    
-    
-    public boolean deleteCartellaClinica(String cf)	{
-    		return cartellaClinicaDAO.deleteCartellaClinicaByCf(cf);
     }
     
     

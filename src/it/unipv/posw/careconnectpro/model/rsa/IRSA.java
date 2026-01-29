@@ -12,9 +12,8 @@ import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 public interface IRSA {
 
 	boolean registraUtente(Persona p);
-	boolean rimuoviUtente(String cf);
+	boolean disattivaUtente(String cf);
 	int creaCartellaClinica(CartellaClinica cc);
-	boolean rimuoviCartellaClinica(String cf);
 	int creaTerapia(Terapia t);
 	int creaMonitoraggio(Monitoraggio m);
 	List<Monitoraggio> getMonitoraggiConAlertAttivo();

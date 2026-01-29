@@ -26,7 +26,7 @@ public class GoBtnActionListener implements ActionListener {
 
         Dipendente utenteLoggato = model.login(cf,password);
         if(utenteLoggato == null) {
-            PopUp.infoBox("Username e/o password sbagliati", "Login non valido");
+            PopUp.infoBox("Username e/o password non validi", "Login non valido");
         }
 
         TipoUtente ruolo = utenteLoggato.getTipoUtente();

@@ -8,6 +8,7 @@ public interface IPersonaDAO {
 
     boolean insertPersona(PersonaDB p);
     PersonaDB selectPersonaByCf(String cf);
+    PersonaDB selectPersonaAttivaByCf(String cf);
 	boolean deletePersona(Persona p);
 	List<PersonaDB> selectPazienti();
 }

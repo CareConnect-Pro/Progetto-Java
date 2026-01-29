@@ -57,10 +57,10 @@ public class RSAService implements IRSA {
 
     
 	@Override
-    public boolean rimuoviUtente(String cf) {
+    public boolean disattivaUtente(String cf) {
 
         if (cf == null) {
-            System.out.println("Errore nella rimozione dell'utente");
+            System.out.println("Nessun codice fiscale inserito");
             return false;
         }
 
@@ -74,17 +74,8 @@ public class RSAService implements IRSA {
             return false;
         }
 
-        if (p.getTipoUtente() == TipoUtente.PAZIENTE) {
-            boolean ccRimosso = facadeDB.deleteCartellaClinica(p.getCodiceFiscale());
-            if (!ccRimosso) {
-                System.out.println("Errore nella rimozione della cartella clinica per il paziente " + p.getCodiceFiscale());
-                return false;
-            }
-
-        }
-
-        boolean utenteRimosso = facadeDB.deletePersona(p);
-	    	if (!utenteRimosso) {
+        boolean utenteDisattivato = facadeDB.deletePersona(p);
+	    	if (!utenteDisattivato) {
 	    		System.out.println("Errore nella rimozione dell'utente " + p.getCodiceFiscale());
 	    		return false;
 	    	}
@@ -94,7 +85,7 @@ public class RSAService implements IRSA {
     
 
     public Dipendente login (String cf, String password) {
-        Dipendente d = facadeDB.findDipendenteByCf(cf);
+        Dipendente d = facadeDB.findDipendenteAttivoByCf(cf);
         if (d == null) {
             System.out.println("Logout effetuato");
             return null;
@@ -112,11 +103,7 @@ public class RSAService implements IRSA {
     public int creaCartellaClinica(CartellaClinica cc)	{
     		return facadeDB.insertCartellaClinica(cc);
     }
-    
-    @Override
-    public boolean rimuoviCartellaClinica(String cf)	{
-    		return facadeDB.deleteCartellaClinica(cf);
-    }
+	 
     
     @Override
 	public int creaTerapia(Terapia t)	{
