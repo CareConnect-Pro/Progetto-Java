@@ -12,6 +12,7 @@ public abstract class Persona {
 	private String email;
 	private String cellulare;
     private String password;
+    private int stato;
 
 	
 	public Persona(String codiceFiscale, String nome, String cognome, LocalDate dataNascita, String email,
@@ -25,6 +26,7 @@ public abstract class Persona {
         this.password = password;
         this.tipoUtente = tipoUtente;
         this.dataInizio = dataInizio;
+        this.setStato(stato);
 	}
 
 	public String getCodiceFiscale() { return codiceFiscale; }
@@ -41,5 +43,11 @@ public abstract class Persona {
     public void setEmail(String email) { this.email = email; }
     public void setCellulare(String cellulare) { this.cellulare = cellulare; }
     public void setPassword(String password) { this.password = password; }
+    public int getStato() {
+        return stato;
+    }
+    public void setStato(int stato) {
+        this.stato = stato;
+    }
         
 }

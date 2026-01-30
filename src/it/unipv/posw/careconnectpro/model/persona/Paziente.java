@@ -10,6 +10,7 @@ public class Paziente extends Persona {
                     String cellulare, LocalDate dataInizio) {
         super(codiceFiscale, nome, cognome, dataNascita, email, cellulare, null, TipoUtente.PAZIENTE, dataInizio);
         this.setIdPaziente(idPaziente);
+
     }
 
 	public int getIdPaziente() {return idPaziente;}

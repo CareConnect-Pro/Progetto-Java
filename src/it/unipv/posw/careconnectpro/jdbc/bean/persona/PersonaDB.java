@@ -14,11 +14,12 @@ public class PersonaDB {
     private String password;
     private String ruolo;
     private LocalDate dataInizio;
+    private int stato;
     
 
     public PersonaDB(String codiceFiscale, String nome, String cognome, LocalDate dataNascita, String email,
                      String numeroTelefonico,  String password, String ruolo, LocalDate dataInizio) {
-    	   this.setIdPersona(idPersona);
+        this.setIdPersona(idPersona);
         this.codiceFiscale = codiceFiscale;
         this.nome = nome;
         this.cognome = cognome;
@@ -28,6 +29,7 @@ public class PersonaDB {
         this.password = password;
         this.ruolo = ruolo;
         this.dataInizio = dataInizio;
+        this.setStato(stato);
     }
 
     public String getCodiceFiscale() {return codiceFiscale;}
@@ -42,5 +44,10 @@ public class PersonaDB {
 
 	public int getIdPersona() {return idPersona;}
 	public void setIdPersona(int idPersona) {this.idPersona = idPersona;}
-
+    public int getStato() {
+        return stato;
+    }
+    public void setStato(int stato) {
+        this.stato = stato;
+    }
 }

@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unipv.posw.careconnectpro.jdbc.ConnessioneDB;
+import it.unipv.posw.careconnectpro.jdbc.bean.persona.PersonaDAO;
 
 public class MonitoraggioDAO implements IMonitoraggioDAO {
+private PersonaDAO personaDAO;
 
 	public MonitoraggioDAO() {
+        personaDAO = new PersonaDAO();
 	}
 	
 	@Override
@@ -86,7 +89,9 @@ public class MonitoraggioDAO implements IMonitoraggioDAO {
     }
 	
 	public List<MonitoraggioDB> selectMonitoraggioByAlertAttivo()	{
-		String query = "SELECT * FROM MONITORAGGI WHERE ALERT = 'ATTIVO'";
+		String query = "SELECT * " +
+                "FROM MONITORAGGI M JOIN UTENTI U ON M.ID_PAZIENTE = U.CODICE_FISCALE " +
+                "WHERE M.ALERT = 'ATTIVO' AND U.STATO = TRUE ";
 		
 		List<MonitoraggioDB> monitoraggi = new ArrayList<>();
 
@@ -94,19 +99,21 @@ public class MonitoraggioDAO implements IMonitoraggioDAO {
 	         PreparedStatement ps = conn.prepareStatement(query);
 	         ResultSet rs = ps.executeQuery()) {
 	        while (rs.next()) {
-	            MonitoraggioDB mDb = new MonitoraggioDB(
-	                rs.getInt("ID_CARTELLA_CLINICA"),
-	                rs.getString("ID_PAZIENTE"),
-	                rs.getString("ID_INFERMIERE"),
-	                rs.getString("TIPO_PARAMETRO"),
-	                rs.getString("VALORE"),
-	                rs.getDate("DATA_MONITORAGGIO").toLocalDate(),
-                    rs.getString("ALERT"),
-	                rs.getString("NOTE")
-	            );
-	            mDb.setIdMonitoraggio(rs.getInt("ID_MONITORAGGIO"));
-	            monitoraggi.add(mDb);
+
+                    MonitoraggioDB mDb = new MonitoraggioDB(
+                            rs.getInt("ID_CARTELLA_CLINICA"),
+                            rs.getString("ID_PAZIENTE"),
+                            rs.getString("ID_INFERMIERE"),
+                            rs.getString("TIPO_PARAMETRO"),
+                            rs.getString("VALORE"),
+                            rs.getDate("DATA_MONITORAGGIO").toLocalDate(),
+                            rs.getString("ALERT"),
+                            rs.getString("NOTE")
+                    );
+                    mDb.setIdMonitoraggio(rs.getInt("ID_MONITORAGGIO"));
+                    monitoraggi.add(mDb);
 	        }
+
 	    } catch (Exception e) {
 	        throw new RuntimeException(e);
 	    }

@@ -125,7 +125,9 @@ public class FacadeSingletonDB {
 		            pDb.getNumeroTelefonico(),
 		            pDb.getDataInizio()		           
 		        );
+
 		paziente.setIdPaziente(pDb.getIdPersona());
+        paziente.setStato(pDb.getStato());
 		return paziente;  
     }
     
