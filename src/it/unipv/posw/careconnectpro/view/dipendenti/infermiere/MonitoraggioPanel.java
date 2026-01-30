@@ -7,7 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MonitoraggioPanel extends JPanel {
-    private JLabel idCartellaLabel, cfPazienteLabel, idInfermiereLabel, parametriLabel,
+	
+    private static final long serialVersionUID = 1L;
+
+	private JLabel idCartellaLabel, cfPazienteLabel, idInfermiereLabel, parametriLabel,
                     valoreLabel, dataLabel, alertLabel, noteLabel;
 
     private JTextField idCartellaField,  cfPazienteField, idInfermiereField, valoreFiel, dataFiel, noteFiel, alertField;

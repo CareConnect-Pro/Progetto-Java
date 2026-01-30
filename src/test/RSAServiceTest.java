@@ -1,3 +1,4 @@
+package test;
 
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.rsa.RSAService;

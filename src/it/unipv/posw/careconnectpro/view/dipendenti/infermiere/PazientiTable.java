@@ -2,13 +2,14 @@ package it.unipv.posw.careconnectpro.view.dipendenti.infermiere;
 
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
 
-import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class PazientiTable extends AbstractTableModel {
 
-    List<Paziente> pazienti;
+    private static final long serialVersionUID = 1L;
+    
+	List<Paziente> pazienti;
     private final String[] columnNames ={"CODICE FISCALE", "NOME", "COGNOME", "DATA DI NASCITA"};
 
     public PazientiTable(List<Paziente> pazienti) {

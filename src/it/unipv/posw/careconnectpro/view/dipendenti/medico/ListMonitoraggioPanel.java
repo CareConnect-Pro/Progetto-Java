@@ -9,7 +9,9 @@ import java.awt.*;
 
 public class ListMonitoraggioPanel extends JPanel {
 
-    private JTable monitoraggiList;
+    private static final long serialVersionUID = 1L;
+    
+	private JTable monitoraggiList;
     private JButton terapiaButton, backButton, alertButton;
     private MonitoraggioTable monitoraggiTable;
     private MonitoraggioController controller;

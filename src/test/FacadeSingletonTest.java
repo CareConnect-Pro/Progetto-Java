@@ -1,3 +1,5 @@
+package test;
+
 import it.unipv.posw.careconnectpro.jdbc.FacadeSingletonDB;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
