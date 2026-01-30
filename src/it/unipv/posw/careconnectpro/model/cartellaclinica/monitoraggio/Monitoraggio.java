@@ -1,6 +1,9 @@
 package it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio;
 
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.alert.Alert;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.alert.StrategyAlert;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.paramentroVitale.TipiParametroVitale;
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 
@@ -21,7 +24,7 @@ public class Monitoraggio {
 
     public  Monitoraggio(CartellaClinica cartellaClinica, Paziente paziente , Dipendente infermiere,
                          TipiParametroVitale tipiParametroVitale, String valore, LocalDate dataMonitoraggio, 
-                         Alert alert, String note) {
+                         String note) {
         this.setIdMonitoraggio(idMonitoraggio);
         this.cartellaClinica = cartellaClinica;
         this.paziente = paziente;
@@ -29,7 +32,7 @@ public class Monitoraggio {
         this.tipiParametroVitale = tipiParametroVitale;
         this.valore = valore;
         this.dataMonitoraggio = dataMonitoraggio;
-        this.alert = alert;
+        this.alert = setAlert();
         this.note = note;      
     }
 
@@ -46,7 +49,8 @@ public class Monitoraggio {
 	public LocalDate getDataMonitoraggio() {return dataMonitoraggio;}
 	public void setDataMonitoraggio(LocalDate dataMonitoraggio) {this.dataMonitoraggio = dataMonitoraggio;}
 	public Alert getAlert() {return alert;}
-	public void setAlert(Alert alert) {this.alert = alert;}
+	private Alert setAlert() { return StrategyAlert.controlla(getTipiParametroVitale(), getValore());}
+    public void setAlert(Alert alert) {this.alert = alert;}
 	public String getNote() {return note;}
 	public void setNote(String note) {this.note = note;}
 	public int getIdMonitoraggio() {return idMonitoraggio;}

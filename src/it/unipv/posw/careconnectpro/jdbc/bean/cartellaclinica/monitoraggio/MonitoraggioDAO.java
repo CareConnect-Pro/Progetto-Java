@@ -21,7 +21,7 @@ public class MonitoraggioDAO implements IMonitoraggioDAO {
 		String query =
                 "INSERT INTO MONITORAGGI" + " "
                 		+ "(ID_CARTELLA_CLINICA, ID_PAZIENTE, ID_INFERMIERE, TIPO_PARAMETRO, VALORE, DATA_MONITORAGGIO, ALERT, NOTE)" 
-                		+ "VALUES (?,?,?,?,?,?,?,?)";
+                		+ "VALUES (?,?,?,?,?,?,?)";
 		try (Connection conn = ConnessioneDB.startConnection("ccp");
 	    		PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -31,8 +31,8 @@ public class MonitoraggioDAO implements IMonitoraggioDAO {
             ps.setString(4, mDb.getTipoParametro());
             ps.setString(5, mDb.getValore());
             ps.setDate(6, Date.valueOf(mDb.getDataMonitoraggio()));
-            ps.setString(7, mDb.getAlert());
-            ps.setString(8, mDb.getNote());
+            //ps.setString(7, mDb.getAlert());
+            ps.setString(7, mDb.getNote());
             ps.executeUpdate();
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -101,7 +101,7 @@ public class MonitoraggioDAO implements IMonitoraggioDAO {
 	                rs.getString("TIPO_PARAMETRO"),
 	                rs.getString("VALORE"),
 	                rs.getDate("DATA_MONITORAGGIO").toLocalDate(),
-	                rs.getString("ALERT"),
+                    rs.getString("ALERT"),
 	                rs.getString("NOTE")
 	            );
 	            mDb.setIdMonitoraggio(rs.getInt("ID_MONITORAGGIO"));

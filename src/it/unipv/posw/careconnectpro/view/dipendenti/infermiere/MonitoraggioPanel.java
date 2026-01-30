@@ -1,8 +1,7 @@
 package it.unipv.posw.careconnectpro.view.dipendenti.infermiere;
 
-import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Alert;
-import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.TipiParametroVitale;
-import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.TipoSomministrazione;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.alert.Alert;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.paramentroVitale.TipiParametroVitale;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +10,11 @@ public class MonitoraggioPanel extends JPanel {
     private JLabel idCartellaLabel, cfPazienteLabel, idInfermiereLabel, parametriLabel,
                     valoreLabel, dataLabel, alertLabel, noteLabel;
 
-    private JTextField idCartellaField,  cfPazienteField, idInfermiereField, valoreFiel, dataFiel, noteFiel;
-    private JComboBox<TipiParametroVitale> paramentriBox;
+    private JTextField idCartellaField,  cfPazienteField, idInfermiereField, valoreFiel, dataFiel, noteFiel, alertField;
+    private final JComboBox<TipiParametroVitale> paramentriBox;
     private JComboBox<Alert> alertBox;
 
-    private JButton confermaButton, backButton;
+    private final JButton confermaButton, backButton;
 
     public MonitoraggioPanel() {
         Font mediumFont = new Font("Arial", 0, 16);
@@ -40,7 +39,9 @@ public class MonitoraggioPanel extends JPanel {
         dataLabel = new JLabel("Data del monitoraggio");
         dataFiel = new JTextField();
         alertLabel = new JLabel("Alert del monitoraggio");
-        alertBox = new JComboBox<>(Alert.values());
+        alertField = new JTextField();
+        alertField.setEditable(false);
+        //alertBox = new JComboBox<>(Alert.values());
         noteLabel = new JLabel("Note");
         noteFiel = new JTextField();
         confermaButton = new JButton("Conferma");
@@ -55,7 +56,6 @@ public class MonitoraggioPanel extends JPanel {
         valoreFiel.setFont(mediumFont);
         dataLabel.setFont(mediumFont);
         alertLabel.setFont(mediumFont);
-        alertBox.setFont(mediumFont);
         noteLabel.setFont(mediumFont);
         confermaButton.setFont(largeFont);
         backButton.setFont(largeFont);
@@ -73,7 +73,7 @@ public class MonitoraggioPanel extends JPanel {
         add(dataLabel);
         add(dataFiel);
         add(alertLabel);
-        add(alertBox);
+        add(alertField);
         add(noteLabel);
         add(noteFiel);
         add(backButton);
@@ -135,16 +135,16 @@ public class MonitoraggioPanel extends JPanel {
     public JLabel getIdCartellaLabel() {
         return idCartellaLabel;
     }
-
     public void setIdCartellaField(JTextField idCartellaField) {
         this.idCartellaField = idCartellaField;
     }
-
     public void setCfPazienteField(JTextField cfPazienteField) {
         this.cfPazienteField = cfPazienteField;
     }
-
     public void setIdInfermiereField(JTextField idInfermiereField) {
         this.idInfermiereField = idInfermiereField;
+    }
+    public JTextField getAlertField() {
+        return alertField;
     }
 }

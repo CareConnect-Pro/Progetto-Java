@@ -1,4 +1,4 @@
-package it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio;
+package it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.paramentroVitale;
 
 public enum TipiParametroVitale {
 	

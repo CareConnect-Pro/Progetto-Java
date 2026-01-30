@@ -5,13 +5,14 @@ import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 
 import java.time.LocalDate;
 
-public class Dipendente extends Persona implements IDipendente {
+public class Dipendente extends Persona{
 
     private static final int MAX_PASSWORD = 8;
 
 	public Dipendente(String codiceFiscale, String nome, String cognome, LocalDate dataNascita, String email,
                       String cellulare, String password, TipoUtente tipoUtente, LocalDate dataAssunzione) {
 		super(codiceFiscale, nome, cognome, dataNascita, email, cellulare, password, tipoUtente, dataAssunzione);
+        setPassword(password);
 	}
 
     public void setPassword(String password) {

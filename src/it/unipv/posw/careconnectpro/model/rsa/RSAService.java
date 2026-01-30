@@ -4,7 +4,7 @@ import java.util.List;
 
 import it.unipv.posw.careconnectpro.jdbc.FacadeSingletonDB;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
-import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Alert;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.alert.Alert;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
 import it.unipv.posw.careconnectpro.model.persona.Paziente;

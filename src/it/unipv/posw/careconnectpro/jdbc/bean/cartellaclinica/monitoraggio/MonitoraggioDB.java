@@ -1,5 +1,7 @@
 package it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.monitoraggio;
 
+import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.alert.Alert;
+
 import java.time.LocalDate;
 
 public class MonitoraggioDB {
@@ -15,7 +17,7 @@ public class MonitoraggioDB {
 	private String note;
 	
 	public MonitoraggioDB(int idCartellaClinica, String idPaziente, String idInferimere, String tipoParametro, String valore,
-			LocalDate dataMonitoraggio, String alert, String note) {
+                          LocalDate dataMonitoraggio, String alert, String note) {
 		super();
         this.setIdMonitoraggio(idMonitoraggio);
 		this.idCartellaClinica = idCartellaClinica;
