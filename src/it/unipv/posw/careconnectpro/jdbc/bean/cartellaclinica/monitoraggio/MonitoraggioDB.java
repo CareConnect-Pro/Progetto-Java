@@ -1,7 +1,5 @@
 package it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.monitoraggio;
 
-import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.alert.Alert;
-
 import java.time.LocalDate;
 
 public class MonitoraggioDB {

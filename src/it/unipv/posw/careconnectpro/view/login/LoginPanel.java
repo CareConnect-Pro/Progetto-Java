@@ -4,8 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LoginPanel extends JPanel {
-
-    private JLabel cfLabel, passwordLabel;
+    
+	private static final long serialVersionUID = 1L;
+	
+	private JLabel cfLabel, passwordLabel;
     private JTextField cfField;
     private JPasswordField passwordField;
     private JButton loginButton;

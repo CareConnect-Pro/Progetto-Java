@@ -1,3 +1,5 @@
+package test;
+
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.FactoryDipendente;
 import org.junit.Test;
