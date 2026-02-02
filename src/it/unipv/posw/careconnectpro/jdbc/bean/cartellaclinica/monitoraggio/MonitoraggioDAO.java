@@ -16,7 +16,7 @@ public class MonitoraggioDAO implements IMonitoraggioDAO {
 private PersonaDAO personaDAO;
 
 	public MonitoraggioDAO() {
-        personaDAO = new PersonaDAO();
+        setPersonaDAO(new PersonaDAO());
 	}
 	
 	@Override
@@ -138,6 +138,14 @@ private PersonaDAO personaDAO;
 	        e.printStackTrace();
 	        return false;
 	    }
+	}
+
+	public PersonaDAO getPersonaDAO() {
+		return personaDAO;
+	}
+
+	public void setPersonaDAO(PersonaDAO personaDAO) {
+		this.personaDAO = personaDAO;
 	}
 
 

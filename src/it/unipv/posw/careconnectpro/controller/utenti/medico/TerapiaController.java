@@ -40,7 +40,6 @@ public class TerapiaController {
 
     private void addTerapia(){
         try{
-            String idCartella = view.getTerapiaPanel().getIdCartellaField().getText();
             String idPaziente = view.getTerapiaPanel().getIdPazienteField().getText();
             String idMedico =  view.getTerapiaPanel().getIdMedicoField().getText();
             int idMonitoraggio = Integer.parseInt(view.getTerapiaPanel().getIdMonitoraggioField().getText());

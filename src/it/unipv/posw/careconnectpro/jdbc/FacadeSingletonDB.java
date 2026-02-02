@@ -259,16 +259,6 @@ public class FacadeSingletonDB {
     	    mDb.setIdMonitoraggio(m.getIdMonitoraggio());
     	    return monitoraggioDAO.updateAlertMonitoraggio(mDb);
     	}
-	  
-
-    //Getter and Setter
-    public IPersonaDAO getPersonaDAO() {
-        return personaDAO;
-    }
-    public void setPersonaDAO(PersonaDAO personaDAO) {
-        this.personaDAO = personaDAO;
-    }
-
 
 }
 

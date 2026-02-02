@@ -13,17 +13,47 @@ public class AmmController {
 
 
     public AmmController(IRSA model, ViewController view) {
-        this.model = model;
-        this.view = view;
+        this.setModel(model);
+        this.setView(view);
 
         btnRegistrazione = new BtnRegistraUtenteActionListener(view);
         eliminaUtente = new DisattivaUtenteActionListener(model);
 
         view.getAmmPanel().getRegistraButton().addActionListener(btnRegistrazione);
         view.getAmmPanel().getEliminaButton().addActionListener(eliminaUtente);
-        regController = new RegistrazioneController(model, view);
+        setRegController(new RegistrazioneController(model, view));
 
 
     }
+
+
+	public IRSA getModel() {
+		return model;
+	}
+
+
+	public void setModel(IRSA model) {
+		this.model = model;
+	}
+
+
+	public ViewController getView() {
+		return view;
+	}
+
+
+	public void setView(ViewController view) {
+		this.view = view;
+	}
+
+
+	public RegistrazioneController getRegController() {
+		return regController;
+	}
+
+
+	public void setRegController(RegistrazioneController regController) {
+		this.regController = regController;
+	}
 
 }

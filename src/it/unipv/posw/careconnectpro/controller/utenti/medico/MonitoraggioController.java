@@ -2,16 +2,13 @@ package it.unipv.posw.careconnectpro.controller.utenti.medico;
 
 import it.unipv.posw.careconnectpro.controller.utenti.medico.button.BtnAddTerapiaActionListener;
 import it.unipv.posw.careconnectpro.controller.utenti.medico.button.BtnBackActionListener;
-import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
-import java.util.List;
 
 public class MonitoraggioController {
     private ViewController view;
     private IRSA model;
-    private List<Monitoraggio> monitoraggiList;
     private BtnAddTerapiaActionListener terapiaBtn;
     private BtnBackActionListener backBtn;
     private AlertActionListener alert;
@@ -19,8 +16,8 @@ public class MonitoraggioController {
 
     public MonitoraggioController(IRSA model, ViewController view) {
 
-        this.model = model;
-        this.view = view;
+        this.setModel(model);
+        this.setView(view);
 
         terapiaBtn = new BtnAddTerapiaActionListener(model,view);
         backBtn = new BtnBackActionListener(view);
@@ -33,7 +30,22 @@ public class MonitoraggioController {
     }
 
 
-    public List<Monitoraggio> getMonitoraggiList() {
-        return monitoraggiList = model.getMonitoraggiConAlertAttivo();
-    }
+	public ViewController getView() {
+		return view;
+	}
+
+
+	public void setView(ViewController view) {
+		this.view = view;
+	}
+
+
+	public IRSA getModel() {
+		return model;
+	}
+
+
+	public void setModel(IRSA model) {
+		this.model = model;
+	}
 }
