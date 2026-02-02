@@ -370,6 +370,5 @@ ViewController *-- MedPanel
 ViewController *-- InfPanel
 
 
-'C -[hidden]down- M
 
 @enduml
