@@ -1,0 +1,375 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam ranksep 150
+skinparam nodesep 100
+left to right direction
+
+
+package "model" <<Folder>> as M {
+
+package "Persona" <<Folder>> {
+
+abstract class Persona {
+- TipoUtente tipUtente
+- String codiceFiscale
+- String nome
+- String cognome;
+- LocalDate dataNascita, dataInizio
+- String email
+- String cellulare
+- String password
++ getters - setters ()
+}
+
+
+
+enum TipoUtente{
+PAZIENTE
+MEDICO
+AMMINISTRATORE
+INFERMIERE
+
+}
+
+class Paziente {
++getIdPaziente()
++setIdPaziente (int idPaziente)
+}
+
+package "Dipendenti" <<Folder>> {
+
+class Dipendente{
+    + setPassword()
+    }
+
+class Infermiere {
+- TipoUtente TipoUtente.Infermiere
+}
+
+class Amministratore {
+- TipoUtente TipoUtente.Amministratore
+}
+
+class Medico {
+- TipoUtente TipoUtente.Medico
+}
+
+class FactoryDipendente << (F,#FFF2CC) Factory >>{
++ Dipendente getDipendente()
+}
+}
+' Fine Dipendente
+
+Persona -- TipoUtente
+Persona <|--  Dipendente
+Persona <|-- Paziente
+Dipendente <|--Infermiere
+Dipendente <|- Medico
+Dipendente <|-Amministratore
+
+
+
+}
+package "cartellaClinica" <<Folder>>{
+
+
+class CartellaClinica {
+- String idPaziente
+- LocalDate dataCreazione
+- Persona paziente
+- List<Monitoraggio> monitoraggi
+- int idCartellaClinica
++ void addMonitoraggio(Monitoraggio m)
++ getters and setters ()
+}
+
+CartellaClinica o-- "terapia"
+
+package "monitoraggio" <<Folder >>{
+class Monitoraggio {
+- CartellaClinica cartellaClinica
+- Paziente paziente
+- Dipendente infermiere
+- TipoParametroVitale tipiParametroVitale
+- String valore
+- LocalDate dataMonitoraggio
+- Alert alert
+- String note_
++ getters and setters ()
+}
+
+package alert <<Folder>>{
+
+enum Alert{
+ATTIVO
+INATTIVO
+RISOLTO
+}
+
+class StrategyAlert{
+- Pressione p
++ Alert controlla (TipiParametroVitale tipo, String valore)
+}
+
+}
+' Fine package alert
+
+enum TipiParametroVitale{
+FREQUENZA_CARDIACA
+PRESSIONE_ARTERIOSA
+SATURAZIONE
+TEMPERATURA
+}
+'Fine package parametroVi
+
+}
+' Fine package monitoraggio
+
+package "terapia" {
+
+class Terapia{
+- CartellaClinica cartellaClinica;
+- Paziente paziente;
+- Dipendente medico;
+- TipiSomministrazione tipiSomministrazione;
+- String nomeFarmaco;
+- String materiale;
+- String dosaggio;
+- int frequenzaGiornaliera;
+- StatoTerapia stato;
+- int durata;
+- LocalDate dataInizio;
+- LocalDate dataFine;
+- String note_;
++ getters and setters()
+}
+
+
+enum StatoTerapia{
+PREVISTA
+ESEGUITA
+NON_ESEGUITA
+}
+
+enum TipiSomministrazione{
+FARMACO_ORALE
+FARMACO_ENDOVENOSA
+FARMACO_INTRAMUSCOLARE
+MEDICAZIONE
+FISIOTERAPIA;
+}
+
+' RELAZIONI
+Terapia -- StatoTerapia
+Terapia -- TipiSomministrazione
+CartellaClinica o-- "monitoraggio"
+
+Monitoraggio *-- Alert
+StrategyAlert *-- Alert
+Monitoraggio -- TipiParametroVitale
+
+FactoryDipendente ..> Dipendente
+Monitoraggio ..> StrategyAlert
+}
+'Fine package terapia
+
+
+
+
+}
+' Fine package cartellaclinica
+"cartellaClinica" --* "Persona"
+
+package "rsa" <<Folder>> {
+
+class IRSA << (I, #B3E5FC) interface>>{
+boolean registraUtente(Persona p)
+boolean disattivaUtente(String cf)
+int creaCartellaClinica(CartellaClinica cc)
+int creaTerapia(Terapia t)
+int creaMonitoraggio(Monitoraggio m)
+List<Monitoraggio> getMonitoraggiConAlertAttivo()
+boolean risolviAlertMonitoraggio(Monitoraggio m)
+Monitoraggio cercaMonitoraggioById(int id)
+Persona getUtenteLoggato()
+Dipendente cercaDipendenteByCf(String cf)
+Paziente cercaPazienteByCf(String cf)
+CartellaClinica cercaCartellaClinicaByCf(String cf)
+List<Paziente> cercaPazienti()
+}
+
+class RSAService{
+- Dipendente utenteLoggato
+- FacadeSingleton DB facadeDB
++ login()
++ getters and setters ()
+}
+
+class ProxyRSA {
+- RSAService rsa
+- Persona utenteLoggato
+}
+
+IRSA <|.. RSAService
+IRSA <|.. ProxyRSA
+ProxyRSA --* RSAService
+}
+' Fine package rsa
+"rsa" <-- "cartellaClinica"
+"rsa" <-- "Persona"
+"rsa"-[hidden]down- "Persona"
+
+}
+'Fine package model
+
+
+package "jdbc" <<Folder>> as DAO {
+
+class ConnessioneDB {
+- {static} ConnessioneDB instance
+- Connection connection
+- ConnessioneDB()
++ getters()
+    }
+
+class FacadeSingletonDB  << (S,#FFF2CC) FacadeSingleton >> {
+- {static} FacadeSingletonDB instance
+- IPersonaDAO personaDAO
+- ICartellaClinicaDAO cartellaDAO
+- IMonitoraggioDAO monitoraggioDAO
+- ITerapiaDAO terapiaDAO
+- FacadeSingletonDB()
++ getters()
+}
+
+
+
+package "bean" {
+
+        package "persona" {
+        interface IPersonaDAO {
+            + getPersona(int id)
+            + save(Persona p)
+        }
+        class PersonaDAO {
+            - Connection conn
+        }
+        class PersonaDB {
+            + String querySelect
+        }
+        }
+
+        package "cartellaClinica"{
+        interface ICartellaClinicaDAO {
+            int insertCartellaClinica(CartellaClinicaDB ccDb);
+            CartellaClinicaDB selectCartellaClinicaByCf(String cf);
+        }
+
+        class CartellaClinicaDAO {
+        }
+        class CartellaClinicaDB {
+        - int idCartellaClinica;
+        - String idPaziente;
+        - LocalDate dataCreazione;
+        + getters and setters()
+        }
+
+        package "monitoraggio" {
+        interface IMonitoraggioDAO {
+        int insertMonitoraggio(MonitoraggioDB tDb);
+        List<MonitoraggioDB> selectMonitoraggioByAlertAttivo();
+        boolean updateAlertMonitoraggio(MonitoraggioDB mDb);
+        MonitoraggioDB  selectMonitoraggioById(int idMonitoraggio);
+        }
+        class MonitoraggioDAO {
+        - PersonaDAO personaDAO
+        + List<MonitoraggioDB> selectMonitoraggioByAlertAttivo()
+
+        }
+        class MonitoraggioDB {
+        - int idMonitoraggio
+        - int idCartellaClinica
+        - String idPaziente
+        - String idInferimere
+        - String tipoParametro
+        - String valore
+        - LocalDate dataMonitoraggio
+        - String alert
+        - String note
+        + getters and setters()
+        }
+        }
+
+
+        package "terapia"{
+        interface ITerapiaDAO {
+        }
+        class TerapiaDAO {
+        }
+        class TerapiaDB {
+        }
+
+        }
+       }
+    }
+
+M *-- FacadeSingletonDB
+FacadeSingletonDB --> ConnessioneDB
+ITerapiaDAO <|.. TerapiaDAO
+TerapiaDAO ..> TerapiaDB
+IPersonaDAO <|.. PersonaDAO
+PersonaDAO ..> PersonaDB
+ICartellaClinicaDAO <|.. CartellaClinicaDAO
+CartellaClinicaDAO ..> CartellaClinicaDB
+FacadeSingletonDB o-- "bean"
+IMonitoraggioDAO <|.. MonitoraggioDAO
+MonitoraggioDAO ..> MonitoraggioDB
+
+
+}
+'Fine packag JDBC
+
+
+package "controller" <<Folder>> as C {
+        class FacadeController {
+            - LoginController loginController
+            - AmmController ammController
+            - MedController medController
+            - InfController infController
+        }
+        interface ActionListener
+
+ActionListener <|.. FacadeController
+}
+
+package "view" <<Folder>> as V {
+        class ViewController <<JFrame>> {
+        - LoginPanel loginPanel
+        - AmmPanel ammPanel
+        - MedPanel medPanel
+        - InfPanel infPanel
+        + getters and setters ()
+        }
+
+        package "dipendete" {
+        class LoginPanel <<JPanel>>
+        class AmmPanel <<JPanel>>
+        class MedPanel <<JPanel>>
+        class InfPanel <<JPanel>>
+        }
+        metaclass Button <<metaclass>>
+}
+
+C --> V
+ "rsa"<-- FacadeController
+Button o-- ViewController
+ViewController *-- LoginPanel
+ViewController *-- AmmPanel
+ViewController *-- MedPanel
+ViewController *-- InfPanel
+
+
+'C -[hidden]down- M
+
+@enduml
