@@ -33,7 +33,7 @@ public class FacadeSingletonDB {
     private ITerapiaDAO terapiaDAO;
     private IMonitoraggioDAO monitoraggioDAO;
 
-    public FacadeSingletonDB() {
+    private FacadeSingletonDB() {
         personaDAO = new PersonaDAO();
         cartellaClinicaDAO = new CartellaClinicaDAO();
         terapiaDAO = new TerapiaDAO();

@@ -16,9 +16,15 @@ public class DisattivaUtenteActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e){
-        String cf = (String) JOptionPane.showInputDialog(
-                null, "Inserisci codice fiscale dell'utente da disattivare: ",
-                "Disattiva Utente", JOptionPane.PLAIN_MESSAGE, null, null,"");
+//        String cf = (String) JOptionPane.showInputDialog(
+//                null, "Inserisci codice fiscale dell'utente da disattivare: ",
+//                "Disattiva Utente", JOptionPane.PLAIN_MESSAGE, null, null,"");
+    	String cf = JOptionPane.showInputDialog(
+                null, 
+                "Inserisci codice fiscale dell'utente da disattivare:", 
+                "Disattiva Utente", 
+                JOptionPane.PLAIN_MESSAGE);
+
 
         if (cf != null) {
 

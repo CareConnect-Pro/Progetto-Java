@@ -42,11 +42,6 @@ public class RegistrazioneUtentePanel extends JPanel {
         uscitaButton = new JButton("Indietro");
         confermaButton = new JButton("Registra");
 
-//        confermaButton.setBackground(new Color(173, 216, 230));
-//        confermaButton.setOpaque(true);
-//        confermaButton.setBorderPainted(false);
-
-
         cfLabel.setFont(mediumFont);
         nomeLabel.setFont(mediumFont);
         cognomeLabel.setFont(mediumFont);

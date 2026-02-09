@@ -17,14 +17,13 @@ public class GoBtnActionListener implements ActionListener {
 
     public GoBtnActionListener(ViewController view, IRSA model) {
         this.view = view;
-        this.model = new ProxyRSA();
+        this.model = ProxyRSA.getProxy();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String cf = view.getLoginPanel().getCfField().getText();
-        String password = String.valueOf(view.getLoginPanel().getPasswordField().getPassword());;
-
+        String password = String.valueOf(view.getLoginPanel().getPasswordField().getPassword());
         Dipendente utenteLoggato = model.login(cf,password);
         if(utenteLoggato == null) {
             PopUp.infoBox("Username e/o password non validi", "Login non valido");

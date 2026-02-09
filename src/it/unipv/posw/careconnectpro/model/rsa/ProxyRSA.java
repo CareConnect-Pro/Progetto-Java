@@ -15,12 +15,22 @@ public class ProxyRSA implements IRSA {
 
     private RSAService rsa;
     private Dipendente utenteLoggato;
+    private static ProxyRSA proxy;
 
-    public ProxyRSA() {
+    private ProxyRSA() {
         this.setUtenteLoggato(utenteLoggato);
         this.rsa = new RSAService();
     }
-
+    
+    // SINGLETON
+    public static ProxyRSA getProxy () {
+        if (proxy == null) {
+            proxy = new ProxyRSA();
+        }
+        return proxy; 
+    }
+    
+   
 	@Override
     public boolean registraUtente(Persona persona) {
         if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.AMMINISTRATORE) {
@@ -49,10 +59,13 @@ public class ProxyRSA implements IRSA {
     
     @Override
     public Dipendente login(String cf, String pw)	{
-        if(utenteLoggato != null  && utenteLoggato.getTipoUtente() != TipoUtente.PAZIENTE) {
+    		Dipendente d = rsa.cercaDipendenteByCf(cf);
+        if(d != null) {
+        		setUtenteLoggato(d);
             return rsa.login(cf,pw);
         }
-        throw new RuntimeException("Solo i dipendenti possono accedere");	
+        System.out.println("Solo i dipendenti possono accedere");	
+        return null;
     }
     
     @Override
@@ -134,6 +147,7 @@ public class ProxyRSA implements IRSA {
     public CartellaClinica cercaCartellaClinicaByCf(String cf) {
             if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.MEDICO
                     || utenteLoggato.getTipoUtente() == TipoUtente.INFERMIERE) {
+            	return rsa.cercaCartellaClinicaByCf(cf);
         }
         throw new RuntimeException("Solo i medici e infermieri possono cercare una cartella clinica ");
     }

@@ -20,14 +20,6 @@ public class RSAService implements IRSA {
     public RSAService() {
         facadeDB = FacadeSingletonDB.getIstanza();
     }
-    public RSAService(FacadeSingletonDB facadeDB) {
-        this.facadeDB = facadeDB;
-    }
-
-
-    public FacadeSingletonDB getFacadeDB() {
-        return facadeDB;
-    }
 
     
     @Override
@@ -154,8 +146,9 @@ public class RSAService implements IRSA {
 
     @Override
     public Dipendente cercaDipendenteByCf(String cf) {
-        return facadeDB.findDipendenteByCf(cf);
+        return facadeDB.findDipendenteAttivoByCf(cf);
     }
+    
     @Override
     public Dipendente getUtenteLoggato() {
         return utenteLoggato;
@@ -171,11 +164,14 @@ public class RSAService implements IRSA {
         return facadeDB.findCartellaClinicaByCf(cf);
     }
 
-
+    @Override
     public void setUtenteLoggato(Dipendente utenteLoggato) {
         this.utenteLoggato = utenteLoggato;
     }
 
+    public FacadeSingletonDB getFacadeDB() {
+        return facadeDB;
+    }
 
 }
 
