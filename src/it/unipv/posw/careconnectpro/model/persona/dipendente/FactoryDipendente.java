@@ -1,6 +1,7 @@
 package it.unipv.posw.careconnectpro.model.persona.dipendente;
 
-import java.io.FileInputStream;
+
+import java.io.FileReader;
 import java.lang.reflect.Constructor;
 import java.time.LocalDate;
 import java.util.Properties;
@@ -24,7 +25,7 @@ public class FactoryDipendente {
 
         try {
             Properties p = new Properties(System.getProperties());
-            p.load(new FileInputStream(FILE_PROPERTIES_DIPENDENTI));
+            p.load(new FileReader(FILE_PROPERTIES_DIPENDENTI));
             dipendenteClassName = p.getProperty(tipo.toUpperCase());
 
             Constructor <?> c = Class.forName(dipendenteClassName).getConstructor(

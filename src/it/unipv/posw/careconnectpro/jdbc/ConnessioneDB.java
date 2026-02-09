@@ -1,6 +1,7 @@
 package it.unipv.posw.careconnectpro.jdbc;
 
-import java.io.FileInputStream;
+
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
@@ -27,7 +28,7 @@ public class ConnessioneDB {
 
         Properties p = new Properties();
 
-        try (FileInputStream fis = new FileInputStream(FILE_PROPERTIES_DB)) {
+        try (FileReader fis = new FileReader(FILE_PROPERTIES_DB)) {
             p.load(fis);
             username = p.getProperty(PROPERTYNAME);
             password = p.getProperty(PROPERTYPSW);
