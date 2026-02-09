@@ -13,6 +13,7 @@ public interface IRSA {
 
 	boolean registraUtente(Persona p);
 	boolean disattivaUtente(String cf);
+	Dipendente login(String cf, String pw);
 	int creaCartellaClinica(CartellaClinica cc);
 	int creaTerapia(Terapia t);
 	int creaMonitoraggio(Monitoraggio m);
@@ -24,6 +25,7 @@ public interface IRSA {
     Paziente cercaPazienteByCf(String cf);
     CartellaClinica cercaCartellaClinicaByCf(String cf);
 	List<Paziente> cercaPazienti();
+	void setUtenteLoggato(Dipendente utenteLoggato);
 	
 }
 

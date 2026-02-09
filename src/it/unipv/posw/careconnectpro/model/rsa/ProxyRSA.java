@@ -13,15 +13,15 @@ import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 
 public class ProxyRSA implements IRSA {
 
-    private final RSAService rsa;
-    private final Persona utenteLoggato;
+    private RSAService rsa;
+    private Dipendente utenteLoggato;
 
-    public ProxyRSA(Dipendente utenteLoggato) {
-        this.utenteLoggato = utenteLoggato;
+    public ProxyRSA() {
+        this.setUtenteLoggato(utenteLoggato);
         this.rsa = new RSAService();
     }
 
-    @Override
+	@Override
     public boolean registraUtente(Persona persona) {
         if(utenteLoggato != null  && utenteLoggato.getTipoUtente() == TipoUtente.AMMINISTRATORE) {
             return rsa.registraUtente(persona);
@@ -45,6 +45,14 @@ public class ProxyRSA implements IRSA {
             return rsa.disattivaUtente(cf);
         }
         throw new RuntimeException("Solo gli amministratori possono rimuovere le persone");
+    }
+    
+    @Override
+    public Dipendente login(String cf, String pw)	{
+        if(utenteLoggato != null  && utenteLoggato.getTipoUtente() != TipoUtente.PAZIENTE) {
+            return rsa.login(cf,pw);
+        }
+        throw new RuntimeException("Solo i dipendenti possono accedere");	
     }
     
     @Override
@@ -128,6 +136,10 @@ public class ProxyRSA implements IRSA {
                     || utenteLoggato.getTipoUtente() == TipoUtente.INFERMIERE) {
         }
         throw new RuntimeException("Solo i medici e infermieri possono cercare una cartella clinica ");
+    }
+    
+    public void setUtenteLoggato(Dipendente utenteLoggato) {
+        this.utenteLoggato = utenteLoggato;
     }
 
 }

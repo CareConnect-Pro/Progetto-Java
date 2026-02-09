@@ -28,7 +28,8 @@ public class ProxyTest {
 
     @Test
     public void testInserimento(){
-        ProxyRSA proxyRSA = new ProxyRSA(amministratore);
+        ProxyRSA proxyRSA = new ProxyRSA();
+        proxyRSA.setUtenteLoggato(amministratore);
         boolean risultato = proxyRSA.registraUtente(dipendenteNuovo);
 
         System.out.println("True: registrato con successo, False: registrazione fallita --> risulalto =  " + risultato);
@@ -36,9 +37,10 @@ public class ProxyTest {
 
    @Test
     public void testInserimentoFallito(){
-        ProxyRSA proxyRSA = new ProxyRSA(medico);
-       boolean risultato = proxyRSA.registraUtente(dipendenteNuovo);
-       System.out.println("True: registrato con successo, False: registrazione fallita --> risulalto = " + risultato);
+	   ProxyRSA proxyRSA = new ProxyRSA();
+	   proxyRSA.setUtenteLoggato(medico);
+	   boolean risultato = proxyRSA.registraUtente(dipendenteNuovo);
+	   System.out.println("True: registrato con successo, False: registrazione fallita --> risulalto = " + risultato);
    }
 
 }

@@ -2,7 +2,8 @@ package it.unipv.posw.careconnectpro.controller.login;
 
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
-import it.unipv.posw.careconnectpro.model.rsa.RSAService;
+import it.unipv.posw.careconnectpro.model.rsa.IRSA;
+import it.unipv.posw.careconnectpro.model.rsa.ProxyRSA;
 import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
@@ -12,11 +13,11 @@ import java.awt.event.ActionListener;
 public class GoBtnActionListener implements ActionListener {
 
     private ViewController view;
-    private RSAService model;
+    private IRSA model;
 
-    public GoBtnActionListener(ViewController view, RSAService model) {
+    public GoBtnActionListener(ViewController view, IRSA model) {
         this.view = view;
-        this.model = model;
+        this.model = new ProxyRSA();
     }
 
     @Override

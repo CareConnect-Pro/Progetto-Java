@@ -1,15 +1,15 @@
 package it.unipv.posw.careconnectpro.controller.login;
 
-import it.unipv.posw.careconnectpro.model.rsa.RSAService;
+import it.unipv.posw.careconnectpro.model.rsa.IRSA;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
 public class LoginController {
 
     private ViewController view;
-    private RSAService rsa;
+    private IRSA rsa;
     private GoBtnActionListener go;
 
-    public LoginController (RSAService rsa, ViewController view) {
+    public LoginController (IRSA rsa, ViewController view) {
         this.view = view;
         this.rsa = rsa;
 
