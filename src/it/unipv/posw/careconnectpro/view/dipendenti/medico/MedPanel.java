@@ -16,7 +16,7 @@ public class MedPanel extends JPanel {
 
         logoutButton = new JButton("Logout");
         logoutButton.setFont(mediumFont);
-        openButton = new JButton("Monitoraggio Alert");
+        openButton = new JButton("Visualizza Monitoraggi");
         openButton.setFont(mediumFont);
 
         add(openButton);

@@ -1,7 +1,8 @@
-package it.unipv.posw.careconnectpro.controller.utenti.medico;
+package it.unipv.posw.careconnectpro.controller.utenti.medico.button;
 
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
+import it.unipv.posw.careconnectpro.model.rsa.ProxyRSA;
 import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
@@ -14,7 +15,7 @@ public class AlertActionListener implements ActionListener {
     private ViewController view;
 
     public AlertActionListener(IRSA model, ViewController view) {
-        this.model = model;
+        this.model = ProxyRSA.getProxy();
         this.view = view;
     }
 

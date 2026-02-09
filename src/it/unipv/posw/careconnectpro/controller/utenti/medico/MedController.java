@@ -18,15 +18,12 @@ public class MedController {
         this.setModel(model);
         this.setView(view);
 
-        monitoraggioBtn = new BtnMonitoraggioActionListener(view);
+        monitoraggioBtn = new BtnMonitoraggioActionListener(view,model);
         view.getMedPanel().getOpenButton().addActionListener(monitoraggioBtn);
         setMonitoraggioController(new MonitoraggioController(model, view));
         setTerapiaController(new TerapiaController (model, view));
 
-
     }
-
-
 
 	public IRSA getModel() {
 		return model;

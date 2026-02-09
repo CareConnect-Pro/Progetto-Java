@@ -53,18 +53,5 @@ public class TerapiaDAO implements ITerapiaDAO {
         }
 	}
 	
-	@Override
-    public boolean deleteTerapiaById(int id) {
-        String query = "DELETE FROM TERAPIE WHERE ID_TERAPIA = ?";
-        try (Connection conn = ConnessioneDB.startConnection("ccp");
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setInt(1, id);
-            int deletedRows = ps.executeUpdate();
-            return deletedRows > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
 }
