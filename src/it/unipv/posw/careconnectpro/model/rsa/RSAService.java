@@ -87,11 +87,11 @@ public class RSAService implements IRSA {
     public Dipendente login (String cf, String password) {
         Dipendente d = facadeDB.findDipendenteAttivoByCf(cf);
         if (d == null) {
-            System.out.println("Logout effetuato");
+            System.out.println("Utente non trovato");
             return null;
         }
         if (d.getPassword().equals(password)){
-            System.out.println("Login Dipendente avvenuta con successo " + password);
+            System.out.println("Login Dipendente avvenuto con successo ");
             return d;
         }
 

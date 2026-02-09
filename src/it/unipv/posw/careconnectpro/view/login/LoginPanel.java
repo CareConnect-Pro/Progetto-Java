@@ -31,11 +31,6 @@ public class LoginPanel extends JPanel {
         cfLabel.setFont(mediumFont);
         passwordLabel.setFont(mediumFont);
         loginButton.setFont(largeFont);
-//        loginButton.setContentAreaFilled(true);
-//        loginButton.setOpaque(true);
-//        loginButton.setBackground(new Color(173, 216, 230));
-//        loginButton.setBorderPainted(false);
-
 
         add(cfLabel);
         add(cfField);

@@ -41,6 +41,7 @@ public class ViewController extends JFrame {
         frame.setTitle("CareConnectPro");
         frame.getContentPane().add(panel);
 
+        // LOGIN
         loginPanel = new LoginPanel();
         panel.add(loginPanel);
 

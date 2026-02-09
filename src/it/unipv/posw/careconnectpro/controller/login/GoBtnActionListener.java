@@ -36,7 +36,6 @@ public class GoBtnActionListener implements ActionListener {
         view.getLoginPanel().setVisible(false);
         model.setUtenteLoggato(utenteLoggato);
 
-//        if(utenteLoggato != null) {
             switch (ruolo) {
                 case AMMINISTRATORE:
                     view.getLoginPanel().setVisible(false);
@@ -57,9 +56,7 @@ public class GoBtnActionListener implements ActionListener {
                     break;
             }
         }
-//        else {
-//            PopUp.infoBox("Username o password incorretti", "Errore");
-//        }
+
 
     private void pulisciTextField(){
         view.getLoginPanel().getCfField().setText(null);
@@ -67,8 +64,5 @@ public class GoBtnActionListener implements ActionListener {
     }
 
 
+}
 
-
-    }
-
-//}

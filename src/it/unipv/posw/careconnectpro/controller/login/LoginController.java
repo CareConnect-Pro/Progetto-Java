@@ -3,8 +3,6 @@ package it.unipv.posw.careconnectpro.controller.login;
 import it.unipv.posw.careconnectpro.model.rsa.RSAService;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
-
-
 public class LoginController {
 
     private ViewController view;
