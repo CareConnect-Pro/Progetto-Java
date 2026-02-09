@@ -1,0 +1,87 @@
+@startuml
+actor Medico
+participant "MedPanel" as MP
+participant "ListMonitoraggioPanel" as LMP
+participant "TerapiaPanel" as TP
+participant "FacadeController" as FC
+participant "RSAService" as RSA
+participant "FacadeSingletonDB" as FS
+database "MySQL" as DB
+
+== Visualizzazione Monitoraggi con Alert Attivo ==
+Medico -> MP
+activate MP
+MP -> LMP : alertMonitoraggi
+deactivate MP
+activate LMP
+LMP -> FC : getListMonitoraggioPanel()
+activate FC
+FC -> RSA : setMedController()
+activate RSA
+RSA -> FS 
+activate FS 
+FS -> DB 
+activate DB
+DB --> FS : selectMonitoraggioByAlertAttivo()
+deactivate DB
+FS --> RSA : getMonitoraggiConAlertAttivo()
+deactivate FS
+RSA --> FC : listaMonitoraggi
+deactivate RSA
+FC --> LMP : datiMonitoraggi
+deactivate FC
+
+== Gestione Monitoraggi con Alert Attivo ==
+
+alt Scenario A: Risoluzione Alert
+    LMP -> FC : \nselezionaMonitoraggio\nrisolviAlert
+    activate FC
+    FC -> RSA 
+    activate RSA
+    RSA -> FS : risolviAlertMonitoraggio()
+    activate FS
+    FS -> DB : updateAlertMonitoraggio()
+    activate DB
+    DB --> FS
+    deactivate DB
+    FS --> RSA
+    deactivate FS
+    RSA --> FC
+    deactivate RSA
+    FC --> LMP : alertRisolto
+    deactivate FC
+
+else Scenario Alternativo: Prescrizione Terapia
+    LMP -> TP : \n selezionaMonitoraggio\n getTerapiaPanel()
+    deactivate LMP    
+    activate TP
+    TP -> FC : datiTerapia
+    activate FC
+    FC -> RSA
+    activate RSA
+    RSA -> FS : creaTerapia()
+    activate FS
+    FS -> DB :  insertTerapia()\nupdateAlertMonitoraggio
+    activate DB
+    DB --> FS
+    deactivate DB
+    FS --> RSA
+    deactivate FS
+    RSA --> FC
+    deactivate RSA
+    FC --> TP : aggiornaVista
+    deactivate FC
+
+end
+
+TP -> LMP : backToMonitoraggi
+deactivate TP
+activate LMP
+LMP -> MP : backToMedico
+deactivate LMP
+activate MP
+MP -> Medico : logout
+deactivate MP
+
+
+@enduml

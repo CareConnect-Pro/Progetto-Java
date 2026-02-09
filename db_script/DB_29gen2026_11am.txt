@@ -72,11 +72,11 @@ VALUES
 ('INF001CF','Gianna','Bianchi','1990-02-10','g.bianchi@care.it','444','Inf001','INFERMIERE','2021-03-15'),
 ('INF002CF','Roberto','Veroli','1985-08-20','r.veroli@care.it','555','Inf002','INFERMIERE','2022-06-01'),
 ('INF003CF','Sara','Leoni','1993-04-18','s.leoni@care.it','666','Inf003','INFERMIERE','2023-02-01'),
-('PAZ001CF','Maria','Lanari','1992-11-15','m.lanari@care.it','777','Paz001','PAZIENTE','2023-01-01'),
-('PAZ002CF','Andrea','Ferri','1988-05-10','a.ferri@care.it','888','Paz002','PAZIENTE','2023-02-10'),
-('PAZ003CF','Elena','Gallo','1995-09-03','e.gallo@care.it','999','Paz003','PAZIENTE','2023-03-05'),
-('PAZ004CF','Marco','Rinaldi','1979-12-30','m.rinaldi@care.it','101','Paz004','PAZIENTE','2023-04-01'),
-('PAZ005CF','Chiara','Moretti','2000-06-25','c.moretti@care.it','202','Paz005','PAZIENTE','2023-05-20');
+('PAZ001CF','Maria','Lanari','1992-11-15','m.lanari@care.it','777','null','PAZIENTE','2023-01-01'),
+('PAZ002CF','Andrea','Ferri','1988-05-10','a.ferri@care.it','888','null','PAZIENTE','2023-02-10'),
+('PAZ003CF','Elena','Gallo','1995-09-03','e.gallo@care.it','999','null','PAZIENTE','2023-03-05'),
+('PAZ004CF','Marco','Rinaldi','1979-12-30','m.rinaldi@care.it','101','null','PAZIENTE','2023-04-01'),
+('PAZ005CF','Chiara','Moretti','2000-06-25','c.moretti@care.it','202','null','PAZIENTE','2023-05-20');
 
 INSERT INTO CARTELLA_CLINICA
 (ID_PAZIENTE, DATA_CREAZIONE)
@@ -106,6 +106,6 @@ VALUES
 (1,'PAZ001CF','INF001CF','TEMPERATURA','38.0','2024-01-10','ATTIVO','Febbre'),
 (1,'PAZ001CF','INF002CF','PRESSIONE_ARTERIOSA','120/80','2024-01-10','INATTIVO',NULL),
 (2,'PAZ002CF','INF003CF','FREQUENZA_CARDIACA','75','2024-01-11','INATTIVO',NULL),
-(3,'PAZ003CF','INF001CF','SATURAZIONE','94%','2024-01-11','ATTIVO','Valore basso'),
+(3,'PAZ003CF','INF001CF','SATURAZIONE','94','2024-01-11','ATTIVO','Valore basso'),
 (4,'PAZ004CF','INF002CF','TEMPERATURA','36.6','2024-01-12','INATTIVO',NULL),
 (5,'PAZ005CF','INF003CF','PRESSIONE_ARTERIOSA','135/85','2024-01-12','ATTIVO','Pressione alta');

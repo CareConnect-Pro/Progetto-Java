@@ -1,0 +1,32 @@
+@startuml
+actor Infermiere
+participant InfPanel
+participant MonitoraggioPanel
+participant FacadeController
+participant RSAService
+participant Monitoraggio
+participant FacadeSingletonDB
+database MySQL
+
+Infermiere --> InfPanel
+activate InfPanel
+InfPanel --> MonitoraggioPanel : setVisible(true)
+deactivate InfPanel
+activate MonitoraggioPanel
+MonitoraggioPanel --> FacadeController : addMonitoraggio()
+deactivate MonitoraggioPanel
+activate FacadeController
+FacadeController --> RSAService
+deactivate FacadeController
+activate RSAService
+RSAService --> Monitoraggio : creaMonitoraggio()
+deactivate RSAService
+activate Monitoraggio
+Monitoraggio --> FacadeSingletonDB : setCartellaClinica()\nsetPaziente()
+deactivate Monitoraggio
+activate FacadeSingletonDB
+
+FacadeSingletonDB --> MySQL : insertMonitoraggio()
+
+
+@enduml
