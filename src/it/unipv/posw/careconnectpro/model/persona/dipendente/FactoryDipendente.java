@@ -9,7 +9,6 @@ public class FactoryDipendente {
 
     public static final String FILE_PROPERTIES_DIPENDENTI = "properties/dipendenti.properties";
 
-
     public static Dipendente getDipendente(
             String tipo,
             String cf,

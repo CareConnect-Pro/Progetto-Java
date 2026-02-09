@@ -1,10 +1,11 @@
 package it.unipv.posw.careconnectpro.view.dipendenti.infermiere;
 
-import it.unipv.posw.careconnectpro.model.rsa.IRSA;
-import it.unipv.posw.careconnectpro.model.rsa.RSAService;
+import it.unipv.posw.careconnectpro.model.persona.Paziente;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GestionePazientePanel extends JPanel {
 
@@ -13,7 +14,7 @@ public class GestionePazientePanel extends JPanel {
 	private JTable pazienteTable;
     private JButton inserisciButton, backButton;
     private PazientiTable tabellaPazienti;
-    private IRSA model;
+   
 
 
     public GestionePazientePanel() {
@@ -22,12 +23,11 @@ public class GestionePazientePanel extends JPanel {
         setVisible(true);
         setLayout(new BorderLayout());
 
-        model = new RSAService();
-        tabellaPazienti = new PazientiTable(model.cercaPazienti());
+        
+        tabellaPazienti = new PazientiTable(new ArrayList<Paziente>());
 
         pazienteTable = new JTable(tabellaPazienti);
         pazienteTable.setFont(mediumFont);
-        //pazienteTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         pazienteTable.getColumnModel().getColumn(0).setPreferredWidth(150);
         pazienteTable.getColumnModel().getColumn(1).setPreferredWidth(150);
         pazienteTable.getColumnModel().getColumn(2).setPreferredWidth(150);
@@ -63,4 +63,16 @@ public class GestionePazientePanel extends JPanel {
     public PazientiTable getTabellaPazienti() {
         return tabellaPazienti;
     }
+
+	public void setTabellaPazienti(List<Paziente> cercaPazienti) {
+		if (cercaPazienti == null) {
+			cercaPazienti = new ArrayList<Paziente>();
+		} 
+		this.tabellaPazienti = new PazientiTable(cercaPazienti);
+		this.pazienteTable.setModel(tabellaPazienti);
+		
+	}
+
+	
+    
 }

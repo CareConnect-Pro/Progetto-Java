@@ -18,11 +18,15 @@ public class PazientiTable extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
+    		if(pazienti == null) {
+    			return 0;
+    		}
         return pazienti.size();
     }
 
     @Override
     public int getColumnCount() {
+    	
         return columnNames.length;
     }
 
@@ -45,4 +49,6 @@ public class PazientiTable extends AbstractTableModel {
     public Paziente getPaziente(int row) {
         return pazienti.get(row);
     }
+    
+    
 }

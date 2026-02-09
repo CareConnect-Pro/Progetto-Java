@@ -1,7 +1,10 @@
 package it.unipv.posw.careconnectpro.controller.utenti.infermiere;
 
+import java.util.List;
+
 import it.unipv.posw.careconnectpro.controller.utenti.infermiere.button.BtnAddMonitoraggioAL;
 import it.unipv.posw.careconnectpro.controller.utenti.infermiere.button.BtnBackHomeInfAL;
+import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
@@ -14,13 +17,14 @@ public class GestioniPazientiController {
     public GestioniPazientiController(ViewController view, IRSA model) {
         this.setView(view);
         this.setModel(model);
-
+        
 
         indietroButton = new BtnBackHomeInfAL(view);
         addMonitoraggio = new BtnAddMonitoraggioAL(model, view);
 
         view.getGestionePazPanel().getInserisciButton().addActionListener(addMonitoraggio);
         view.getGestionePazPanel().getBackButton().addActionListener(indietroButton);
+        
 
 
     }
