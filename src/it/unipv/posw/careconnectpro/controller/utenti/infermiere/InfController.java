@@ -1,9 +1,6 @@
 package it.unipv.posw.careconnectpro.controller.utenti.infermiere;
 
-import java.util.List;
-
 import it.unipv.posw.careconnectpro.controller.utenti.infermiere.button.BtnOpenActionListener;
-import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
 import it.unipv.posw.careconnectpro.model.rsa.ProxyRSA;
 import it.unipv.posw.careconnectpro.view.ViewController;
@@ -23,10 +20,8 @@ public class InfController {
         this.setView(view);
 
 
-        btnOpenActionListener = new BtnOpenActionListener(view);
+        btnOpenActionListener = new BtnOpenActionListener(view,model);
         setGestioneController(new GestioniPazientiController(view, model));
-        List<Paziente> pazienti = model.cercaPazienti();        
-        view.getGestionePazPanel().setTabellaPazienti(pazienti);
         setAddMonitoraggioController(new AddMonitoraggioController(model, view));
         view.getInfPanel().getMonitoraggioButton().addActionListener(btnOpenActionListener);
  

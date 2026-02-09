@@ -44,7 +44,6 @@ public class MonitoraggioPanel extends JPanel {
         alertLabel = new JLabel("Alert del monitoraggio");
         alertField = new JTextField();
         alertField.setEditable(false);
-        //alertBox = new JComboBox<>(Alert.values());
         noteLabel = new JLabel("Note");
         noteFiel = new JTextField();
         confermaButton = new JButton("Conferma");

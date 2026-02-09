@@ -52,6 +52,7 @@ public class GoBtnActionListener implements ActionListener {
                 case INFERMIERE:
                     view.getLoginPanel().setVisible(false);
                     view.getInfPanel().setVisible(true);
+                    
                 default:
                     break;
             }

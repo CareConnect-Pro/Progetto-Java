@@ -9,6 +9,7 @@ import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.paramentr
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
+import it.unipv.posw.careconnectpro.model.rsa.ProxyRSA;
 import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
@@ -26,7 +27,7 @@ public class AddMonitoraggioController {
 
 
     public AddMonitoraggioController(IRSA model, ViewController view) {
-        this.model = model;
+        this.model = ProxyRSA.getProxy();
         this.view = view;
 
         btnBackHomeInfAL = new BtnBackHomeInfAL(view);

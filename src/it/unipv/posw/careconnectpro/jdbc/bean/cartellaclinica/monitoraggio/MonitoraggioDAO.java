@@ -24,7 +24,7 @@ private PersonaDAO personaDAO;
 		String query =
                 "INSERT INTO MONITORAGGI" + " "
                 		+ "(ID_CARTELLA_CLINICA, ID_PAZIENTE, ID_INFERMIERE, TIPO_PARAMETRO, VALORE, DATA_MONITORAGGIO, ALERT, NOTE)" 
-                		+ "VALUES (?,?,?,?,?,?,?)";
+                		+ "VALUES (?,?,?,?,?,?,?,?)";
 		try (Connection conn = ConnessioneDB.startConnection("ccp");
 	    		PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -34,8 +34,8 @@ private PersonaDAO personaDAO;
             ps.setString(4, mDb.getTipoParametro());
             ps.setString(5, mDb.getValore());
             ps.setDate(6, Date.valueOf(mDb.getDataMonitoraggio()));
-            //ps.setString(7, mDb.getAlert());
-            ps.setString(7, mDb.getNote());
+            ps.setString(7, mDb.getAlert());
+            ps.setString(8, mDb.getNote());
             ps.executeUpdate();
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
