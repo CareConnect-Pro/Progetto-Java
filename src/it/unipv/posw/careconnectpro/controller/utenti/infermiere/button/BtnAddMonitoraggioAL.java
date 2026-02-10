@@ -4,10 +4,10 @@ import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
 import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 public class BtnAddMonitoraggioAL implements ActionListener {
 
@@ -15,6 +15,7 @@ public class BtnAddMonitoraggioAL implements ActionListener {
     private IRSA model;
     private CartellaClinica cc;
     private int rigaSelezionata;
+   
 
     public  BtnAddMonitoraggioAL(IRSA model, ViewController view) {
         this.model = model;
@@ -39,12 +40,13 @@ public class BtnAddMonitoraggioAL implements ActionListener {
             view.getMonitoraggioPanel().getCfPazienteField().setText(cfPaziente);
             view.getMonitoraggioPanel().getIdInfermiereField().setText(idInfermiere);
             view.getMonitoraggioPanel().getIdCartellaField().setText(String.valueOf(cc.getIdCartellaClinica()));
-        }
-        else {
+        } else {
             PopUp.infoBox("Seleziona una riga dalla tabella prima di procedere!", "Nessuna Selezione");
         }
 
     }
+    
+   
 
     public CartellaClinica getCc() {
         return cc;

@@ -1,10 +1,8 @@
 package it.unipv.posw.careconnectpro.controller.utenti.infermiere;
 
-import java.util.List;
 
 import it.unipv.posw.careconnectpro.controller.utenti.infermiere.button.BtnAddMonitoraggioAL;
 import it.unipv.posw.careconnectpro.controller.utenti.infermiere.button.BtnBackHomeInfAL;
-import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.rsa.IRSA;
 import it.unipv.posw.careconnectpro.model.rsa.ProxyRSA;
 import it.unipv.posw.careconnectpro.view.ViewController;
@@ -25,15 +23,10 @@ public class GestioniPazientiController {
 
         view.getGestionePazPanel().getInserisciButton().addActionListener(addMonitoraggio);
         view.getGestionePazPanel().getBackButton().addActionListener(indietroButton);
-        updatePazienti();
-
 
     }
     
-    public void updatePazienti()	{
-        List<Paziente> pazienti = model.cercaPazienti();        
-        view.getGestionePazPanel().setTabellaPazienti(pazienti);
-    }
+    
 
 	public ViewController getView() {
 		return view;

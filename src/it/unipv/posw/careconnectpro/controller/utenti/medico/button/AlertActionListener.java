@@ -21,13 +21,18 @@ public class AlertActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+    	
 
         JTable tabella = view.getListMonitoraggioPanel().getMonitoraggiList();
         int rigaSelezionata = tabella.getSelectedRow();
 
-        if (rigaSelezionata != -1) {
+        if (rigaSelezionata == -1) {
+        	
+        	PopUp.infoBox("Seleziona una riga dalla tabella prima di procedere!", "Nessuna Selezione");
+        	
+        }  else {
+        	
             int idMonitoraggio = (int) tabella.getValueAt(rigaSelezionata, 0);
-
             Monitoraggio monitoraggio = model.cercaMonitoraggioById(idMonitoraggio);
 
             if (monitoraggio != null) {
@@ -36,14 +41,15 @@ public class AlertActionListener implements ActionListener {
                 if (successo) {
                     view.getListMonitoraggioPanel().getMonitoraggiTable().rimuoviMonitoraggio(rigaSelezionata);
                     PopUp.infoBox("Monitoraggio " + idMonitoraggio + " risolto nel database.", "Successo");
+              
 
                 } else {
                     PopUp.infoBox("Errore nell'aggiornamento del Database.", "Errore DB");
                 }
             }
-        } else {
-            PopUp.infoBox("Seleziona una riga dalla tabella prima di procedere!", "Nessuna Selezione");
+            
         }
+
     }
 
 

@@ -21,7 +21,7 @@ public class ListMonitoraggioPanel extends JPanel {
         Font largeFont = new Font("Arial", 0, 20);
         setVisible(true);
 
-        monitoraggiTable = new MonitoraggioTable(new ArrayList<>());
+        monitoraggiTable = new MonitoraggioTable(new ArrayList<Monitoraggio>());
 
         monitoraggiList = new JTable(monitoraggiTable);
         monitoraggiList.setFont(mediumFont);
@@ -82,7 +82,7 @@ public class ListMonitoraggioPanel extends JPanel {
     
     public void setTabellaMonitoraggi(List<Monitoraggio> cercaMonitoraggio) {
 		if (cercaMonitoraggio == null) {
-			cercaMonitoraggio = new ArrayList<>();
+			cercaMonitoraggio = new ArrayList<Monitoraggio>();
 		} 
 		this.monitoraggiTable= new MonitoraggioTable(cercaMonitoraggio);
 		this.monitoraggiList.setModel(monitoraggiTable);
