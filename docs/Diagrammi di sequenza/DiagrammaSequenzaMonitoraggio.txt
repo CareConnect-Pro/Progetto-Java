@@ -1,32 +1,70 @@
 @startuml
 actor Infermiere
 participant InfPanel
+participant GestionePazientePanel
 participant MonitoraggioPanel
-participant FacadeController
+participant InfController
 participant RSAService
 participant Monitoraggio
 participant FacadeSingletonDB
 database MySQL
 
+== Visualizzazione Pazienti ==
 Infermiere --> InfPanel
 activate InfPanel
-InfPanel --> MonitoraggioPanel : setVisible(true)
+InfPanel --> InfController : getPazienti()
 deactivate InfPanel
+activate InfController
+InfController --> RSAService : cercaPazienti()
+activate RSAService
+RSAService --> FacadeSingletonDB
+activate FacadeSingletonDB
+FacadeSingletonDB --> MySQL : selectPazienti()
+activate MySQL
+MySQL --> FacadeSingletonDB
+deactivate MySQL
+FacadeSingletonDB --> RSAService : Lista Pazienti
+deactivate FacadeSingletonDB
+RSAService --> InfController
+deactivate RSAService
+InfController --> GestionePazientePanel : updatePazienti()
+deactivate InfController
+activate GestionePazientePanel
+
+
+== Inserimento Monitoraggi ==
+
+GestionePazientePanel--> MonitoraggioPanel : getPaziente
+deactivate GestionePazientePanel
 activate MonitoraggioPanel
-MonitoraggioPanel --> FacadeController : addMonitoraggio()
+MonitoraggioPanel --> InfController : addMonitoraggio()
 deactivate MonitoraggioPanel
-activate FacadeController
-FacadeController --> RSAService
-deactivate FacadeController
+activate InfController
+InfController --> RSAService
+deactivate InfController
 activate RSAService
 RSAService --> Monitoraggio : creaMonitoraggio()
-deactivate RSAService
+
 activate Monitoraggio
 Monitoraggio --> FacadeSingletonDB : setCartellaClinica()\nsetPaziente()
 deactivate Monitoraggio
 activate FacadeSingletonDB
-
 FacadeSingletonDB --> MySQL : insertMonitoraggio()
+MySQL --> FacadeSingletonDB
+deactivate FacadeSingletonDB
+FacadeSingletonDB --> RSAService
+RSAService --> InfController
+deactivate RSAService
+activate InfController
+InfController -->GestionePazientePanel
+deactivate InfController
+activate GestionePazientePanel
+GestionePazientePanel --> InfPanel : backToMenu()
+deactivate GestionePazientePanel
+activate InfPanel
+InfPanel --> Infermiere : logout()
+
+
 
 
 @enduml
