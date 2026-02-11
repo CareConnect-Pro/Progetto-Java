@@ -1,0 +1,45 @@
+@startuml
+
+actor Medico as MED
+participant "ListMonitoraggioPanel" as LMP
+participant "MonitoraggioController" as MC
+participant "TerapiaPanel" as TP
+participant "TerapiaController" as TC
+participant "RSAService" as RSA
+participant "FacadeSingletonDB" as FS
+
+database "MySQL" as DB
+
+
+== Prescrizione Terapia e Risoluzione Alert ==
+
+MED -> LMP 
+activate LMP
+LMP -> MC : selezionaMonitoraggio
+activate MC
+MC -> TP
+deactivate MC
+activate TP
+TP -> TC : datiTerapia
+activate TC
+TC -> RSA : addTerapia()
+activate RSA
+RSA -> FS : creaTerapia()
+activate FS
+FS -> DB : insertTerapia() \nupdateAlertMonitoraggio()
+activate DB
+DB --> FS : inserita
+deactivate DB
+FS --> RSA 
+deactivate FS
+RSA --> TC : terapiaInserita
+deactivate RSA
+TC -> TP : pulisciTextField()
+deactivate TC
+TP --> LMP : back
+deactivate TP
+LMP --> MED
+deactivate LMP
+
+
+@enduml

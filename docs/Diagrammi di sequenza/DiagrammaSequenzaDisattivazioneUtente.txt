@@ -1,0 +1,37 @@
+@startuml
+
+
+actor Amministratore as ADMIN
+participant "AmmPanel" as AP
+participant "AmmController" as AC
+participant "RSAService" as RSA
+participant "FacadeSingletonDB" as FS
+
+database "MySQL" as DB
+
+
+== Disattivazione Utenti ==
+
+ADMIN -> AP
+activate AP
+AP -> AC : disabilitaUtente
+activate AC
+AC -> RSA : inserisciCf
+activate RSA
+RSA -> FS : disattivaUtente()
+activate FS
+FS -> DB : deletePersona() \nfindDipendenteByCf() \nfindPazienteByCf()
+activate DB
+DB --> FS : disattivato
+deactivate DB
+FS --> RSA 
+deactivate FS
+RSA --> AC : utenteDisattivato
+deactivate RSA
+AC --> AP 
+deactivate AC
+AP --> ADMIN
+deactivate AP
+
+
+@enduml

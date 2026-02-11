@@ -1,0 +1,40 @@
+@startuml
+
+actor Medico as MED
+participant "MedPanel" as MP
+participant "ListMonitoraggioPanel" as LMP
+participant "MonitoraggioController" as MC
+participant "RSAService" as RSA
+participant "FacadeSingletonDB" as FS
+
+database "MySQL" as DB
+
+
+== Visualizzazione Monitoraggi con Alert Attivo ==
+
+MED -> MP
+activate MP
+MP -> MC
+activate MC
+MC -> RSA
+activate RSA
+RSA -> FS
+activate FS
+FS -> DB : selectMonitoraggioByAlertAttivo()
+activate DB
+DB --> FS 
+deactivate DB
+FS --> RSA : monitoraggiConAlertAttivo
+deactivate FS
+RSA -> MC : getMonitoraggiConAlertAttivo()
+deactivate RSA
+MC -> LMP : updateMonitoraggi()
+deactivate MC
+activate LMP
+LMP --> MP : back 
+deactivate LMP
+MP -> MED
+deactivate MP
+
+
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+
+actor Medico as MED
+participant "ListMonitoraggioPanel" as LMP
+participant "MonitoraggioController" as MC
+participant "RSAService" as RSA
+participant "FacadeSingletonDB" as FS
+
+database "MySQL" as DB
+
+
+== Risoluzione Alert ==
+
+MED -> LMP : selezionaMonitoraggio
+activate LMP
+LMP -> MC 
+activate MC
+MC -> RSA
+activate RSA
+RSA -> FS : risolviAlertMonitoraggio()
+activate FS
+FS -> DB : updateAlertMonitoraggio()
+activate DB
+DB --> FS : aggiornato
+deactivate DB
+FS --> RSA
+deactivate FS
+RSA --> MC
+deactivate RSA
+MC --> LMP : alertRisolto
+deactivate MC
+LMP --> MED
+deactivate LMP
+
+
+@enduml

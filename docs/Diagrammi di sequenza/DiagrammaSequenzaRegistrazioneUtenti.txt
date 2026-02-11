@@ -1,0 +1,46 @@
+@startuml
+
+
+actor Amministratore as ADMIN
+participant "AmmPanel" as AP
+participant "AmmController" as AC
+participant "RegistrazioneUtentePanel" as RUP
+participant "RegistrazioneController" as RC
+participant "RSAService" as RSA
+participant "FacadeSingletonDB" as FS
+
+database "MySQL" as DB
+
+
+== Registrazione Utenti ==
+
+ADMIN -> AP
+activate AP
+AP -> AC : registraUtente
+activate AC
+AC -> RUP
+activate RUP
+RUP -> RC : getAnagrafica
+deactivate RUP
+activate RC
+RC -> RSA : registrazioneUtente()
+activate RSA
+RSA -> FS : registraUtente()
+activate FS
+FS -> DB : insertPersona() \ninsertCartellaClinica()
+activate DB
+DB --> FS : inserito
+deactivate DB
+FS --> RSA : registrato
+deactivate FS
+RSA --> RC 
+deactivate RSA
+RC --> AC
+deactivate RC
+AC -> AP : backToMenu()
+deactivate AC
+AP -> ADMIN
+deactivate AP
+
+
+@enduml
