@@ -18,20 +18,20 @@ MP -> MC
 activate MC
 MC -> RSA
 activate RSA
-RSA -> FS
+RSA -> FS : getMonitoraggiConAlertAttivo()
 activate FS
 FS -> DB : selectMonitoraggioByAlertAttivo()
 activate DB
-DB --> FS 
+DB --> FS  : monitoraggiConAlertAttivo
 deactivate DB
-FS --> RSA : monitoraggiConAlertAttivo
+FS --> RSA
 deactivate FS
-RSA -> MC : getMonitoraggiConAlertAttivo()
+RSA --> MC 
 deactivate RSA
 MC -> LMP : updateMonitoraggi()
 deactivate MC
 activate LMP
-LMP --> MP : back 
+LMP -> MP : back
 deactivate LMP
 MP -> MED
 deactivate MP
