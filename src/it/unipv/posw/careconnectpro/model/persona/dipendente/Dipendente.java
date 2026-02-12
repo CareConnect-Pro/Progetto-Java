@@ -5,7 +5,7 @@ import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 
 import java.time.LocalDate;
 
-public class Dipendente extends Persona{
+public abstract class Dipendente extends Persona{
 
     private static final int MAX_PASSWORD = 8;
 

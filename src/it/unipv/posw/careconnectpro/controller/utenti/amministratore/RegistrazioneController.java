@@ -53,6 +53,7 @@ public class RegistrazioneController {
             }
 
             if(model.registraUtente(utente)){
+            	pulisciTextField();
                 PopUp.infoBox("Utente registrato con successo", "Risultato");
                 backToMenu();
             } else {
@@ -68,5 +69,17 @@ public class RegistrazioneController {
         view.getRegUtentePanel().setVisible(false);
         view.getAmmPanel().setVisible(true);
     }
+    
+    private void pulisciTextField() {
+        view.getRegUtentePanel().getCfField().setText(null);
+        view.getRegUtentePanel().getNomeField().setText(null);
+        view.getRegUtentePanel().getCognomeField().setText(null);
+        view.getRegUtentePanel().getDataNascitaField().setText(null);
+        view.getRegUtentePanel().getEmailField().setText(null);
+        view.getRegUtentePanel().getCellulareField().setText(null);
+        view.getRegUtentePanel().getPasswordField().setText(null);
+        view.getRegUtentePanel().getTipoUtenteComboBox().setSelectedItem(null);
+    }
+    
 
 }
