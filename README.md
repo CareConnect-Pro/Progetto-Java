@@ -15,12 +15,13 @@ Cartella Clinica Digitale: creazione automatica della cartella clinica all’ins
 Monitoraggi: registrazione puntuale dei parametri clinici e di osservazioni cliniche.
 Generazione di Alert: generazione automatica di alert in presenza di valori critici rilevati nei monitoraggi.
 Gestione e Risoluzione degli Alert: consultazione, valutazione e risoluzione degli alert con aggiornamento automatico della cartella clinica.
+Gestione Terapie e Somministrazioni: consultazione del piano terapeutico giornaliero e registrazione delle somministrazioni da parte dell'infermiere, con tracciabilità completa e gestione delle anomalie.
 
 **Attori del Sistema**
 
 CareConnect Pro è utilizzato dal personale della struttura sanitaria, secondo i seguenti ruoli:
 Amministratore: gestisce le utenze, registrando nuovi utenti o disabilitando quelli esistenti, garantendo la tracciabilità dei dati.
-Infermiere: registra i monitoraggi clinici e aggiorna le informazioni sullo stato di salute del paziente.
+Infermiere:registra i monitoraggi clinici, gestisce il piano terapeutico, registra le somministrazioni e aggiorna le informazioni sullo stato di salute del paziente.
 Medico: consulta gli alert generati dai monitoraggi, valuta le condizioni cliniche del paziente e aggiorna la cartella clinica tramite la prescrizione di terapie o la risoluzione degli alert.
 
 **Architettura del Sistema**
@@ -59,8 +60,8 @@ Esegui la classe principale main situata nel package: src/it/unipv/posw/careconn
 Il corretto funzionamento del sistema è garantito dai test unitari sviluppati con JUnit.
 I test si sono concentrati su:
 Verifica delle funzionalità core;
-Validazione dei flussi critici
-Gestione di utilizzi errati delle funzionalità del sistema
+Validazione dei flussi critici;
+Gestione di utilizzi errati delle funzionalità del sistema.
 
 **Struttura del repository**
 
@@ -76,7 +77,7 @@ Questo progetto è distribuito sotto Licenza MIT.
 
 **Autori**
 
-Progetto sviluppato a scopo didattico, nell’ambito del corso di Programmazione ad Oggetti e Ingegneria del Software da: Darlis Morillo Mendoza e Agnese Pinto.
+Progetto sviluppato a scopo didattico, nell’ambito del corso di Programmazione ad Oggetti e Ingegneria del Software da: Darlis Morillo Mendoza, Agnese Pinto e Sara Domenica Sapone.
 
 
 
