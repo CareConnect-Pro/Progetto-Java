@@ -7,7 +7,7 @@ public class InfPanel extends JPanel{
 	
     private static final long serialVersionUID = 1L;
     
-	private JButton monitoraggioButton, logoutButton;
+	private JButton gestionePazientiButton, logoutButton;
 
     public InfPanel(){
         Font mediumFont = new Font("Arial", 0, 16);
@@ -15,15 +15,15 @@ public class InfPanel extends JPanel{
 
         logoutButton = new JButton("Logout");
         logoutButton.setFont(mediumFont);
-        monitoraggioButton = new JButton("Aggiungi monitoraggio");
-        monitoraggioButton.setFont(mediumFont);
+        gestionePazientiButton = new JButton("Gestione Paziente");
+        gestionePazientiButton.setFont(mediumFont);
 
-        add(monitoraggioButton);
+        add(gestionePazientiButton);
         add(logoutButton);
     }
 
-    public JButton getMonitoraggioButton() {
-        return monitoraggioButton;
+    public JButton getGestionePazientiButton() {
+        return gestionePazientiButton;
     }
     public JButton getLogoutButton() {
         return logoutButton;

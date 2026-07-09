@@ -12,7 +12,7 @@ public class GestionePazientePanel extends JPanel {
     private static final long serialVersionUID = 1L;
     
 	private JTable pazienteTable;
-    private JButton inserisciButton, backButton;
+    private JButton inserisciButton, backButton, somministrazioneButton;
     private PazientiTable tabellaPazienti;
    
 
@@ -40,10 +40,13 @@ public class GestionePazientePanel extends JPanel {
         JPanel panel = new JPanel();
         inserisciButton = new JButton("Inserisci Monitoraggio");
         inserisciButton.setFont(largeFont);
+        somministrazioneButton = new JButton("Inserisci Somministrazione");
+        somministrazioneButton.setFont(largeFont);
         backButton = new JButton("Indietro");
         backButton.setFont(largeFont);
 
         panel.add(inserisciButton);
+        panel.add(somministrazioneButton);
         panel.add(backButton);
 
         add(scrollPane, BorderLayout.CENTER);
@@ -73,6 +76,9 @@ public class GestionePazientePanel extends JPanel {
 		
 	}
 
+	public JButton getSomministrazioneButton() {
+		return somministrazioneButton;
+	}
 	
     
 }

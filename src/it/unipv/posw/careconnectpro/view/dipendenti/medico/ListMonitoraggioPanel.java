@@ -88,4 +88,5 @@ public class ListMonitoraggioPanel extends JPanel {
 		this.monitoraggiList.setModel(monitoraggiTable);
 		
 	}
+    
 }

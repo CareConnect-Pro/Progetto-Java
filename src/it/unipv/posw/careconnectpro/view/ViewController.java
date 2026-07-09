@@ -6,10 +6,11 @@ import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.GestionePazienteP
 import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.InfPanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.MonitoraggioPanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.medico.ListMonitoraggioPanel;
+import it.unipv.posw.careconnectpro.view.dipendenti.medico.ListSomministrazionePanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.medico.MedPanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.medico.TerapiaPanel;
 import it.unipv.posw.careconnectpro.view.login.LoginPanel;
-
+import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.SomministrazionePanel;
 import javax.swing.*;
 
 public class ViewController extends JFrame {
@@ -27,7 +28,8 @@ public class ViewController extends JFrame {
     private InfPanel infPanel;
     private GestionePazientePanel GestionePazPanel;
     private MonitoraggioPanel monitoraggioPanel;
-
+    private SomministrazionePanel somministrazionePanel;
+    private ListSomministrazionePanel listSomministrazionePanel;
 
 
     public  ViewController() {
@@ -66,6 +68,10 @@ public class ViewController extends JFrame {
         terapiaPanel = new TerapiaPanel();
         panel.add(terapiaPanel);
         terapiaPanel.setVisible(false);
+        
+        listSomministrazionePanel = new ListSomministrazionePanel();
+        panel.add(listSomministrazionePanel);
+        listSomministrazionePanel.setVisible(false);
 
         //INFERMIERE
         infPanel = new InfPanel();
@@ -80,8 +86,10 @@ public class ViewController extends JFrame {
         panel.add(monitoraggioPanel);
         monitoraggioPanel.setVisible(false);
 
-
-
+        somministrazionePanel = new SomministrazionePanel();
+        panel.add(somministrazionePanel);
+        somministrazionePanel.setVisible(false);  
+        
         frame.setVisible(true);
 
     }
@@ -108,7 +116,16 @@ public class ViewController extends JFrame {
     public GestionePazientePanel getGestionePazPanel() {
         return GestionePazPanel;
     }
+    
     public MonitoraggioPanel getMonitoraggioPanel() {
         return monitoraggioPanel;
     }
+
+	public SomministrazionePanel getSomministrazionePanel() {
+		return somministrazionePanel;
+	}
+    
+	public ListSomministrazionePanel getListSomministrazionePanel() {
+	    return listSomministrazionePanel;
+	}
 }

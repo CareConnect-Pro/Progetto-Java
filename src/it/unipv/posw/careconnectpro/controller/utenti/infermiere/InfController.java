@@ -23,7 +23,7 @@ public class InfController {
         btnOpenActionListener = new BtnOpenActionListener(view,model);
         setGestioneController(new GestioniPazientiController(view, model));
         setAddMonitoraggioController(new AddMonitoraggioController(model, view));
-        view.getInfPanel().getMonitoraggioButton().addActionListener(btnOpenActionListener);
+        view.getInfPanel().getGestionePazientiButton().addActionListener(btnOpenActionListener);
  
 
     }
