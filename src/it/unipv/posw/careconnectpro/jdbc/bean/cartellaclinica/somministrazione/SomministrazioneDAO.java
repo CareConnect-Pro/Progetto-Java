@@ -51,6 +51,7 @@ public class SomministrazioneDAO implements ISomministrazioneDAO {
 		}
 	}
 
+	
 	@Override
 	public List<SomministrazioneDB> selectSomministrazioniByPaziente(String cfPaziente) {
 		String query = "SELECT * FROM SOMMINISTRAZIONI WHERE ID_PAZIENTE = ?";
@@ -83,4 +84,85 @@ public class SomministrazioneDAO implements ISomministrazioneDAO {
 		return somministrazioni;
 	}
 
+	
+	@Override
+	public List<SomministrazioneDB> selectSomministrazioniByStato(String stato) {
+		String query = "SELECT * FROM SOMMINISTRAZIONI WHERE STATO = ?";
+		List<SomministrazioneDB> somministrazioni = new ArrayList<>();
+
+		try (Connection conn = ConnessioneDB.startConnection("ccp");
+			 PreparedStatement ps = conn.prepareStatement(query)) {
+			
+			ps.setString(1, stato);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					SomministrazioneDB sDb = new SomministrazioneDB(
+							rs.getInt("ID_TERAPIA"),
+							rs.getString("ID_PAZIENTE"),
+							rs.getString("ID_OPERATORE"),
+							rs.getTimestamp("DATA_ORA").toLocalDateTime(),
+							rs.getString("STATO"),
+							rs.getString("NOTE")
+					);
+					sDb.setSomministrazione(rs.getInt("ID_SOMMINISTRAZIONE"));
+					somministrazioni.add(sDb);
+				}
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
+		return somministrazioni;
+	}
+
+	
+	@Override
+	public List<SomministrazioneDB> selectAllSomministrazioni() {
+		String query = "SELECT * FROM SOMMINISTRAZIONI";
+		List<SomministrazioneDB> somministrazioni = new ArrayList<>();
+
+		try (Connection conn = ConnessioneDB.startConnection("ccp");
+			 PreparedStatement ps = conn.prepareStatement(query);
+			 ResultSet rs = ps.executeQuery()) {
+			
+			while (rs.next()) {
+				SomministrazioneDB sDb = new SomministrazioneDB(
+						rs.getInt("ID_TERAPIA"),
+						rs.getString("ID_PAZIENTE"),
+						rs.getString("ID_OPERATORE"),
+						rs.getTimestamp("DATA_ORA").toLocalDateTime(),
+						rs.getString("STATO"),
+						rs.getString("NOTE")
+				);
+				sDb.setSomministrazione(rs.getInt("ID_SOMMINISTRAZIONE"));
+				somministrazioni.add(sDb);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
+		return somministrazioni;
+	}
+
+	
+	@Override
+	public boolean updateSomministrazione(SomministrazioneDB sDb) {
+		String query = "UPDATE SOMMINISTRAZIONI SET ID_OPERATORE = ?, STATO = ?, NOTE = ? WHERE ID_SOMMINISTRAZIONE = ?";
+		
+		try (Connection conn = ConnessioneDB.startConnection("ccp");
+			 PreparedStatement ps = conn.prepareStatement(query)) {
+
+			ps.setString(1, sDb.getOperatore());
+			ps.setString(2, sDb.getStato());
+			ps.setString(3, sDb.getNote());
+			ps.setInt(4, sDb.getSomministrazione());
+			
+			return ps.executeUpdate() > 0;
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 }

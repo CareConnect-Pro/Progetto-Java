@@ -54,6 +54,10 @@ public class FacadeSingletonDB {
 		return istanza;
 	}
 
+	
+	
+	
+	// GESTIONE UTENTI (PERSONE, DIPENDENTI, PAZIENTI)
 	public boolean insertPersona(Persona p) {
 		PersonaDB personaDB;
 		personaDB = new PersonaDB(p.getCodiceFiscale(), p.getNome(), p.getCognome(), p.getDataNascita(), p.getEmail(),
@@ -115,6 +119,10 @@ public class FacadeSingletonDB {
 		return personaDAO.deletePersona(p);
 	}
 
+	
+	
+	
+	// GESTIONE CARTELLA CLINICA
 	public int insertCartellaClinica(CartellaClinica cc) {
 		CartellaClinicaDB cartellaClinicaDB;
 		cartellaClinicaDB = new CartellaClinicaDB(cc.getIdPaziente(), cc.getDataCreazione());
@@ -134,6 +142,10 @@ public class FacadeSingletonDB {
 		return cartellaClinica;
 	}
 
+	
+	
+	
+	// GESTIONE TERAPIA
 	public int insertTerapia(Terapia t) {
 		TerapiaDB db = new TerapiaDB(t.getCartellaClinica().getIdCartellaClinica(), t.getPaziente().getCodiceFiscale(),
 				t.getMedico().getCodiceFiscale(), t.getTipoSomministrazione().name(), t.getNomeFarmaco(),
@@ -142,6 +154,10 @@ public class FacadeSingletonDB {
 		return terapiaDAO.insertTerapia(db);
 	}
 
+	
+	
+	
+	// GESTIONE MONITORAGGI E ALERT
 	public int insertMonitoraggio(Monitoraggio m) {
 		MonitoraggioDB db = new MonitoraggioDB(m.getCartellaClinica().getIdCartellaClinica(),
 				m.getPaziente().getCodiceFiscale(), m.getInfermiere().getCodiceFiscale(),
@@ -191,6 +207,10 @@ public class FacadeSingletonDB {
 		return monitoraggioDAO.updateAlertMonitoraggio(mDb);
 	}
 
+	
+	
+	
+	// GESTIONE SOMMINISTRAZIONE
 	public int insertSomministrazione(Somministrazione s) {
 		java.time.LocalDateTime dataOra = java.time.LocalDateTime.of(s.getData(), s.getOra());
 
@@ -223,5 +243,32 @@ public class FacadeSingletonDB {
 		}
 
 		return somministrazioni;
+	}
+	public List<Somministrazione> selectSomministrazioniNonSomministrate() {
+		List<SomministrazioneDB> dbList = somministrazioneDAO.selectSomministrazioniByStato(StatoSomministrazione.NON_SOMMINISTRATA.name());
+		List<Somministrazione> result = new ArrayList<>();
+		for (SomministrazioneDB sDb : dbList) {
+			result.add(convertToSomministrazione(sDb));
+		}
+		return result;
+	}
+
+	public List<Somministrazione> selectAllSomministrazioni() {
+		List<SomministrazioneDB> dbList = somministrazioneDAO.selectAllSomministrazioni();
+		List<Somministrazione> result = new ArrayList<>();
+		for (SomministrazioneDB sDb : dbList) {
+			result.add(convertToSomministrazione(sDb));
+		}
+		return result;
+	}
+
+	public boolean updateSomministrazione(Somministrazione s) {
+		java.time.LocalDateTime dataOra = java.time.LocalDateTime.of(s.getData(), s.getOra());
+		SomministrazioneDB db = new SomministrazioneDB(
+            s.getTerapia(), s.getPaziente(), s.getOperatore(), dataOra,
+			s.getStato().name(), s.getNote()
+        );
+        db.setSomministrazione(s.getSomministrazione()); 
+		return somministrazioneDAO.updateSomministrazione(db);
 	}
 }

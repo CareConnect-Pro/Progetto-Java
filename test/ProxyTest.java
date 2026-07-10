@@ -1,7 +1,8 @@
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.FactoryDipendente;
+import it.unipv.posw.careconnectpro.model.rsa.GestoreSessione;
+import it.unipv.posw.careconnectpro.model.rsa.amministratore.ProxyAmministratore;
 
-import it.unipv.posw.careconnectpro.model.rsa.ProxyRSA;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,19 +30,20 @@ public class ProxyTest {
 
     @Test
     public void testInserimento(){
-        ProxyRSA proxyRSA = ProxyRSA.getProxy();
-        proxyRSA.setUtenteLoggato(amministratore);
-        boolean risultato = proxyRSA.registraUtente(dipendenteNuovo);
+        GestoreSessione.getIstanza().setUtenteLoggato(amministratore);
+        
+        ProxyAmministratore proxyAdmin = ProxyAmministratore.getProxy();
+        boolean risultato = proxyAdmin.registraUtente(dipendenteNuovo);
 
-        System.out.println("True: registrato con successo, False: registrazione fallita --> risulalto =  " + risultato);
+        System.out.println("True: registrato con successo, False: registrazione fallita --> risultato = " + risultato);
     }
 
-   @Test
-    public void testInserimentoFallito(){
-	   ProxyRSA proxyRSA = ProxyRSA.getProxy();
-	   proxyRSA.setUtenteLoggato(medico);
-	   boolean risultato = proxyRSA.registraUtente(dipendenteNuovo);
-	   System.out.println("True: registrato con successo, False: registrazione fallita --> risulalto = " + risultato);
+  
+   @Test(expected = RuntimeException.class)
+   public void testInserimentoFallito(){
+       GestoreSessione.getIstanza().setUtenteLoggato(medico);
+       ProxyAmministratore proxyAdmin = ProxyAmministratore.getProxy();
+       proxyAdmin.registraUtente(dipendenteNuovo);
    }
 
 }
