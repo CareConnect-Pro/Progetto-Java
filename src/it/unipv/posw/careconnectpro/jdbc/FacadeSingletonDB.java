@@ -2,6 +2,9 @@ package it.unipv.posw.careconnectpro.jdbc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.CartellaClinicaDAO;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.CartellaClinicaDB;
@@ -122,6 +125,7 @@ public class FacadeSingletonDB {
 	
 	
 	
+	
 	// GESTIONE CARTELLA CLINICA
 	public int insertCartellaClinica(CartellaClinica cc) {
 		CartellaClinicaDB cartellaClinicaDB;
@@ -145,6 +149,7 @@ public class FacadeSingletonDB {
 	
 	
 	
+	
 	// GESTIONE TERAPIA
 	public int insertTerapia(Terapia t) {
 		TerapiaDB db = new TerapiaDB(t.getCartellaClinica().getIdCartellaClinica(), t.getPaziente().getCodiceFiscale(),
@@ -153,7 +158,12 @@ public class FacadeSingletonDB {
 				t.getDataInizio(), t.getDataFine(), t.getNote());
 		return terapiaDAO.insertTerapia(db);
 	}
+	
+	public List<TerapiaDB> getTerapieAttiveOggi() {
+	    return terapiaDAO.getTerapieAttiveOggi();
+	}
 
+	
 	
 	
 	
@@ -210,6 +220,7 @@ public class FacadeSingletonDB {
 	
 	
 	
+	
 	// GESTIONE SOMMINISTRAZIONE
 	public int insertSomministrazione(Somministrazione s) {
 		java.time.LocalDateTime dataOra = java.time.LocalDateTime.of(s.getData(), s.getOra());
@@ -221,8 +232,8 @@ public class FacadeSingletonDB {
 	}
 
 	private Somministrazione convertToSomministrazione(SomministrazioneDB sDb) {
-		java.time.LocalDate data = sDb.getDataOra().toLocalDate();
-		java.time.LocalTime ora = sDb.getDataOra().toLocalTime();
+		LocalDate data = sDb.getDataOra().toLocalDate();
+		LocalTime ora = sDb.getDataOra().toLocalTime();
 
 		Somministrazione somministrazione = new Somministrazione(sDb.getTerapia(), sDb.getPaziente(),
 				sDb.getOperatore(), data, ora, StatoSomministrazione.valueOf(sDb.getStato()),
@@ -263,7 +274,7 @@ public class FacadeSingletonDB {
 	}
 
 	public boolean updateSomministrazione(Somministrazione s) {
-		java.time.LocalDateTime dataOra = java.time.LocalDateTime.of(s.getData(), s.getOra());
+		LocalDateTime dataOra = LocalDateTime.of(s.getData(), s.getOra());
 		SomministrazioneDB db = new SomministrazioneDB(
             s.getTerapia(), s.getPaziente(), s.getOperatore(), dataOra,
 			s.getStato().name(), s.getNote()
@@ -271,4 +282,6 @@ public class FacadeSingletonDB {
         db.setSomministrazione(s.getSomministrazione()); 
 		return somministrazioneDAO.updateSomministrazione(db);
 	}
+	
+	
 }

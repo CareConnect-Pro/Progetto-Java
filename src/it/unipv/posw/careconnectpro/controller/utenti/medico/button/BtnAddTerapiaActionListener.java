@@ -1,52 +1,51 @@
 package it.unipv.posw.careconnectpro.controller.utenti.medico.button;
 
-import it.unipv.posw.careconnectpro.model.rsa.IRSA;
+import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
+import it.unipv.posw.careconnectpro.model.rsa.medico.ProxyMedico;
 import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
-import javax.swing.*;
+import javax.swing.JTable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BtnAddTerapiaActionListener implements ActionListener {
 
     private ViewController view;
-    private IRSA model;
-    private int rigaSelezionata;
 
-    public BtnAddTerapiaActionListener(IRSA model, ViewController view) {
+    public BtnAddTerapiaActionListener(ViewController view){
         this.view = view;
-        this.model = model;
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        view.getLoginPanel().setVisible(false);
-        view.getMedPanel().setVisible(false);
-        view.getListMonitoraggioPanel().setVisible(false);
-        view.getTerapiaPanel().setVisible(true);
+        try {
+            JTable tabella = view.getListMonitoraggioPanel().getMonitoraggiList();
+            int riga = tabella.getSelectedRow();
 
-        JTable tabella = view.getListMonitoraggioPanel().getMonitoraggiList();
-        rigaSelezionata = tabella.getSelectedRow();
+          
+            if (riga != -1) {
+                String idMonitoraggioStr = String.valueOf(tabella.getValueAt(riga, 0));
+                String cfPaziente = String.valueOf(tabella.getValueAt(riga, 2)); 
+                
+                String idMedico = ProxyMedico.getProxy().getUtenteLoggato().getCodiceFiscale();
+                CartellaClinica cc = ProxyMedico.getProxy().cercaCartellaClinicaByCf(cfPaziente);
 
-        if (rigaSelezionata != -1) {
-            int idMonitoraggio = (int)tabella.getValueAt(rigaSelezionata, 0);
-            int idCartella = (int) tabella.getValueAt(rigaSelezionata, 1);
-            String idPaziente = (String) tabella.getValueAt(rigaSelezionata, 2);
-            String idMedico = model.getUtenteLoggato().getCodiceFiscale();
+                view.getTerapiaPanel().getIdCartellaField().setText(String.valueOf(cc.getIdCartellaClinica()));
+                view.getTerapiaPanel().getIdPazienteField().setText(cfPaziente);
+                view.getTerapiaPanel().getIdMedicoField().setText(idMedico);
+                view.getTerapiaPanel().getIdMonitoraggioField().setText(idMonitoraggioStr);
 
-            view.getTerapiaPanel().getIdCartellaField().setText(String.valueOf(idCartella));
-            view.getTerapiaPanel().getIdPazienteField().setText(idPaziente);
-            view.getTerapiaPanel().getIdMedicoField().setText(idMedico);
-            view.getTerapiaPanel().getIdMonitoraggioField().setText(String.valueOf(idMonitoraggio));
-        }else {
-            PopUp.infoBox("Seleziona una riga dalla tabella prima di procedere!", "Nessuna Selezione");
+                view.getListMonitoraggioPanel().setVisible(false);
+                view.getTerapiaPanel().setVisible(true);
+
+            } else {
+                PopUp.infoBox("Seleziona una riga dalla tabella prima di procedere!", "Nessuna Selezione");
+            }
+            
+        } catch (Exception ex) {
+            PopUp.infoBox("Errore imprevisto durante il caricamento dei dati dalla tabella.", "Errore di Navigazione");
+            ex.printStackTrace();
         }
-
-    }
-
-    public int getRigaSelezionata() {
-        return rigaSelezionata;
     }
 }

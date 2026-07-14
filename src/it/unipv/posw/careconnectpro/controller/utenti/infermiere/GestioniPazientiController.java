@@ -3,23 +3,19 @@ package it.unipv.posw.careconnectpro.controller.utenti.infermiere;
 
 import it.unipv.posw.careconnectpro.controller.utenti.infermiere.button.BtnAddMonitoraggioAL;
 import it.unipv.posw.careconnectpro.controller.utenti.infermiere.button.BtnBackHomeInfAL;
-import it.unipv.posw.careconnectpro.model.rsa.IRSA;
-import it.unipv.posw.careconnectpro.model.rsa.ProxyRSA;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
 public class GestioniPazientiController {
     private ViewController view;
-    private IRSA model;
     private BtnBackHomeInfAL indietroButton;
     private BtnAddMonitoraggioAL addMonitoraggio;
 
-    public GestioniPazientiController(ViewController view, IRSA model) {
+    public GestioniPazientiController(ViewController view) {
         this.setView(view);
-        this.model = ProxyRSA.getProxy();
         
 
         indietroButton = new BtnBackHomeInfAL(view);
-        addMonitoraggio = new BtnAddMonitoraggioAL(model, view);
+        addMonitoraggio = new BtnAddMonitoraggioAL(view);
 
         view.getGestionePazPanel().getInserisciButton().addActionListener(addMonitoraggio);
         view.getGestionePazPanel().getBackButton().addActionListener(indietroButton);
@@ -36,11 +32,4 @@ public class GestioniPazientiController {
 		this.view = view;
 	}
 
-	public IRSA getModel() {
-		return model;
-	}
-
-	public void setModel(IRSA model) {
-		this.model = model;
-	}
 }

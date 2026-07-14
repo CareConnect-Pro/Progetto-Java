@@ -11,11 +11,9 @@ public class GestionePazientePanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
     
-	private JTable pazienteTable;
-    private JButton inserisciButton, backButton, somministrazioneButton;
+    private JTable pazienteTable;
+    private JButton inserisciButton, backButton; 
     private PazientiTable tabellaPazienti;
-   
-
 
     public GestionePazientePanel() {
         Font mediumFont = new Font("Arial", 0, 16);
@@ -23,7 +21,6 @@ public class GestionePazientePanel extends JPanel {
         setVisible(true);
         setLayout(new BorderLayout());
 
-        
         tabellaPazienti = new PazientiTable(new ArrayList<Paziente>());
 
         pazienteTable = new JTable(tabellaPazienti);
@@ -33,52 +30,43 @@ public class GestionePazientePanel extends JPanel {
         pazienteTable.getColumnModel().getColumn(2).setPreferredWidth(150);
         pazienteTable.getColumnModel().getColumn(3).setPreferredWidth(150);
 
-
         JScrollPane scrollPane = new JScrollPane(pazienteTable);
-
 
         JPanel panel = new JPanel();
         inserisciButton = new JButton("Inserisci Monitoraggio");
         inserisciButton.setFont(largeFont);
-        somministrazioneButton = new JButton("Inserisci Somministrazione");
-        somministrazioneButton.setFont(largeFont);
+        
         backButton = new JButton("Indietro");
         backButton.setFont(largeFont);
 
         panel.add(inserisciButton);
-        panel.add(somministrazioneButton);
         panel.add(backButton);
 
         add(scrollPane, BorderLayout.CENTER);
         add(panel, BorderLayout.SOUTH);
-
     }
 
     public JButton getInserisciButton() {
         return inserisciButton;
     }
+    
     public JButton getBackButton() {
         return backButton;
     }
+    
     public JTable getPazienteTable() {
         return pazienteTable;
     }
+    
     public PazientiTable getTabellaPazienti() {
         return tabellaPazienti;
     }
 
-	public void setTabellaPazienti(List<Paziente> cercaPazienti) {
-		if (cercaPazienti == null) {
-			cercaPazienti = new ArrayList<Paziente>();
-		} 
-		this.tabellaPazienti = new PazientiTable(cercaPazienti);
-		this.pazienteTable.setModel(tabellaPazienti);
-		
-	}
-
-	public JButton getSomministrazioneButton() {
-		return somministrazioneButton;
-	}
-	
-    
+    public void setTabellaPazienti(List<Paziente> cercaPazienti) {
+        if (cercaPazienti == null) {
+            cercaPazienti = new ArrayList<Paziente>();
+        } 
+        this.tabellaPazienti = new PazientiTable(cercaPazienti);
+        this.pazienteTable.setModel(tabellaPazienti);
+    }
 }

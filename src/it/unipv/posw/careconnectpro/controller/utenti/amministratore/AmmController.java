@@ -1,40 +1,28 @@
 package it.unipv.posw.careconnectpro.controller.utenti.amministratore;
 
-import it.unipv.posw.careconnectpro.model.rsa.IRSA;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
 public class AmmController {
 
-    private IRSA model;
     private ViewController view;
     private BtnRegistraUtenteActionListener btnRegistrazione;
     private RegistrazioneController regController;
     private DisattivaUtenteActionListener eliminaUtente;
 
 
-    public AmmController(IRSA model, ViewController view) {
-        this.setModel(model);
+    public AmmController(ViewController view) {
         this.setView(view);
 
         btnRegistrazione = new BtnRegistraUtenteActionListener(view);
-        eliminaUtente = new DisattivaUtenteActionListener(model);
+        eliminaUtente = new DisattivaUtenteActionListener();
 
         view.getAmmPanel().getRegistraButton().addActionListener(btnRegistrazione);
         view.getAmmPanel().getEliminaButton().addActionListener(eliminaUtente);
-        setRegController(new RegistrazioneController(model, view));
+        setRegController(new RegistrazioneController(view));
 
 
     }
 
-
-	public IRSA getModel() {
-		return model;
-	}
-
-
-	public void setModel(IRSA model) {
-		this.model = model;
-	}
 
 
 	public ViewController getView() {

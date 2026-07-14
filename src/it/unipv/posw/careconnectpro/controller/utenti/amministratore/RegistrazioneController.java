@@ -4,7 +4,7 @@ import it.unipv.posw.careconnectpro.model.persona.Paziente;
 import it.unipv.posw.careconnectpro.model.persona.Persona;
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.FactoryDipendente;
-import it.unipv.posw.careconnectpro.model.rsa.IRSA;
+import it.unipv.posw.careconnectpro.model.rsa.amministratore.ProxyAmministratore;
 import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
@@ -13,11 +13,9 @@ import java.time.LocalDate;
 
 public class RegistrazioneController {
     private ViewController view;
-    private IRSA model;;
     private BtnBackHomeActionListener btnBack;
 
-    public RegistrazioneController(IRSA model, ViewController view) {
-        this.model = model;
+    public RegistrazioneController(ViewController view) {
         this.view = view;
 
         btnBack = new BtnBackHomeActionListener(view);
@@ -47,17 +45,17 @@ public class RegistrazioneController {
 
             if (tipo == TipoUtente.PAZIENTE){
                 utente = new Paziente(cf, nome, cognome, LocalDate.parse(dataNascita),email, cell, LocalDate.now());
-            } else{
+            } else {
                 utente = FactoryDipendente.getDipendente(tipo.name(), cf,nome, cognome, LocalDate.parse(dataNascita),
                         email, cell, pw, LocalDate.now());
             }
 
-            if(model.registraUtente(utente)){
+            if(ProxyAmministratore.getProxy().registraUtente(utente)){
             	pulisciTextField();
                 PopUp.infoBox("Utente registrato con successo", "Risultato");
                 backToMenu();
             } else {
-                PopUp.infoBox("Utente non registrato", "Risultato");
+                PopUp.infoBox("Registrazione fallita! Verifica i dati o controlla se l'utente è già presente a sistema.", "Errore di Registrazione");
             }
 
         } catch(Exception ex){

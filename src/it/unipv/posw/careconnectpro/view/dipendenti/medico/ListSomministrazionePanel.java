@@ -12,10 +12,10 @@ public class ListSomministrazionePanel extends JPanel {
     
     private JTable somministrazioneList;
     private SomministrazioneTable somministrazioneTable;
-    private JButton backButton, gestisciButton, eliminaButton;
+    private JButton backButton, gestisciButton; 
 
     public ListSomministrazionePanel() {
-    	Font mediumFont = new Font("Arial", 0, 16);
+        Font mediumFont = new Font("Arial", 0, 16);
         Font largeFont = new Font("Arial", 0, 20);
         
         setLayout(new BorderLayout());
@@ -32,15 +32,11 @@ public class ListSomministrazionePanel extends JPanel {
         gestisciButton = new JButton("Inserisci Somministrazione");
         gestisciButton.setFont(largeFont);
       
-        eliminaButton = new JButton("Elimina Record");
-        eliminaButton.setFont(largeFont);
-        
         backButton = new JButton("Indietro");
         backButton.setFont(largeFont);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(gestisciButton);
-        buttonPanel.add(eliminaButton);
         buttonPanel.add(backButton);
 
         add(scrollPane, BorderLayout.CENTER);
@@ -49,14 +45,19 @@ public class ListSomministrazionePanel extends JPanel {
 
     public JTable getSomministrazioneList() { return somministrazioneList; }
     public JButton getGestisciButton() { return gestisciButton; }
-    public JButton getEliminaButton() { return eliminaButton; }
     public JButton getBackButton() { return backButton; }
-    
+
     public void setListaSomministrazioni(List<Somministrazione> lista) {
         if (lista == null) {
             lista = new ArrayList<Somministrazione>();
         } 
         this.somministrazioneTable = new SomministrazioneTable(lista);
         this.somministrazioneList.setModel(somministrazioneTable);
+        this.somministrazioneList.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+       
+        somministrazioneList.getColumnModel().getColumn(0).setPreferredWidth(100);  
+        somministrazioneList.getColumnModel().getColumn(1).setPreferredWidth(150); 	
+        somministrazioneList.getColumnModel().getColumn(2).setPreferredWidth(180); 	
+        somministrazioneList.getColumnModel().getColumn(3).setPreferredWidth(550); 	
     }
 }

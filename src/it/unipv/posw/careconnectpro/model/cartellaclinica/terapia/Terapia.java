@@ -8,6 +8,7 @@ import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 
 public class Terapia {
 
+	private int idTerapia;
 	private CartellaClinica cartellaClinica;
 	private Paziente paziente;
 	private Dipendente medico;
@@ -20,7 +21,7 @@ public class Terapia {
 	private int durata;
 	private LocalDate dataInizio;
 	private LocalDate dataFine;
-	private String note;
+	private String note;	
 	
 	
 	public Terapia(CartellaClinica cartellaClinica, Paziente paziente, Dipendente medico,
@@ -43,7 +44,8 @@ public class Terapia {
 		this.note = note;
 	}
 
-	
+	public int getIdTerapia() { return idTerapia; }
+    public void setIdTerapia(int idTerapia) { this.idTerapia = idTerapia; }
 	public CartellaClinica getCartellaClinica() {return cartellaClinica;}
 	public void setIdCartellaClinica(CartellaClinica cartellaClinica) {this.cartellaClinica = cartellaClinica;}
 	public Paziente getPaziente() {return paziente;}
@@ -71,6 +73,7 @@ public class Terapia {
 	public String getNote() {return note;}
 	public void setNote(String note) {this.note = note;}
 	public void setCartellaClinica(CartellaClinica cartellaClinica) {this.cartellaClinica = cartellaClinica;}
+	
 	
 }
 

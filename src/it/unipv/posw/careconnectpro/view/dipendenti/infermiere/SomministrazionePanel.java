@@ -8,8 +8,8 @@ public class SomministrazionePanel extends JPanel {
     
     private static final long serialVersionUID = 1L;
 
-    private JLabel idTerapiaLabel, idPazienteLabel, idOperatoreLabel, dataLabel, noteLabel, statoLabel;
-    private JTextField idTerapiaField, idPazienteField, idOperatoreField, dataField, noteField;
+    private JLabel idSommLabel, idTerapiaLabel, idPazienteLabel, idOperatoreLabel, dataLabel, noteLabel, statoLabel;
+    private JTextField idSommField, idTerapiaField, idPazienteField, idOperatoreField, dataField, noteField;
     private JComboBox<StatoSomministrazione> statoBox;
     private JButton confermaButton, backButton;
 
@@ -18,7 +18,11 @@ public class SomministrazionePanel extends JPanel {
         Font largeFont = new Font("Arial", 0, 20);
         setVisible(true);
 
-        setLayout(new GridLayout(7, 2, 10, 10)); 
+        setLayout(new GridLayout(8, 2, 10, 10)); 
+
+        idSommLabel = new JLabel("ID Somministrazione");
+        idSommField = new JTextField();
+        idSommField.setEditable(false);
 
         idTerapiaLabel = new JLabel("ID Terapia");
         idTerapiaField = new JTextField();
@@ -44,6 +48,8 @@ public class SomministrazionePanel extends JPanel {
         confermaButton = new JButton("Conferma");
         backButton = new JButton("Indietro");
 
+        idSommLabel.setFont(mediumFont);
+        idSommField.setFont(mediumFont);
         idTerapiaLabel.setFont(mediumFont);
         idTerapiaField.setFont(mediumFont);
         idPazienteLabel.setFont(mediumFont);
@@ -59,6 +65,8 @@ public class SomministrazionePanel extends JPanel {
         confermaButton.setFont(largeFont);
         backButton.setFont(largeFont);
 
+        add(idSommLabel);
+        add(idSommField);
         add(idTerapiaLabel);     
         add(idTerapiaField);
         add(idPazienteLabel);    
@@ -75,39 +83,40 @@ public class SomministrazionePanel extends JPanel {
         add(confermaButton);
     }
 
-	public JTextField getIdTerapiaField() {
-		return idTerapiaField;
-	}
 
-	public JTextField getIdPazienteField() {
-		return idPazienteField;
-	}
+    public JTextField getIdSommField() {
+        return idSommField;
+    }
 
-	public JTextField getIdOperatoreField() {
-		return idOperatoreField;
-	}
+    public JTextField getIdTerapiaField() {
+        return idTerapiaField;
+    }
 
-	public JTextField getDataField() {
-		return dataField;
-	}
+    public JTextField getIdPazienteField() {
+        return idPazienteField;
+    }
 
-	public JTextField getNoteField() {
-		return noteField;
-	}
+    public JTextField getIdOperatoreField() {
+        return idOperatoreField;
+    }
 
-	public JComboBox<StatoSomministrazione> getStatoBox() {
-		return statoBox;
-	}
+    public JTextField getDataField() {
+        return dataField;
+    }
 
-	public JButton getConfermaButton() {
-		return confermaButton;
-	}
+    public JTextField getNoteField() {
+        return noteField;
+    }
 
-	public JButton getBackButton() {
-		return backButton;
-	}
+    public JComboBox<StatoSomministrazione> getStatoBox() {
+        return statoBox;
+    }
 
+    public JButton getConfermaButton() {
+        return confermaButton;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
+    }
 }
-
-
-

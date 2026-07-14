@@ -1,79 +1,98 @@
 package it.unipv.posw.careconnectpro.controller.utenti.medico;
 
-import it.unipv.posw.careconnectpro.controller.utenti.medico.button.BtnAddTerapiaActionListener;
-
-import it.unipv.posw.careconnectpro.controller.utenti.medico.button.BtnIndietroTerapiaAL;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.StatoTerapia;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.Terapia;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.terapia.TipoSomministrazione;
 import it.unipv.posw.careconnectpro.model.persona.Paziente;
-import it.unipv.posw.careconnectpro.model.rsa.IRSA;
+import it.unipv.posw.careconnectpro.model.rsa.medico.ProxyMedico;
 import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 
+import javax.swing.JTable;
 import java.sql.Date;
 import java.time.LocalDate;
 
 public class TerapiaController {
-    private IRSA model;
+    
     private ViewController view;
-    private BtnIndietroTerapiaAL indietroTerapia;
-
     private boolean successo = false;
-    private BtnAddTerapiaActionListener terapiaAL = new BtnAddTerapiaActionListener(model, view);
 
-    public TerapiaController(IRSA model, ViewController view){
-        this.model = model;
+    public TerapiaController(ViewController view){
         this.view = view;
-
-        indietroTerapia = new BtnIndietroTerapiaAL(view);
-
-
+        
         view.getTerapiaPanel().getAddTerapiaButton().addActionListener(e-> addTerapia());
-        view.getTerapiaPanel().getBackButton().addActionListener(indietroTerapia);
+        view.getTerapiaPanel().getBackButton().addActionListener(e-> backToListaAlert());
+    }
 
-
+    private void backToListaAlert() {
+        view.getTerapiaPanel().setVisible(false);
+        view.getListMonitoraggioPanel().setVisible(true);
+        pulisciTextField(); 
     }
 
     private void addTerapia(){
         try{
             String idPaziente = view.getTerapiaPanel().getIdPazienteField().getText();
             String idMedico =  view.getTerapiaPanel().getIdMedicoField().getText();
-            int idMonitoraggio = Integer.parseInt(view.getTerapiaPanel().getIdMonitoraggioField().getText());
+            String idMonitoraggioStr = view.getTerapiaPanel().getIdMonitoraggioField().getText();
             TipoSomministrazione somministrazione = (TipoSomministrazione) view.getTerapiaPanel().getSomministrazioneBox().getSelectedItem();
             String farmaco = view.getTerapiaPanel().getFarmacoField().getText();
             String materiale = view.getTerapiaPanel().getMaterialeField().getText();
             String dosaggio = view.getTerapiaPanel().getDosaggioField().getText();
-            int freq  = Integer.parseInt( view.getTerapiaPanel().getFrequenzaField().getText());
+            String freqStr = view.getTerapiaPanel().getFrequenzaField().getText();
             StatoTerapia stato = (StatoTerapia) view.getTerapiaPanel().getStatoBox().getSelectedItem();
-            int durata = Integer.parseInt(view.getTerapiaPanel().getDurataField().getText());
-            LocalDate dataInizio = Date.valueOf(view.getTerapiaPanel().getDataInizioField().getText()).toLocalDate();
-            LocalDate dataFine = Date.valueOf(view.getTerapiaPanel().getDataFineField().getText()).toLocalDate();
+            String durataStr = view.getTerapiaPanel().getDurataField().getText();
+            String dataInizioStr = view.getTerapiaPanel().getDataInizioField().getText();
+            String dataFineStr = view.getTerapiaPanel().getDataFineField().getText();
             String note = view.getTerapiaPanel().getNoteField().getText();
-            Paziente p = model.cercaPazienteByCf(idPaziente);
-            Dipendente med = model.cercaDipendenteByCf(idMedico);
-            CartellaClinica cc = model.cercaCartellaClinicaByCf(idPaziente);
+            
+            
+            if(farmaco.trim().isEmpty() || freqStr.trim().isEmpty() || durataStr.trim().isEmpty() || dataInizioStr.trim().isEmpty() || dataFineStr.trim().isEmpty()) {
+                PopUp.infoBox("Compila tutti i campi obbligatori prima di confermare.", "Dati Mancanti");
+                return;
+            }
+
+            int idMonitoraggio = Integer.parseInt(idMonitoraggioStr);
+            int freq  = Integer.parseInt(freqStr);
+            int durata = Integer.parseInt(durataStr);
+            LocalDate dataInizio = Date.valueOf(dataInizioStr).toLocalDate();
+            LocalDate dataFine = Date.valueOf(dataFineStr).toLocalDate();
+            
+            Paziente p = ProxyMedico.getProxy().cercaPazienteByCf(idPaziente);
+            Dipendente med = ProxyMedico.getProxy().cercaDipendenteByCf(idMedico);
+            CartellaClinica cc = ProxyMedico.getProxy().cercaCartellaClinicaByCf(idPaziente);
+            
             Terapia t = new Terapia(cc, p, med, somministrazione, farmaco, materiale, dosaggio,
-                                    freq, stato, durata,dataInizio, dataFine, note);
+                                    freq, stato, durata, dataInizio, dataFine, note);
 
-            model.creaTerapia(t);
-            Monitoraggio m = model.cercaMonitoraggioById(idMonitoraggio);
+            ProxyMedico.getProxy().creaTerapia(t);
+            Monitoraggio m = ProxyMedico.getProxy().cercaMonitoraggioById(idMonitoraggio);
 
-            successo = model.risolviAlertMonitoraggio(m);
-            int riga = terapiaAL.getRigaSelezionata();
+            successo = ProxyMedico.getProxy().risolviAlertMonitoraggio(m);
+            
+            JTable tabella = view.getListMonitoraggioPanel().getMonitoraggiList();
+            int riga = tabella.getSelectedRow();
 
             if(successo){
-                pulisciTextField();
-                view.getListMonitoraggioPanel().getMonitoraggiTable().rimuoviMonitoraggio(riga);
-                PopUp.infoBox("Terapia aggiunta nel database.", "Successo");
+                if (riga != -1) {
+                    view.getListMonitoraggioPanel().getMonitoraggiTable().rimuoviMonitoraggio(riga);
+                }
+                PopUp.infoBox("Terapia aggiunta nel database e Monitoraggio risolto.", "Successo");
+                backToListaAlert();
+
             } else {
                 PopUp.infoBox("Errore nell'aggiornamento del Database.", "Errore DB");
             }
 
+        } catch (NumberFormatException numEx) {
+            PopUp.infoBox("Inserisci solo numeri validi nei campi 'Frequenza' e 'Durata'.", "Errore Numerico");
+        } catch (IllegalArgumentException dateEx) {
+            PopUp.infoBox("Formato data errato. Usa il formato YYYY-MM-DD.", "Errore Data");
         } catch (Exception e){
+            PopUp.infoBox("Si è verificato un errore durante il salvataggio. Controlla i dati.", "Errore Generale");
             e.printStackTrace();
         }
     }
@@ -91,10 +110,8 @@ public class TerapiaController {
         view.getTerapiaPanel().getDataInizioField().setText(null);
         view.getTerapiaPanel().getDataFineField().setText(null);
         view.getTerapiaPanel().getNoteField().setText(null);
-
-
-
     }
+
     public boolean isSuccesso() {
         return successo;
     }

@@ -58,6 +58,9 @@ public class ProxyMedico implements IRSAMedico {
         throw new RuntimeException("Operazione non autorizzata: permessi insufficienti.");
     }
 
+  
+    
+    
     @Override
     public List<Monitoraggio> getMonitoraggiConAlertAttivo() {
         if (isMedico()) return rsa.getMonitoraggiConAlertAttivo();
@@ -76,6 +79,9 @@ public class ProxyMedico implements IRSAMedico {
         throw new RuntimeException("Operazione non autorizzata: permessi insufficienti.");
     }
 
+  
+    
+    
     @Override
     public List<Somministrazione> getSomministrazioniNonSomministrate() {
         if (isMedico()) return rsa.getSomministrazioniNonSomministrate();

@@ -1,8 +1,7 @@
 package it.unipv.posw.careconnectpro.controller.utenti.medico.button;
 
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
-import it.unipv.posw.careconnectpro.model.rsa.IRSA;
-import it.unipv.posw.careconnectpro.model.rsa.ProxyRSA;
+import it.unipv.posw.careconnectpro.model.rsa.medico.ProxyMedico;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
 import javax.swing.*;
@@ -14,11 +13,8 @@ public class BtnMonitoraggioActionListener implements ActionListener {
 
     private ViewController view;
 
-    private IRSA model;
-
-    public BtnMonitoraggioActionListener(ViewController view, IRSA model) {
+    public BtnMonitoraggioActionListener(ViewController view) {
         this.view = view;
-        this.setModel(ProxyRSA.getProxy());
     }
 
     @Override
@@ -30,17 +26,8 @@ public class BtnMonitoraggioActionListener implements ActionListener {
         view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
-    public void updateMonitoraggi()	{
-        List<Monitoraggio> monitoraggi = model.getMonitoraggiConAlertAttivo();        
+    public void updateMonitoraggi() {
+        List<Monitoraggio> monitoraggi = ProxyMedico.getProxy().getMonitoraggiConAlertAttivo();        
         view.getListMonitoraggioPanel().setTabellaMonitoraggi(monitoraggi);
-       
     }
-
-	public IRSA getModel() {
-		return model;
-	}
-
-	public void setModel(IRSA model) {
-		this.model = model;
-	}
 }

@@ -4,25 +4,33 @@ import it.unipv.posw.careconnectpro.controller.login.LoginController;
 import it.unipv.posw.careconnectpro.controller.utenti.amministratore.AmmController;
 import it.unipv.posw.careconnectpro.controller.utenti.infermiere.InfController;
 import it.unipv.posw.careconnectpro.controller.utenti.medico.MedController;
-import it.unipv.posw.careconnectpro.model.rsa.IRSA;
+import it.unipv.posw.careconnectpro.model.rsa.login.IRSALogin;
 import it.unipv.posw.careconnectpro.view.ViewController;
+import it.unipv.posw.careconnectpro.controller.utenti.infermiere.ListSomministrazioneController;
+import it.unipv.posw.careconnectpro.controller.utenti.infermiere.SomministrazioneController;
 
 public class FacadeController {
 
     private LoginController loginController;
     private AmmController ammController;
     private MedController medController;
-    private IRSA model;
+    private IRSALogin model;
     private ViewController view;
     private InfController infController;
+    private ListSomministrazioneController listSomministrazioneController;
+    private SomministrazioneController somministrazioneController;
 
-    public FacadeController(IRSA model, ViewController view) {
+    public FacadeController(IRSALogin model, ViewController view) {
+        this.model = model;
+        this.view = view;
 
         setLoginController(new LoginController(model, view));
-        setAmmController(new AmmController(model, view));
-        setMedController(new MedController(model, view));
-        setInfController(new InfController(model, view));
-
+        setAmmController(new AmmController(view));
+        setMedController(new MedController(view));
+        setInfController(new InfController(view));
+       
+        setListSomministrazioneController(new ListSomministrazioneController(view));
+        setSomministrazioneController(new SomministrazioneController(view));
     }
 
 	public LoginController getLoginController() {
@@ -49,13 +57,13 @@ public class FacadeController {
 		this.medController = medController;
 	}
 
-	public IRSA getModel() {
-		return model;
-	}
+	public IRSALogin getModel() {
+        return model;
+    }
 
-	public void setModel(IRSA model) {
-		this.model = model;
-	}
+	public void setModel(IRSALogin model) {
+        this.model = model;
+    }
 
 	public ViewController getView() {
 		return view;
@@ -73,5 +81,20 @@ public class FacadeController {
 		this.infController = infController;
 	}
 
+	public ListSomministrazioneController getListSomministrazioneController() {
+        return listSomministrazioneController;
+    }
+
+    public void setListSomministrazioneController(ListSomministrazioneController listSomministrazioneController) {
+        this.listSomministrazioneController = listSomministrazioneController;
+    }
+
+    public SomministrazioneController getSomministrazioneController() {
+        return somministrazioneController;
+    }
+
+    public void setSomministrazioneController(SomministrazioneController somministrazioneController) {
+        this.somministrazioneController = somministrazioneController;
+    }
 
 }

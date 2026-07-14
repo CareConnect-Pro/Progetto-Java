@@ -2,8 +2,7 @@ package it.unipv.posw.careconnectpro.controller.login;
 
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.persona.dipendente.Dipendente;
-import it.unipv.posw.careconnectpro.model.rsa.IRSA;
-import it.unipv.posw.careconnectpro.model.rsa.ProxyRSA;
+import it.unipv.posw.careconnectpro.model.rsa.login.IRSALogin;
 import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
@@ -12,58 +11,51 @@ import java.awt.event.ActionListener;
 
 public class GoBtnActionListener implements ActionListener {
 
-    private ViewController view;
-    private IRSA model;
+	private ViewController view;
+	private IRSALogin model;
 
-    public GoBtnActionListener(ViewController view, IRSA model) {
-        this.view = view;
-        this.model = ProxyRSA.getProxy();
-    }
+	public GoBtnActionListener(ViewController view, IRSALogin model) {
+		this.view = view;
+		this.model = model;
+	}
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String cf = view.getLoginPanel().getCfField().getText();
-        String password = String.valueOf(view.getLoginPanel().getPasswordField().getPassword());
-        Dipendente utenteLoggato = model.login(cf,password);
-        if(utenteLoggato == null) {
-            PopUp.infoBox("Username e/o password non validi", "Login non valido");
-            pulisciTextField();
-        }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String cf = view.getLoginPanel().getCfField().getText();
+		String password = String.valueOf(view.getLoginPanel().getPasswordField().getPassword());
+		Dipendente utenteLoggato = model.login(cf, password);
 
-        TipoUtente ruolo = utenteLoggato.getTipoUtente();
+		if (utenteLoggato == null) {
+			PopUp.infoBox("Username e/o password non validi", "Login non valido");
+			pulisciTextField();
+			return;
+		}
 
-        pulisciTextField();
-        view.getLoginPanel().setVisible(false);
-        model.setUtenteLoggato(utenteLoggato);
+		TipoUtente ruolo = utenteLoggato.getTipoUtente();
 
-            switch (ruolo) {
-                case AMMINISTRATORE:
-                    view.getLoginPanel().setVisible(false);
-                    view.getAmmPanel().setVisible(true);
-                    break;
-                case MEDICO:
-                    view.getLoginPanel().setVisible(false);
-                    view.getAmmPanel().setVisible(false);
-                    view.getMedPanel().setVisible(true);
-                    break;
+		pulisciTextField();
+		view.getLoginPanel().setVisible(false);
 
-                case PAZIENTE:
-                    throw new RuntimeException("Non hai le autorizzazione per accedere");
-                case INFERMIERE:
-                    view.getLoginPanel().setVisible(false);
-                    view.getInfPanel().setVisible(true);
-                    
-                default:
-                    break;
-            }
-        }
+		switch (ruolo) {
+		case AMMINISTRATORE:
+			view.getAmmPanel().setVisible(true);
+			break;
+		case MEDICO:
+			view.getMedPanel().setVisible(true);
+			break;
+		case INFERMIERE:
+			view.getInfPanel().setVisible(true);
+			break;
+		case PAZIENTE:
+			throw new RuntimeException("Non hai le autorizzazioni per accedere");
+		default:
+			break;
+		}
+	}
 
-
-    private void pulisciTextField(){
-        view.getLoginPanel().getCfField().setText(null);
-        view.getLoginPanel().getPasswordField().setText(null);
-    }
-
+	private void pulisciTextField() {
+		view.getLoginPanel().getCfField().setText(null);
+		view.getLoginPanel().getPasswordField().setText(null);
+	}
 
 }
-

@@ -5,6 +5,7 @@ import it.unipv.posw.careconnectpro.view.dipendenti.amministratore.Registrazione
 import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.GestionePazientePanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.InfPanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.MonitoraggioPanel;
+import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.ListTerapiePanel; // IMPORT AGGIUNTO
 import it.unipv.posw.careconnectpro.view.dipendenti.medico.ListMonitoraggioPanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.medico.ListSomministrazionePanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.medico.MedPanel;
@@ -30,12 +31,12 @@ public class ViewController extends JFrame {
     private MonitoraggioPanel monitoraggioPanel;
     private SomministrazionePanel somministrazionePanel;
     private ListSomministrazionePanel listSomministrazionePanel;
+    private ListTerapiePanel listTerapiePanel; // VARIABILE AGGIUNTA
 
 
     public  ViewController() {
         frame = new JFrame();
         panel = new JPanel();
-
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 800);
@@ -47,6 +48,7 @@ public class ViewController extends JFrame {
         loginPanel = new LoginPanel();
         panel.add(loginPanel);
 
+        
         //AMMINISTRATORE
         ammPanel = new AmmPanel();
         panel.add(ammPanel);
@@ -56,6 +58,7 @@ public class ViewController extends JFrame {
         panel.add(regUtentePanel);
         regUtentePanel.setVisible(false);
 
+        
         //MEDICO
         medPanel = new MedPanel();
         panel.add(medPanel);
@@ -73,6 +76,7 @@ public class ViewController extends JFrame {
         panel.add(listSomministrazionePanel);
         listSomministrazionePanel.setVisible(false);
 
+        
         //INFERMIERE
         infPanel = new InfPanel();
         panel.add(infPanel);
@@ -89,43 +93,25 @@ public class ViewController extends JFrame {
         somministrazionePanel = new SomministrazionePanel();
         panel.add(somministrazionePanel);
         somministrazionePanel.setVisible(false);  
+     
+        listTerapiePanel = new ListTerapiePanel();
+        panel.add(listTerapiePanel);
+        listTerapiePanel.setVisible(false);
         
         frame.setVisible(true);
 
     }
 
-    public LoginPanel getLoginPanel() {
-        return loginPanel;
-    }
+    public LoginPanel getLoginPanel() { return loginPanel; }
     public AmmPanel getAmmPanel() { return ammPanel; }
-    public RegistrazioneUtentePanel getRegUtentePanel() {
-        return regUtentePanel;
-    }
-    public MedPanel getMedPanel() {
-        return medPanel;
-    }
-    public ListMonitoraggioPanel getListMonitoraggioPanel() {
-        return listMonitoraggioPanel;
-    }
-    public TerapiaPanel getTerapiaPanel() {
-        return terapiaPanel;
-    }
-    public InfPanel getInfPanel() {
-        return infPanel;
-    }
-    public GestionePazientePanel getGestionePazPanel() {
-        return GestionePazPanel;
-    }
-    
-    public MonitoraggioPanel getMonitoraggioPanel() {
-        return monitoraggioPanel;
-    }
-
-	public SomministrazionePanel getSomministrazionePanel() {
-		return somministrazionePanel;
-	}
-    
-	public ListSomministrazionePanel getListSomministrazionePanel() {
-	    return listSomministrazionePanel;
-	}
+    public RegistrazioneUtentePanel getRegUtentePanel() { return regUtentePanel; }
+    public MedPanel getMedPanel() { return medPanel; }
+    public ListMonitoraggioPanel getListMonitoraggioPanel() { return listMonitoraggioPanel; }
+    public TerapiaPanel getTerapiaPanel() { return terapiaPanel; }
+    public InfPanel getInfPanel() { return infPanel; }
+    public GestionePazientePanel getGestionePazPanel() { return GestionePazPanel; }
+    public MonitoraggioPanel getMonitoraggioPanel() { return monitoraggioPanel; }
+	public SomministrazionePanel getSomministrazionePanel() { return somministrazionePanel; }
+	public ListSomministrazionePanel getListSomministrazionePanel() { return listSomministrazionePanel; }
+	public ListTerapiePanel getListTerapiePanel() { return listTerapiePanel; }
 }

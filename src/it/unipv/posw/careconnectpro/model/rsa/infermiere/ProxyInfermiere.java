@@ -1,6 +1,8 @@
 package it.unipv.posw.careconnectpro.model.rsa.infermiere;
 
 import java.util.List;
+
+import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.terapia.TerapiaDB;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.CartellaClinica;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.monitoraggio.Monitoraggio;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.somministrazione.Somministrazione;
@@ -54,8 +56,8 @@ public class ProxyInfermiere implements IRSAInfermiere {
         if (isInfermiere()) return rsa.cercaCartellaClinicaByCf(cf);
         throw new RuntimeException("Operazione non autorizzata: permessi insufficienti.");
     }
-
-  
+    
+    
     
     @Override
     public int creaMonitoraggio(Monitoraggio m) {
@@ -63,6 +65,19 @@ public class ProxyInfermiere implements IRSAInfermiere {
         throw new RuntimeException("Operazione non autorizzata: permessi insufficienti.");
     }
 
+    
+    
+    @Override
+    public List<TerapiaDB> getTerapieAttiveOggi() {
+        if (isInfermiere()) {
+            return rsa.getTerapieAttiveOggi();
+        }
+        throw new RuntimeException("Operazione non autorizzata: permessi insufficienti.");
+    }
+    
+    
+    
+    
     @Override
     public List<Somministrazione> getSomministrazioni() {
         if (isInfermiere()) return rsa.getSomministrazioni();
