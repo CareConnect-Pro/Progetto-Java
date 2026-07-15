@@ -1,9 +1,9 @@
-package it.unipv.posw.careconnectpro.controller.utenti.infermiere;
+package it.unipv.posw.careconnectpro.controller.utenti.medico;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-import it.unipv.posw.careconnectpro.controller.utenti.infermiere.button.BtnVaiASomministrazioneAL;
+import it.unipv.posw.careconnectpro.controller.utenti.personale_sanitario.button.BtnVaiASomministrazioneAL;
 import it.unipv.posw.careconnectpro.model.persona.TipoUtente;
 import it.unipv.posw.careconnectpro.model.rsa.GestoreSessione;
 import it.unipv.posw.careconnectpro.model.rsa.medico.ProxyMedico; // <-- IMPORT AGGIUNTO
@@ -37,13 +37,6 @@ public class ListSomministrazioneController {
 
     private void tornaAlMenu() {
         view.getListSomministrazionePanel().setVisible(false);
-
-        TipoUtente ruolo = GestoreSessione.getIstanza().getUtenteLoggato().getTipoUtente();
-
-        if (ruolo == TipoUtente.MEDICO) {
-            view.getMedPanel().setVisible(true);
-        } else if (ruolo == TipoUtente.INFERMIERE) {
-            view.getInfPanel().setVisible(true);
-        }
+        view.getMedPanel().setVisible(true);
     }
 }

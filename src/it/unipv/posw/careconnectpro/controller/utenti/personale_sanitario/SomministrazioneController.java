@@ -1,4 +1,4 @@
-package it.unipv.posw.careconnectpro.controller.utenti.infermiere;
+package it.unipv.posw.careconnectpro.controller.utenti.personale_sanitario;
 
 import it.unipv.posw.careconnectpro.model.cartellaclinica.somministrazione.Somministrazione;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.somministrazione.StatoSomministrazione;
@@ -27,7 +27,7 @@ public class SomministrazioneController {
         TipoUtente ruolo = GestoreSessione.getIstanza().getUtenteLoggato().getTipoUtente();
 
         if (ruolo == TipoUtente.INFERMIERE) {
-            view.getListTerapiePanel().setVisible(true);
+            view.getListTerapieOdiernePanel().setVisible(true);
         } else {
             view.getListSomministrazionePanel().setVisible(true);
         }

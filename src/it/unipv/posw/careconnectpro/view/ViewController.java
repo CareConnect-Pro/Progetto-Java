@@ -5,13 +5,14 @@ import it.unipv.posw.careconnectpro.view.dipendenti.amministratore.Registrazione
 import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.GestionePazientePanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.InfPanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.MonitoraggioPanel;
-import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.ListTerapiePanel; // IMPORT AGGIUNTO
+import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.ListTerapieOdiernePanel; // IMPORT AGGIUNTO
 import it.unipv.posw.careconnectpro.view.dipendenti.medico.ListMonitoraggioPanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.medico.ListSomministrazionePanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.medico.MedPanel;
 import it.unipv.posw.careconnectpro.view.dipendenti.medico.TerapiaPanel;
+import it.unipv.posw.careconnectpro.view.dipendenti.personale_sanitario.SomministrazionePanel;
 import it.unipv.posw.careconnectpro.view.login.LoginPanel;
-import it.unipv.posw.careconnectpro.view.dipendenti.infermiere.SomministrazionePanel;
+
 import javax.swing.*;
 
 public class ViewController extends JFrame {
@@ -31,7 +32,7 @@ public class ViewController extends JFrame {
     private MonitoraggioPanel monitoraggioPanel;
     private SomministrazionePanel somministrazionePanel;
     private ListSomministrazionePanel listSomministrazionePanel;
-    private ListTerapiePanel listTerapiePanel; // VARIABILE AGGIUNTA
+    private ListTerapieOdiernePanel listTerapieOdiernePanel; // VARIABILE AGGIUNTA
 
 
     public  ViewController() {
@@ -94,9 +95,9 @@ public class ViewController extends JFrame {
         panel.add(somministrazionePanel);
         somministrazionePanel.setVisible(false);  
      
-        listTerapiePanel = new ListTerapiePanel();
-        panel.add(listTerapiePanel);
-        listTerapiePanel.setVisible(false);
+        listTerapieOdiernePanel = new ListTerapieOdiernePanel();
+        panel.add(listTerapieOdiernePanel);
+        listTerapieOdiernePanel.setVisible(false);
         
         frame.setVisible(true);
 
@@ -113,5 +114,5 @@ public class ViewController extends JFrame {
     public MonitoraggioPanel getMonitoraggioPanel() { return monitoraggioPanel; }
 	public SomministrazionePanel getSomministrazionePanel() { return somministrazionePanel; }
 	public ListSomministrazionePanel getListSomministrazionePanel() { return listSomministrazionePanel; }
-	public ListTerapiePanel getListTerapiePanel() { return listTerapiePanel; }
+	public ListTerapieOdiernePanel getListTerapieOdiernePanel() { return listTerapieOdiernePanel; }
 }

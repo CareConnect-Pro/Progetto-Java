@@ -9,7 +9,7 @@ public class InfController {
 
     private GestioniPazientiController gestioneController;
     private AddMonitoraggioController addMonitoraggioController;
-    private TerapieInfermiereController terapieController; 
+    private TerapieOdierneController terapieController; 
     
     private BtnOpenActionListener btnOpenActionListener;
 
@@ -19,7 +19,7 @@ public class InfController {
         btnOpenActionListener = new BtnOpenActionListener(view);
         setGestioneController(new GestioniPazientiController(view));
         setAddMonitoraggioController(new AddMonitoraggioController(view));
-        setTerapieController(new TerapieInfermiereController(view)); 
+        setTerapieOdierneController(new TerapieOdierneController(view)); 
         
         view.getInfPanel().getGestionePazientiButton().addActionListener(btnOpenActionListener);
     }
@@ -33,6 +33,6 @@ public class InfController {
 	public AddMonitoraggioController getAddMonitoraggioController() { return addMonitoraggioController; }
 	public void setAddMonitoraggioController(AddMonitoraggioController addMonitoraggioController) { this.addMonitoraggioController = addMonitoraggioController; }
 
-	public TerapieInfermiereController getTerapieController() { return terapieController; } 
-	public void setTerapieController(TerapieInfermiereController terapieController) { this.terapieController = terapieController; } 
+	public TerapieOdierneController getTerapieController() { return terapieController; } 
+	public void setTerapieOdierneController(TerapieOdierneController terapieController) { this.terapieController = terapieController; } 
 }

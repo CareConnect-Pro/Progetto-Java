@@ -21,11 +21,11 @@ import it.unipv.posw.careconnectpro.model.rsa.infermiere.ProxyInfermiere;
 import it.unipv.posw.careconnectpro.view.PopUp;
 import it.unipv.posw.careconnectpro.view.ViewController;
 
-public class TerapieInfermiereController {
+public class TerapieOdierneController {
 
     private ViewController view;
 
-    public TerapieInfermiereController(ViewController view) {
+    public TerapieOdierneController(ViewController view) {
         this.view = view;
         initListeners();
     }
@@ -35,26 +35,26 @@ public class TerapieInfermiereController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 view.getInfPanel().setVisible(false);          
-                view.getListTerapiePanel().setVisible(true);  
+                view.getListTerapieOdiernePanel().setVisible(true);  
             }
         });
 
-        view.getListTerapiePanel().getIndietroBtn().addActionListener(new ActionListener() {
+        view.getListTerapieOdiernePanel().getIndietroBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                view.getListTerapiePanel().setVisible(false); 
+                view.getListTerapieOdiernePanel().setVisible(false); 
                 view.getInfPanel().setVisible(true);          
             }
         });
 
-        view.getListTerapiePanel().getInserisciSomministrazioneBtn().addActionListener(new ActionListener() {
+        view.getListTerapieOdiernePanel().getInserisciSomministrazioneBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gestisciInserimentoSomministrazione();
             }
         });
 
-        view.getListTerapiePanel().addComponentListener(new ComponentAdapter() {
+        view.getListTerapieOdiernePanel().addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent e) {
                 caricaTerapieOggi();
@@ -143,11 +143,11 @@ public class TerapieInfermiereController {
             }
         }
 
-        view.getListTerapiePanel().getModelloTabella().setDati(listaScomposta, terapieAttive);
+        view.getListTerapieOdiernePanel().getModelloTabella().setDati(listaScomposta, terapieAttive);
     }
 
     private void gestisciInserimentoSomministrazione() {
-        JTable tabella = view.getListTerapiePanel().getTerapieTable();
+        JTable tabella = view.getListTerapieOdiernePanel().getTerapieTable();
         int rigaSelezionata = tabella.getSelectedRow();
 
         if (rigaSelezionata == -1) {
@@ -156,7 +156,7 @@ public class TerapieInfermiereController {
         }
 
         try {
-            Somministrazione s = view.getListTerapiePanel().getModelloTabella().getSomministrazioneSelezionata(rigaSelezionata);
+            Somministrazione s = view.getListTerapieOdiernePanel().getModelloTabella().getSomministrazioneSelezionata(rigaSelezionata);
             String idOperatore = GestoreSessione.getIstanza().getUtenteLoggato().getCodiceFiscale();
             
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -169,7 +169,7 @@ public class TerapieInfermiereController {
             view.getSomministrazionePanel().getDataField().setText(dataOraAttuale); 
             view.getSomministrazionePanel().getNoteField().setText(s.getNote() != null ? s.getNote() : "");
 
-            view.getListTerapiePanel().setVisible(false);
+            view.getListTerapieOdiernePanel().setVisible(false);
             view.getSomministrazionePanel().setVisible(true);
 
         } catch (Exception ex) {

@@ -17,15 +17,15 @@ import javax.swing.SwingConstants;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.terapia.TerapiaDB;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.somministrazione.Somministrazione;
 
-public class ListTerapiePanel extends JPanel {
+public class ListTerapieOdiernePanel extends JPanel {
     
     private static final long serialVersionUID = 1L;
     
     private JButton inserisciSomministrazioneBtn, indietroBtn; 
     private JTable terapieTable; 
-    private TerapiaTable modelloTabella; 
+    private TerapiaOdiernaTable modelloTabella; 
 
-    public ListTerapiePanel() {
+    public ListTerapieOdiernePanel() {
         Font mediumFont = new Font("Arial", 0, 16);
 
         setLayout(new BorderLayout(10, 10)); 
@@ -35,7 +35,7 @@ public class ListTerapiePanel extends JPanel {
         titoloLabel.setFont(new Font("Arial", Font.BOLD, 22));
         add(titoloLabel, BorderLayout.NORTH);
 
-        modelloTabella = new TerapiaTable(
+        modelloTabella = new TerapiaOdiernaTable(
             new ArrayList<Somministrazione>(),
             new ArrayList<TerapiaDB>()
         );
@@ -74,5 +74,5 @@ public class ListTerapiePanel extends JPanel {
     public JButton getInserisciSomministrazioneBtn() { return inserisciSomministrazioneBtn; }
     public JButton getIndietroBtn() { return indietroBtn; }
     public JTable getTerapieTable() { return terapieTable; }
-    public TerapiaTable getModelloTabella() { return modelloTabella; }
+    public TerapiaOdiernaTable getModelloTabella() { return modelloTabella; }
 }

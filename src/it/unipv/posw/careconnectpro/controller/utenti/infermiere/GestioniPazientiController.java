@@ -22,7 +22,6 @@ public class GestioniPazientiController {
 
     }
     
-    
 
 	public ViewController getView() {
 		return view;

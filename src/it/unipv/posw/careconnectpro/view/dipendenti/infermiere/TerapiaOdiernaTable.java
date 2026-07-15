@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 import it.unipv.posw.careconnectpro.jdbc.bean.cartellaclinica.terapia.TerapiaDB;
 import it.unipv.posw.careconnectpro.model.cartellaclinica.somministrazione.Somministrazione;
 
-public class TerapiaTable extends AbstractTableModel {
+public class TerapiaOdiernaTable extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -15,7 +15,7 @@ public class TerapiaTable extends AbstractTableModel {
 	private List<Somministrazione> somministrazioniDiOggi;
 	private List<TerapiaDB> terapieAttive;
 
-	public TerapiaTable(List<Somministrazione> somministrazioniDiOggi, List<TerapiaDB> terapieAttive) {
+	public TerapiaOdiernaTable(List<Somministrazione> somministrazioniDiOggi, List<TerapiaDB> terapieAttive) {
 
 		if (somministrazioniDiOggi != null) {
 			this.somministrazioniDiOggi = somministrazioniDiOggi;

@@ -3,11 +3,11 @@ package it.unipv.posw.careconnectpro.controller;
 import it.unipv.posw.careconnectpro.controller.login.LoginController;
 import it.unipv.posw.careconnectpro.controller.utenti.amministratore.AmmController;
 import it.unipv.posw.careconnectpro.controller.utenti.infermiere.InfController;
+import it.unipv.posw.careconnectpro.controller.utenti.medico.ListSomministrazioneController;
 import it.unipv.posw.careconnectpro.controller.utenti.medico.MedController;
+import it.unipv.posw.careconnectpro.controller.utenti.personale_sanitario.SomministrazioneController;
 import it.unipv.posw.careconnectpro.model.rsa.login.IRSALogin;
 import it.unipv.posw.careconnectpro.view.ViewController;
-import it.unipv.posw.careconnectpro.controller.utenti.infermiere.ListSomministrazioneController;
-import it.unipv.posw.careconnectpro.controller.utenti.infermiere.SomministrazioneController;
 
 public class FacadeController {
 

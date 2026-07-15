@@ -1,4 +1,4 @@
-package it.unipv.posw.careconnectpro.view.dipendenti.infermiere;
+package it.unipv.posw.careconnectpro.view.dipendenti.personale_sanitario;
 
 import javax.swing.*;
 import java.awt.*;
