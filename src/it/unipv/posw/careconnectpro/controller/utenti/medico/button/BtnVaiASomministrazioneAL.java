@@ -1,4 +1,4 @@
-package it.unipv.posw.careconnectpro.controller.utenti.infermiere.button;
+package it.unipv.posw.careconnectpro.controller.utenti.medico.button;
 
 import it.unipv.posw.careconnectpro.model.rsa.GestoreSessione;
 import it.unipv.posw.careconnectpro.view.PopUp;

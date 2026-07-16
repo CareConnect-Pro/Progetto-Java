@@ -1,37 +1,63 @@
 @startuml
 
-
 actor Amministratore as ADMIN
 participant "AmmPanel" as AP
 participant "AmmController" as AC
-participant "RSAService" as RSA
+participant "ProxyAmministratore" as PROXY
+participant "AmministratoreService" as SERV
 participant "FacadeSingletonDB" as FS
-
 database "MySQL" as DB
-
 
 == Disattivazione Utenti ==
 
-ADMIN -> AP
+ADMIN -> AP : Clicca "Disattiva Utente"
 activate AP
-AP -> AC : disabilitaUtente
-activate AC
-AC -> RSA : inserisciCf
-activate RSA
-RSA -> FS : disattivaUtente()
-activate FS
-FS -> DB : deletePersona() \nfindDipendenteByCf() \nfindPazienteByCf()
-activate DB
-DB --> FS : disattivato
-deactivate DB
-FS --> RSA 
-deactivate FS
-RSA --> AC : utenteDisattivato
-deactivate RSA
-AC --> AP 
-deactivate AC
-AP --> ADMIN
-deactivate AP
 
+AP -> AC : disattivaUtente(cf)
+activate AC
+
+AC -> PROXY : disattivaUtente(cf)
+activate PROXY
+
+PROXY -> PROXY : isAmministratore()
+activate PROXY
+deactivate PROXY
+
+PROXY -> SERV : disattivaUtente(cf)
+activate SERV
+
+SERV -> FS : findPazienteByCf(cf) / findDipendenteByCf(cf)
+activate FS
+
+FS -> DB : selectPersonaByCf(cf)
+activate DB
+DB --> FS : PersonaDB
+deactivate DB
+
+FS --> SERV : Persona p
+deactivate FS
+
+SERV -> FS : disattivaPersona(p)
+activate FS
+
+FS -> DB : query di update stato (disattivazione)
+activate DB
+DB --> FS : esito (true/false)
+deactivate DB
+
+FS --> SERV : utenteDisattivato (boolean)
+deactivate FS
+
+SERV --> PROXY : true
+deactivate SERV
+
+PROXY --> AC : true
+deactivate PROXY
+
+AC -> AP : Mostra PopUp di successo
+deactivate AC
+
+AP --> ADMIN : Feedback visivo
+deactivate AP
 
 @enduml

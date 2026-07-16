@@ -32,3 +32,4 @@ public class LoginService implements IRSALogin {
         return GestoreSessione.getIstanza().getUtenteLoggato();
     }
 }
+

@@ -4,37 +4,57 @@ actor Medico as MED
 participant "MedPanel" as MP
 participant "ListMonitoraggioPanel" as LMP
 participant "MonitoraggioController" as MC
-participant "RSAService" as RSA
+participant "ProxyMedico" as PROXY
+participant "MedicoService" as SERV
 participant "FacadeSingletonDB" as FS
-
 database "MySQL" as DB
-
 
 == Visualizzazione Monitoraggi con Alert Attivo ==
 
-MED -> MP
+MED -> MP : Clicca "Visualizza Alert"
 activate MP
-MP -> MC
-activate MC
-MC -> RSA
-activate RSA
-RSA -> FS : getMonitoraggiConAlertAttivo()
-activate FS
-FS -> DB : selectMonitoraggioByAlertAttivo()
-activate DB
-DB --> FS  : monitoraggiConAlertAttivo
-deactivate DB
-FS --> RSA
-deactivate FS
-RSA --> MC 
-deactivate RSA
-MC -> LMP : updateMonitoraggi()
-deactivate MC
-activate LMP
-LMP -> MP : back
-deactivate LMP
-MP -> MED
-deactivate MP
 
+MP -> MC : getMonitoraggiAlert()
+activate MC
+
+MC -> PROXY : getMonitoraggiConAlertAttivo()
+activate PROXY
+
+PROXY -> PROXY : isMedico()
+activate PROXY
+deactivate PROXY
+
+PROXY -> SERV : getMonitoraggiConAlertAttivo()
+activate SERV
+
+SERV -> FS : selectMonitoraggioByAlertAttivo()
+activate FS
+
+FS -> DB : query select monitoraggi attivi
+activate DB
+DB --> FS : record Monitoraggi
+deactivate DB
+
+FS --> SERV : List<Monitoraggio>
+deactivate FS
+
+SERV --> PROXY : List<Monitoraggio>
+deactivate SERV
+
+PROXY --> MC : List<Monitoraggio>
+deactivate PROXY
+
+MC -> LMP : mostraMonitoraggi(List)
+activate LMP
+deactivate MP
+deactivate MC
+
+MED -> LMP : Consulta la lista e torna indietro
+LMP -> MP : back()
+activate MP
+deactivate LMP
+
+MP --> MED : Schermata principale
+deactivate MP
 
 @enduml

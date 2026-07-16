@@ -1,70 +1,125 @@
 @startuml
-actor Infermiere
-participant InfPanel
-participant GestionePazientePanel
-participant MonitoraggioPanel
-participant InfController
-participant RSAService
-participant Monitoraggio
-participant FacadeSingletonDB
-database MySQL
 
-== Visualizzazione Pazienti ==
-Infermiere --> InfPanel
-activate InfPanel
-InfPanel --> InfController : getPazienti()
-deactivate InfPanel
-activate InfController
-InfController --> RSAService : cercaPazienti()
-activate RSAService
-RSAService --> FacadeSingletonDB
-activate FacadeSingletonDB
-FacadeSingletonDB --> MySQL : selectPazienti()
-activate MySQL
-MySQL --> FacadeSingletonDB
-deactivate MySQL
-FacadeSingletonDB --> RSAService : Lista Pazienti
-deactivate FacadeSingletonDB
-RSAService --> InfController
-deactivate RSAService
-InfController --> GestionePazientePanel : updatePazienti()
-deactivate InfController
-activate GestionePazientePanel
+actor Infermiere as INF
+participant "InfPanel" as IP
+participant "GestionePazientePanel" as GPP
+participant "MonitoraggioPanel" as MP
+participant "InfController" as IC
+participant "ProxyInfermiere" as PROXY
+participant "InfermiereService" as SERV
+participant "Monitoraggio" as MON
+participant "FacadeSingletonDB" as FS
+database "MySQL" as DB
 
+== Fase 1: Visualizzazione Pazienti ==
+INF -> IP : Clicca "Gestione Pazienti"
+activate IP
 
-== Inserimento Monitoraggi ==
+IP -> IC : getPazienti()
+activate IC
 
-GestionePazientePanel--> MonitoraggioPanel : getPaziente
-deactivate GestionePazientePanel
-activate MonitoraggioPanel
-MonitoraggioPanel --> InfController : addMonitoraggio()
-deactivate MonitoraggioPanel
-activate InfController
-InfController --> RSAService
-deactivate InfController
-activate RSAService
-RSAService --> Monitoraggio : creaMonitoraggio()
+IC -> PROXY : cercaPazienti()
+activate PROXY
 
-activate Monitoraggio
-Monitoraggio --> FacadeSingletonDB : setCartellaClinica()\nsetPaziente()
-deactivate Monitoraggio
-activate FacadeSingletonDB
-FacadeSingletonDB --> MySQL : insertMonitoraggio()
-MySQL --> FacadeSingletonDB
-deactivate FacadeSingletonDB
-FacadeSingletonDB --> RSAService
-RSAService --> InfController
-deactivate RSAService
-activate InfController
-InfController -->GestionePazientePanel
-deactivate InfController
-activate GestionePazientePanel
-GestionePazientePanel --> InfPanel : backToMenu()
-deactivate GestionePazientePanel
-activate InfPanel
-InfPanel --> Infermiere : logout()
+PROXY -> PROXY : isInfermiere()
+activate PROXY
+deactivate PROXY
 
+PROXY -> SERV : cercaPazienti()
+activate SERV
 
+SERV -> FS : selectPazienti()
+activate FS
 
+FS -> DB : query select pazienti
+activate DB
+DB --> FS : record Pazienti
+deactivate DB
+
+FS --> SERV : List<Paziente>
+deactivate FS
+
+SERV --> PROXY : List<Paziente>
+deactivate SERV
+
+PROXY --> IC : List<Paziente>
+deactivate PROXY
+
+IC -> GPP : mostraPazienti(List)
+activate GPP
+deactivate IP
+deactivate IC
+
+== Fase 2: Inserimento Monitoraggio ==
+
+INF -> GPP : Seleziona Paziente\ne clicca "Nuovo Monitoraggio"
+GPP -> MP : apre schermata (Paziente p)
+activate MP
+deactivate GPP
+
+INF -> MP : Inserisce parametri e salva
+MP -> IC : addMonitoraggio(Monitoraggio m)
+activate IC
+
+IC -> PROXY : creaMonitoraggio(m)
+activate PROXY
+
+PROXY -> PROXY : isInfermiere()
+activate PROXY
+deactivate PROXY
+
+PROXY -> SERV : creaMonitoraggio(m)
+activate SERV
+
+SERV -> FS : findCartellaClinicaByCf(m.getPaziente().cf)
+activate FS
+FS -> DB : query select cartella
+activate DB
+DB --> FS : CartellaClinica cc
+deactivate DB
+FS --> SERV : CartellaClinica cc
+deactivate FS
+
+SERV -> MON : m.setCartellaClinica(cc)
+activate MON
+deactivate MON
+
+SERV -> FS : findPazienteByCf(cc.getIdPaziente())
+activate FS
+FS -> DB : query select paziente
+activate DB
+DB --> FS : Paziente p
+deactivate DB
+FS --> SERV : Paziente p
+deactivate FS
+
+SERV -> MON : m.setPaziente(p)
+activate MON
+deactivate MON
+
+SERV -> FS : insertMonitoraggio(m)
+activate FS
+
+FS -> DB : query insert monitoraggio
+activate DB
+DB --> FS : id (int)
+deactivate DB
+
+FS --> SERV : id (int)
+deactivate FS
+
+SERV --> PROXY : id (int)
+deactivate SERV
+
+PROXY --> IC : id (int)
+deactivate PROXY
+
+IC -> GPP : mostra popup successo\ne aggiorna vista
+activate GPP
+deactivate MP
+
+GPP --> INF : Feedback visivo
+deactivate IC
+deactivate GPP
 
 @enduml

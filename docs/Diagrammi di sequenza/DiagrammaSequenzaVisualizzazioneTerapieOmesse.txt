@@ -1,0 +1,71 @@
+@startuml
+
+actor Medico as MED
+participant "MedPanel" as MP
+participant "ListSomministrazionePanel" as LSP
+participant "ListSomministrazioneController" as LSC
+participant "GestoreSessione" as GS
+participant "ProxyMedico" as PROXY
+participant "MedicoService" as SERV
+participant "FacadeSingletonDB" as FS
+database "MySQL" as DB
+
+== Fase 1: Apertura Schermata ==
+
+MED -> MP : Clicca "Visualizza Terapie Omesse"
+activate MP
+
+MP -> LSP : setVisible(true)\n(tramite MedController)
+deactivate MP
+activate LSP
+
+== Fase 2: Caricamento Dati Automatico ==
+
+LSP -> LSC : componentShown(e)
+activate LSC
+
+LSC -> LSC : aggiornaTabellaMedico()
+activate LSC
+
+LSC -> GS : getUtenteLoggato().getTipoUtente()
+activate GS
+GS --> LSC : TipoUtente.MEDICO
+deactivate GS
+
+LSC -> PROXY : getSomministrazioniNonSomministrate()
+activate PROXY
+
+PROXY -> PROXY : isMedico()
+activate PROXY
+deactivate PROXY
+
+PROXY -> SERV : getSomministrazioniNonSomministrate()
+activate SERV
+
+SERV -> FS : getSomministrazioniNonSomministrate()
+activate FS
+
+FS -> DB : query select somministrazioni\nWHERE stato='NON_SOMMINISTRATA'
+activate DB
+DB --> FS : record Somministrazioni
+deactivate DB
+
+FS --> SERV : List<Somministrazione>
+deactivate FS
+
+SERV --> PROXY : List<Somministrazione>
+deactivate SERV
+
+PROXY --> LSC : listaSomministrazioni
+deactivate PROXY
+
+LSC -> LSP : setListaSomministrazioni(listaSomministrazioni)
+activate LSP
+deactivate LSP
+deactivate LSC
+deactivate LSC
+
+LSP --> MED : Mostra tabella Terapie Omesse aggiornata
+deactivate LSP
+
+@enduml

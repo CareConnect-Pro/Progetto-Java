@@ -1,0 +1,86 @@
+@startuml
+
+actor Infermiere as INF
+participant "ListTerapieOdiernePanel" as LTOP
+participant "TerapieOdierneController" as TOC
+participant "SomministrazionePanel" as SP
+participant "SomministrazioneController" as SC
+participant "ProxyInfermiere" as PROXY
+participant "InfermiereService" as SERV
+participant "FacadeSingletonDB" as FS
+database "MySQL" as DB
+
+== Fase 1: Selezione e Transizione UI ==
+
+INF -> LTOP : Seleziona una riga dalla tabella
+activate LTOP
+INF -> LTOP : Clicca "Inserisci Somministrazione"
+
+LTOP -> TOC : actionPerformed(e)
+activate TOC
+
+TOC -> LTOP : getModelloTabella().getSomministrazioneSelezionata(riga)
+LTOP --> TOC : Somministrazione s
+
+TOC -> SP : Compila i TextField\n(ID Terapia, ID Paziente, ID Operatore, Data Attuale)
+activate SP
+deactivate SP
+
+TOC -> LTOP : setVisible(false)
+deactivate LTOP
+
+TOC -> SP : setVisible(true)
+activate SP
+deactivate TOC
+
+== Fase 2: Inserimento Dati e Salvataggio ==
+
+INF -> SP : Inserisce note cliniche e seleziona Stato
+INF -> SP : Clicca "Conferma"
+
+SP -> SC : actionPerformed(e)
+activate SC
+
+SC -> SC : Crea nuovo oggetto Somministrazione\ncon i dati aggiornati
+activate SC
+deactivate SC
+
+SC -> PROXY : confermaSomministrazione(s)
+activate PROXY
+
+PROXY -> PROXY : isInfermiere()
+activate PROXY
+deactivate PROXY
+
+PROXY -> SERV : confermaSomministrazione(s)
+activate SERV
+
+SERV -> FS : updateSomministrazione(s)
+activate FS
+
+FS -> DB : query UPDATE somministrazione
+activate DB
+DB --> FS : esito (boolean)
+deactivate DB
+
+FS --> SERV : esito (boolean)
+deactivate FS
+
+SERV --> PROXY : esito (boolean)
+deactivate SERV
+
+PROXY --> SC : esito (boolean)
+deactivate PROXY
+
+SC -> SP : Mostra PopUp "Operazione Completata"
+SC -> SP : setVisible(false)
+deactivate SP
+
+SC -> LTOP : setVisible(true)
+activate LTOP
+
+LTOP --> INF : Ritorna alla Dashboard Terapie Odierne
+deactivate LTOP
+deactivate SC
+
+@enduml

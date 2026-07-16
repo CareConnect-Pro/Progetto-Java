@@ -1,41 +1,62 @@
 @startuml
 
-actor Utente
-participant LoginPanel
-participant UtentePanel
-participant FacadeController
-participant RSAService
-participant FacadeSingletonDB
-database MySQL
+actor Utente as U
+participant "LoginPanel" as LP
+participant "UtentePanel" as UP
+participant "FacadeController" as FC
+participant "ProxyLogin" as PROXY
+participant "LoginService" as SERV
+participant "GestoreSessione" as GS
+participant "FacadeSingletonDB" as FS
+database "MySQL" as DB
 
-Utente -> LoginPanel
-activate LoginPanel
+== Fase di Login ==
 
-LoginPanel -> FacadeController : inserisci cf\n inserisci pw
-activate FacadeController
+U -> LP : Inserisce cf e pw\nClicca Login
+activate LP
 
-FacadeController -> RSAService : loginController()
-activate RSAService
+LP -> FC : effettuaLogin(cf, pw)
+activate FC
 
-RSAService -> FacadeSingletonDB : login()
-activate FacadeSingletonDB
-FacadeSingletonDB -> MySQL : findDipendenteByCf()
-MySQL --> FacadeSingletonDB
-FacadeSingletonDB --> RSAService
-deactivate FacadeSingletonDB
+FC -> PROXY : login(cf, pw)
+activate PROXY
 
-RSAService --> FacadeController : esito login
-deactivate RSAService
+PROXY -> SERV : login(cf, pw)
+activate SERV
 
-alt Login Fallito
-    FacadeController -> LoginPanel : setVisible(false)
-    deactivate LoginPanel
-else Login Eseguito con Successo
-    FacadeController -> UtentePanel : setVisible(true)
-    deactivate FacadeController
-    activate UtentePanel
+SERV -> FS : findDipendenteAttivoByCf(cf)
+activate FS
+
+FS -> DB : query select dipendente
+activate DB
+DB --> FS : record Dipendente / null
+deactivate DB
+
+FS --> SERV : Dipendente d / null
+deactivate FS
+
+alt Credenziali Corrette
+    SERV -> GS : setUtenteLoggato(d)
+    activate GS
+    deactivate GS
 end
 
-deactivate UtentePanel
+SERV --> PROXY : d (Dipendente / null)
+deactivate SERV
+
+PROXY --> FC : d (Dipendente / null)
+deactivate PROXY
+
+alt Login Fallito (d == null)
+    FC -> LP : Mostra popup di errore
+else Login Eseguito con Successo
+    FC -> LP : setVisible(false)
+    FC -> UP : setVisible(true)
+    activate UP
+    deactivate UP
+end
+
+deactivate FC
+deactivate LP
 
 @enduml

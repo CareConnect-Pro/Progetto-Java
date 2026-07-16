@@ -3,34 +3,55 @@
 actor Medico as MED
 participant "ListMonitoraggioPanel" as LMP
 participant "MonitoraggioController" as MC
-participant "RSAService" as RSA
+participant "ProxyMedico" as PROXY
+participant "MedicoService" as SERV
+participant "Monitoraggio" as MON
 participant "FacadeSingletonDB" as FS
-
 database "MySQL" as DB
 
+== Risoluzione Alert Manuale ==
 
-== Risoluzione Alert ==
-
-MED -> LMP : selezionaMonitoraggio
+MED -> LMP : Clicca "Risolvi Alert" su un monitoraggio
 activate LMP
-LMP -> MC 
-activate MC
-MC -> RSA
-activate RSA
-RSA -> FS : risolviAlertMonitoraggio()
-activate FS
-FS -> DB : updateAlertMonitoraggio()
-activate DB
-DB --> FS : aggiornato
-deactivate DB
-FS --> RSA
-deactivate FS
-RSA --> MC
-deactivate RSA
-MC --> LMP : alertRisolto
-deactivate MC
-LMP --> MED
-deactivate LMP
 
+LMP -> MC : risolviAlert(Monitoraggio m)
+activate MC
+
+MC -> PROXY : risolviAlertMonitoraggio(m)
+activate PROXY
+
+PROXY -> PROXY : isMedico()
+activate PROXY
+deactivate PROXY
+
+PROXY -> SERV : risolviAlertMonitoraggio(m)
+activate SERV
+
+SERV -> MON : m.setAlert(Alert.RISOLTO)
+activate MON
+deactivate MON
+
+SERV -> FS : updateAlertMonitoraggio(m)
+activate FS
+
+FS -> DB : query update monitoraggio
+activate DB
+DB --> FS : esito (boolean)
+deactivate DB
+
+FS --> SERV : esito (boolean)
+deactivate FS
+
+SERV --> PROXY : esito (boolean)
+deactivate SERV
+
+PROXY --> MC : esito (boolean)
+deactivate PROXY
+
+MC -> LMP : Mostra popup successo\ne aggiorna vista
+deactivate MC
+
+LMP --> MED : Feedback visivo
+deactivate LMP
 
 @enduml

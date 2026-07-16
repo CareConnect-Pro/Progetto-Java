@@ -32,7 +32,7 @@ public class ViewController extends JFrame {
     private MonitoraggioPanel monitoraggioPanel;
     private SomministrazionePanel somministrazionePanel;
     private ListSomministrazionePanel listSomministrazionePanel;
-    private ListTerapieOdiernePanel listTerapieOdiernePanel; // VARIABILE AGGIUNTA
+    private ListTerapieOdiernePanel listTerapieOdiernePanel; 
 
 
     public  ViewController() {

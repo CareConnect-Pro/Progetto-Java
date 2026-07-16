@@ -1,46 +1,74 @@
 @startuml
 
-
 actor Amministratore as ADMIN
 participant "AmmPanel" as AP
 participant "AmmController" as AC
 participant "RegistrazioneUtentePanel" as RUP
 participant "RegistrazioneController" as RC
-participant "RSAService" as RSA
+participant "ProxyAmministratore" as PROXY
+participant "AmministratoreService" as SERV
 participant "FacadeSingletonDB" as FS
-
 database "MySQL" as DB
-
 
 == Registrazione Utenti ==
 
-ADMIN -> AP
+ADMIN -> AP : Clicca "Registra Utente"
 activate AP
-AP -> AC : registraUtente
+AP -> AC : apriRegistrazione()
 activate AC
-AC -> RUP
+AC -> RUP : mostra()
 activate RUP
-RUP -> RC : getAnagrafica
-deactivate RUP
-activate RC
-RC -> RSA : registrazioneUtente()
-activate RSA
-RSA -> FS : registraUtente()
-activate FS
-FS -> DB : insertPersona() \ninsertCartellaClinica()
-activate DB
-DB --> FS : inserito
-deactivate DB
-FS --> RSA : registrato
-deactivate FS
-RSA --> RC 
-deactivate RSA
-RC --> AC
-deactivate RC
-AC -> AP : backToMenu()
 deactivate AC
-AP -> ADMIN
-deactivate AP
 
+ADMIN -> RUP : Inserisce dati e salva
+RUP -> RC : registraUtente(Persona p)
+activate RC
+
+RC -> PROXY : registraUtente(p)
+activate PROXY
+
+PROXY -> PROXY : isAmministratore()
+activate PROXY
+deactivate PROXY
+
+PROXY -> SERV : registraUtente(p)
+activate SERV
+
+SERV -> FS : insertPersona(p)
+activate FS
+
+FS -> DB : query insert persona
+activate DB
+DB --> FS : esito (boolean)
+deactivate DB
+
+FS --> SERV : esito (boolean)
+deactivate FS
+
+alt p.getTipoUtente() == TipoUtente.PAZIENTE
+    SERV -> FS : insertCartellaClinica(cc)
+    activate FS
+    FS -> DB : query insert cartella
+    activate DB
+    DB --> FS : idCC (int)
+    deactivate DB
+    FS --> SERV : idCC (int)
+    deactivate FS
+end
+
+SERV --> PROXY : true
+deactivate SERV
+
+PROXY --> RC : true
+deactivate PROXY
+
+RC -> RUP : mostra popup successo
+deactivate RC
+
+RUP -> AP : backToMenu()
+deactivate RUP
+
+AP --> ADMIN : Feedback visivo
+deactivate AP
 
 @enduml

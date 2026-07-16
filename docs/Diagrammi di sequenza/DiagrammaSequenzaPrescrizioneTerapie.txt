@@ -5,41 +5,93 @@ participant "ListMonitoraggioPanel" as LMP
 participant "MonitoraggioController" as MC
 participant "TerapiaPanel" as TP
 participant "TerapiaController" as TC
-participant "RSAService" as RSA
+participant "ProxyMedico" as PROXY
+participant "MedicoService" as SERV
 participant "FacadeSingletonDB" as FS
-
 database "MySQL" as DB
 
-
-== Prescrizione Terapia e Risoluzione Alert ==
-
-MED -> LMP 
+== Apertura Pannello Terapia ==
+MED -> LMP : Seleziona monitoraggio con alert
 activate LMP
-LMP -> MC : selezionaMonitoraggio
+LMP -> MC : selezionaMonitoraggio()
 activate MC
-MC -> TP
-deactivate MC
+MC -> TP : setVisible(true)
 activate TP
-TP -> TC : datiTerapia
-activate TC
-TC -> RSA : addTerapia()
-activate RSA
-RSA -> FS : creaTerapia()
-activate FS
-FS -> DB : insertTerapia() \nupdateAlertMonitoraggio()
-activate DB
-DB --> FS : inserita
-deactivate DB
-FS --> RSA 
-deactivate FS
-RSA --> TC : terapiaInserita
-deactivate RSA
-TC -> TP : pulisciTextField()
-deactivate TC
-TP --> LMP : back
-deactivate TP
-LMP --> MED
+deactivate MC
+TP --> MED : Mostra form prescrizione
 deactivate LMP
 
+== Prescrizione Terapia ==
+MED -> TP : Inserisce dati terapia e clicca Conferma
+TP -> TC : actionPerformed(e)
+activate TC
+
+TC -> PROXY : creaTerapia(t)
+activate PROXY
+PROXY -> PROXY : isMedico()
+PROXY -> SERV : creaTerapia(t)
+activate SERV
+
+SERV -> FS : findCartellaClinicaByCf(...)
+activate FS
+FS -> DB : selectCartellaClinicaByCf(...)
+activate DB
+DB --> FS : CartellaClinicaDB
+deactivate DB
+FS --> SERV : CartellaClinica
+deactivate FS
+
+SERV -> FS : findPazienteByCf(...)
+activate FS
+FS -> DB : selectPersonaByCf(...)
+activate DB
+DB --> FS : PersonaDB
+deactivate DB
+FS --> SERV : Paziente
+deactivate FS
+
+SERV -> FS : insertTerapia(t)
+activate FS
+FS -> DB : query di insert
+activate DB
+DB --> FS : esito (idTerapia)
+deactivate DB
+FS --> SERV : esito
+deactivate FS
+
+SERV --> PROXY : esito
+deactivate SERV
+PROXY --> TC : esito
+deactivate PROXY
+
+== Risoluzione Alert ==
+TC -> PROXY : risolviAlertMonitoraggio(m)
+activate PROXY
+PROXY -> PROXY : isMedico()
+PROXY -> SERV : risolviAlertMonitoraggio(m)
+activate SERV
+
+SERV -> FS : updateAlertMonitoraggio(m)
+activate FS
+FS -> DB : query di update
+activate DB
+DB --> FS : aggiornato
+deactivate DB
+FS --> SERV : true
+deactivate FS
+
+SERV --> PROXY : true
+deactivate SERV
+PROXY --> TC : true
+deactivate PROXY
+
+TC -> TP : pulisciTextField()
+TC -> LMP : torna alla lista
+deactivate TC
+activate LMP
+
+LMP --> MED : Feedback visivo (Alert risolto)
+deactivate TP
+deactivate LMP
 
 @enduml

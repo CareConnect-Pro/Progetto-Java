@@ -1,0 +1,101 @@
+@startuml
+skinparam packageStyle rectangle
+
+package "view" {
+    class ViewController <<JFrame>>
+
+    package "dipendenti_view" {
+        package "amministratore_view" {
+            class AmmPanel <<JPanel>>
+            class RegistrazioneUtentePanel <<JPanel>>
+        }
+        package "login_view" {
+            class LoginPanel <<JPanel>>
+        }
+        package "medico_view" {
+            class MedPanel <<JPanel>>
+            class ListSomministrazionePanel <<JPanel>>
+            class TerapiaPanel <<JPanel>>
+            class ListMonitoraggioPanel <<JPanel>>
+            class SomministrazioneTable
+            ListSomministrazionePanel --> SomministrazioneTable
+        }
+        package "infermiere_view" {
+            class InfPanel <<JPanel>>
+            class ListTerapieOdiernePanel <<JPanel>>
+            class GestionePazientePanel <<JPanel>>
+            class MonitoraggioPanel <<JPanel>>
+            class TerapiaOdiernaTable
+            ListTerapieOdiernePanel --> TerapiaOdiernaTable
+        }
+        package "personale_sanitario" {
+            class SomministrazionePanel <<JPanel>>
+        }
+    }
+}
+
+package "controller" <<Folder>> {
+    package "utenti" {
+        class ListSomministrazioneController
+        class TerapieOdierneController
+        class SomministrazioneController
+        class FacadeController
+    }
+}
+
+package "model" <<Folder>> {
+    package "rsa" {
+        package "medico_rsa" {
+            interface IRSAMedico
+            class ProxyMedico
+            class MedicoService
+            ProxyMedico .up.|> IRSAMedico
+            ProxyMedico *-- MedicoService
+        }
+        package "infermiere_rsa" {
+            interface IRSAInfermiere
+            class ProxyInfermiere
+            class InfermiereService
+            ProxyInfermiere .up.|> IRSAInfermiere
+            ProxyInfermiere *-- InfermiereService
+        }
+        package "amministratore_rsa" {
+            interface IRSAAmministratore
+            class ProxyAmministratore
+            class AmministratoreService
+            ProxyAmministratore .up.|> IRSAAmministratore
+            ProxyAmministratore *-- AmministratoreService
+        }
+        package "login_rsa" {
+            interface IRSALogin
+            class ProxyLogin
+            class LoginService
+            ProxyLogin .up.|> IRSALogin
+            ProxyLogin *-- LoginService
+        }
+    }
+}
+
+' Relazioni ViewController -> Panel
+ViewController --> AmmPanel
+ViewController --> LoginPanel
+ViewController --> MedPanel
+ViewController --> ListSomministrazionePanel
+ViewController --> InfPanel
+ViewController --> ListTerapieOdiernePanel
+ViewController --> SomministrazionePanel
+
+' Relazioni Controller -> View
+ListSomministrazioneController --> ViewController
+TerapieOdierneController --> ViewController
+SomministrazioneController --> ViewController
+FacadeController --> ViewController
+
+' Relazioni Controller -> Model (Proxy)
+ListSomministrazioneController --> ProxyMedico
+TerapieOdierneController --> ProxyInfermiere
+SomministrazioneController --> ProxyInfermiere
+SomministrazioneController --> ProxyMedico
+FacadeController --> ProxyLogin
+
+@enduml

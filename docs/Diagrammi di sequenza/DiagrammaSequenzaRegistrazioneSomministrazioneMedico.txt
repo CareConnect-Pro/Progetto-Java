@@ -1,0 +1,89 @@
+@startuml
+
+actor Medico as MED
+participant "ListSomministrazionePanel" as LSP
+participant "BtnVaiASomministrazioneAL" as BTN
+participant "SomministrazioneTable" as ST
+participant "SomministrazionePanel" as SP
+participant "SomministrazioneController" as SC
+participant "ProxyMedico" as PROXY
+participant "MedicoService" as SERV
+participant "FacadeSingletonDB" as FS
+database "MySQL" as DB
+
+== Fase 1: Selezione Terapia Omessa ==
+
+MED -> LSP : Seleziona riga e clicca\n"Inserisci Somministrazione"
+activate LSP
+
+LSP -> BTN : actionPerformed(e)
+activate BTN
+
+BTN -> ST : getSomministrazione(riga)
+activate ST
+ST --> BTN : Somministrazione s
+deactivate ST
+
+BTN -> SP : Compila campi di testo\n(ID, Paziente, Data, Operatore)
+activate SP
+deactivate SP
+
+BTN -> LSP : setVisible(false)
+deactivate LSP
+
+BTN -> SP : setVisible(true)
+activate SP
+deactivate BTN
+
+== Fase 2: Conferma Somministrazione ==
+
+MED -> SP : Inserisce note cliniche, seleziona stato e clicca "Conferma"
+SP -> SC : actionPerformed(e)
+activate SC
+
+SC -> SC : Estrae dati (note, stato, ecc.)\ne istanzia Somministrazione s
+activate SC
+deactivate SC
+
+SC -> PROXY : confermaSomministrazione(s)
+activate PROXY
+
+PROXY -> PROXY : isMedico()
+activate PROXY
+deactivate PROXY
+
+PROXY -> SERV : confermaSomministrazione(s)
+activate SERV
+
+SERV -> FS : updateSomministrazione(s)
+activate FS
+
+FS -> DB : query UPDATE somministrazione
+activate DB
+DB --> FS : esito (boolean)
+deactivate DB
+
+FS --> SERV : esito (boolean)
+deactivate FS
+
+SERV --> PROXY : esito (boolean)
+deactivate SERV
+
+PROXY --> SC : esito (boolean)
+deactivate PROXY
+
+SC -> SP : Mostra PopUp "Operazione Completata"
+SC -> SC : backToLista()
+activate SC
+
+SC -> SP : setVisible(false)
+deactivate SP
+
+SC -> LSP : setVisible(true)
+activate LSP
+deactivate LSP
+
+deactivate SC
+deactivate SC
+
+@enduml

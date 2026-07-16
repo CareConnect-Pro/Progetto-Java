@@ -1,0 +1,94 @@
+@startuml
+
+actor Infermiere as INF
+participant "InfPanel" as IP
+participant "ListTerapieOdiernePanel" as LTOP
+participant "TerapieOdierneController" as TOC
+participant "ProxyInfermiere" as PROXY
+participant "InfermiereService" as SERV
+participant "FacadeSingletonDB" as FS
+database "MySQL" as DB
+
+== Visualizzazione Terapie Odierne ==
+
+INF -> IP : Clicca "Visualizza Terapie Odierne"
+activate IP
+
+IP -> TOC : actionPerformed(e)
+activate TOC
+
+TOC -> IP : setVisible(false)
+TOC -> LTOP : setVisible(true)
+deactivate IP
+activate LTOP
+
+LTOP -> TOC : componentShown(e)
+TOC -> TOC : caricaTerapieOggi()
+activate TOC
+
+TOC -> PROXY : getTerapieAttiveOggi()
+activate PROXY
+
+PROXY -> PROXY : isInfermiere()
+activate PROXY
+deactivate PROXY
+
+PROXY -> SERV : getTerapieAttiveOggi()
+activate SERV
+
+SERV -> FS : getTerapieAttiveOggi()
+activate FS
+
+FS -> DB : query select terapie
+activate DB
+DB --> FS : record Terapie
+deactivate DB
+
+FS --> SERV : List<TerapiaDB>
+deactivate FS
+
+SERV --> PROXY : List<TerapiaDB>
+deactivate SERV
+
+PROXY --> TOC : terapieAttive
+deactivate PROXY
+
+TOC -> PROXY : getSomministrazioni()
+activate PROXY
+
+PROXY -> PROXY : isInfermiere()
+activate PROXY
+deactivate PROXY
+
+PROXY -> SERV : getSomministrazioni()
+activate SERV
+
+SERV -> FS : selectAllSomministrazioni()
+activate FS
+
+FS -> DB : query select somministrazioni
+activate DB
+DB --> FS : record Somministrazioni
+deactivate DB
+
+FS --> SERV : List<Somministrazione>
+deactivate FS
+
+SERV --> PROXY : List<Somministrazione>
+deactivate SERV
+
+PROXY --> TOC : tutteLeSomministrazioniDB
+deactivate PROXY
+
+TOC -> TOC : Scompone in slot orari\ne calcola STATO virtuale
+activate TOC
+deactivate TOC
+
+TOC -> LTOP : getModelloTabella().setDati(...)
+deactivate TOC
+deactivate TOC
+
+LTOP --> INF : Mostra Dashboard con colori
+deactivate LTOP
+
+@enduml
